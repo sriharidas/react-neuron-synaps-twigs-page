@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+  --border-primary-color: #888;
+  --link-color: rgb(58, 58, 173);
+}
+body {
+  background-color: #000;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.form-container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000000aa;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+/* signup page */
+
+#signup-form {
+  width: 75%;
+  max-height: 90%;
+  display: flex;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 15px 30px;
+  flex-direction: column;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+#signup-form button.form-close {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.form-header {
+  width: 100%;
+  display: flex;
+  min-height: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 30px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--border-primary-color);
+}
+#signup-form form {
+  width: 100%;
+  min-height: calc(100% - 40px);
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0px 30px;
+}
+#signup-form form .form-groups {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 5px auto;
+  /* margin-bottom: 5px; */
+  /* margin-bottom: 3px; */
+}
+
+#signup-form form .form-groups label {
+  display: block;
+  padding: 5px;
+}
+#signup-form form .form-groups input,
+#signup-form form .form-groups select {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid var(--border-primary-color);
+}
+
+#signup-form .form-footer {
+  display: block;
+  margin: 10px auto;
+  grid-column-start: 1;
+  grid-column-end: span 3;
+  text-align: center;
+  margin: 15px 0 7px 0;
+  /* text-transform: capitalize; */
+}
+
+#signup-form .signup-footer {
+  padding: 6px 0;
+}
+#signup-form .signup-footer a {
+  color: var(--link-color);
+}
+#signup-form .signup-footer a:hover {
+  text-decoration: underline;
+}
+#signup-form form hr {
+  background-color: var(--border-primary-color);
+  height: 2.5px;
+  /* border-bottom: 2px solid var(--border-primary-color); */
+}
+#signup-form .form-footer input[type="submit"],
+#login-form input[type="submit"] {
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: transparent;
+  margin: 10px 0;
+  font-size: inherit;
+  border-bottom: 2px solid var(--border-primary-color);
+}
+#signup-form .form-footer input[type="submit"]:hover,
+#login-form input[type="submit"]:hover {
+  background-color: #f1f1f1;
+  color: #333;
+}
+/* Login Page */
+
+.form-container #login-form {
+  width: 40%;
+  background-color: #fff;
+  color: #000;
+  padding: 30px;
+}
+#login-form .form-header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+#login-form form {
+  width: 85%;
+  margin: auto;
+}
+#login-form form .form-groups input {
+  padding: 7px;
+  width: 100%;
+  margin: 10px 0;
+}
+#login-form form input[type="submit"] {
+  display: block;
+  border: none;
+  border: 2px solid var(--border-primary-color);
+  margin: auto;
+}
+#login-form form #forget-pwd {
+  color: var(--link-color);
+}
+
+#login-form > hr {
+  height: 2.5px;
+  background-color: var(--border-primary-color);
+  margin: 15px 0;
+}
+#login-form .login-footer {
+  text-align: center;
+}
+#login-form .login-footer a {
+  color: var(--link-color);
+  cursor: pointer;
+}
+#login-form .login-footer a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 960px) {
+  #signup-form form,
+  #login-form {
+    font-size: 0.9rem;
+  }
+
+  #signup-form {
+    width: 85%;
+    max-height: 85%;
+    overflow-y: scroll;
+    padding: 25px;
+  }
+  #signup-form form {
+    display: grid;
+    height: fit-content;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    grid-gap: 0;
+  }
+  #signup-form form .form-groups {
+    width: 95%;
+  }
+  #signup-form .form-footer {
+    grid-column-end: span 2;
+  }
+
+  /* Login Page */
+
+  .form-container #login-form {
+    width: 70%;
+  }
+}
+
+@media (max-width: 620px) {
+  #signup-form form {
+    font-size: 0.9rem;
+  }
+  #signup-form {
+    width: 90%;
+    max-height: 95%;
+    overflow-y: scroll;
+    padding: 20px;
+  }
+  #signup-form form {
+    max-height: 300vh;
+    grid-template-columns: repeat(1, 1fr);
+    display: block;
+    border-bottom: none;
+  }
+  #signup-form .form-footer {
+    grid-column-end: span 1;
+  }
+
+  .form-container #login-form {
+    width: 90%;
+    padding: 20px;
+  }
+  #login-form form {
+    width: 100%;
+  }
+}
