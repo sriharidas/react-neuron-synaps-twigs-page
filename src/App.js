@@ -24,16 +24,16 @@ function App() {
           <li>
             <a href="#">Documentation</a>
           </li>
-          <li>
+          {/* <li>
             <a href="#" className="header-btn-1" onClick={() => setLogin(true)}>
               Get Authorized
             </a>
-          </li>
+          </li> */}
         </ul>
 
-        {/* <button className="header-btn" onClick={() => setsignup(false)}>
+        <button className="header-btn" onClick={() => setLogin(true)}>
           Get Authorized
-        </button> */}
+        </button>
       </div>
       <p className="header-main-content">
         World's First AI Based Backend API System For Recommendation

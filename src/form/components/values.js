@@ -74,10 +74,10 @@ const signupFields = [
   {
     Element: "select",
     value: noEmployees,
-    label: "Approximate no of customer",
+    label: "Approximate no of your customer",
     id: "no_customers",
     name: "no_customers",
-    placeholder: "Enter the Approximate no of customer",
+    placeholder: "Enter the Approximate no of your customers",
   },
   {
     Element: "select",
