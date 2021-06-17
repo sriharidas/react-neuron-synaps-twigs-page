@@ -3,6 +3,14 @@ import React from "react";
 export const servicesValues = ["Recommendation"];
 export const noEmployees = ["1-25", "25-100", "100-500", "500-5000"];
 export const FieldValues = ["movie", "education"];
+export const closestCmp = [
+  "Chief Executive Officer",
+  "Chief Financial Officer",
+  "Chief Operating Officer",
+  "Accounts Manager",
+  "Recruitment Manager",
+  "General Managers",
+];
 export const howDoUKnowUs = [
   "social media",
   "Email",

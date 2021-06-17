@@ -4,6 +4,7 @@ import {
   FieldValues,
   countryValues,
   howDoUKnowUs,
+  closestCmp,
 } from "./Options.js";
 const signupFields = [
   {
@@ -71,20 +72,20 @@ const signupFields = [
     placeholder: "Select a option",
   },
   {
-    Element: "input",
-    type: "text",
+    Element: "select",
+    value: noEmployees,
     label: "Approximate no of customer",
     id: "no_customers",
     name: "no_customers",
     placeholder: "Enter the Approximate no of customer",
   },
   {
-    Element: "input",
-    type: "text",
-    label: "Closest posting company",
+    Element: "select",
+    value: closestCmp,
+    label: "Closest post in company",
     id: "closest_cmp",
     name: "closest_cmp",
-    placeholder: "Enter the Closest posting company",
+    placeholder: "Enter the Closest post in company",
   },
   {
     Element: "input",
@@ -101,14 +102,6 @@ const signupFields = [
     id: "service",
     name: "service",
     placeholder: "Service required?",
-  },
-  {
-    Element: "input",
-    type: "text",
-    label: "Nature of the app",
-    id: "nature_app",
-    name: "nature_app",
-    placeholder: "Enter the Nature of the App",
   },
   {
     Element: "select",
