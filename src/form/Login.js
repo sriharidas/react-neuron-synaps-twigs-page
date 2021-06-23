@@ -22,6 +22,7 @@ export default function Login({ open, setState, redirect }) {
                 name={field["name"]}
                 id={field["id"]}
                 placeholder={field["placeholder"]}
+                key={field["id"]}
               />
             ))}
             <span id="forget-pwd">
