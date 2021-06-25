@@ -6,9 +6,7 @@ export default function Select({ name, id, label, value, onChange }) {
       <div className="form-groups">
         <label htmlFor={id}>{label}</label>
         <select placeholder="select a option" name={name} onChange={onChange}>
-          <option value={null} selected={true}>
-            none
-          </option>
+          <option value="none">none</option>
           {value.map((option) => (
             <option value={option} key={option}>
               {option}

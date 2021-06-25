@@ -12,6 +12,7 @@ a {
 
 .main {
   background-color: black;
+  /* height: 200vh; */
 }
 .header-container {
   position: absolute;

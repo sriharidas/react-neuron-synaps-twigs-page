@@ -11,7 +11,11 @@ function App() {
   const [login, setLogin] = useState(false);
   return (
     <div className="main">
-      <Particles params={particles_params} height="100vh" />
+      <Particles
+        params={particles_params}
+        height="100vh"
+        style={{ position: "fixed" }}
+      />
       <div className="header-container">
         <div className="header-logo">
           <img src={logo} alt="logo" />
@@ -38,6 +42,13 @@ function App() {
       <p className="header-main-content">
         World's First AI Based Backend API System For Recommendation
       </p>
+
+      {/* <div className="main-section-group">
+        <div className="main-section">lorem</div>
+        <div className="main-section">lorem</div>
+        <div className="main-section">lorem</div>
+        <div className="main-section">lorem</div>
+      </div> */}
       <Signup open={signup} setState={setSignup} redirect={setLogin} />
       <Login open={login} setState={setLogin} redirect={setSignup} />
     </div>

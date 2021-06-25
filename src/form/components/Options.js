@@ -1,8 +1,8 @@
 import React from "react";
 
 export const servicesValues = ["Recommendation"];
-export const noEmployees = ["1-25", "25-100", "100-500", "500-5000"];
-export const FieldValues = ["movie", "education"];
+export const noEmployees = ["1-25", "25-100", "100-500", "500-5000", "5000+"];
+export const FieldValues = ["movie"];
 export const closestCmp = [
   "Chief Executive Officer",
   "Chief Financial Officer",
@@ -10,16 +10,17 @@ export const closestCmp = [
   "Accounts Manager",
   "Recruitment Manager",
   "General Managers",
+  "others",
 ];
+export const ApxCust = ["1-100", "100-500", "500-5000", "5000+"];
 export const howDoUKnowUs = [
-  "social media",
-  "Email",
-  "Radio",
-  "TV",
-  "Newspaper",
-  "Word of mouth",
+  "search engine (Google, Yahoo, etc.",
+  "Recommended by friend or colleague",
+  "Social Media",
+  "Blog or publications",
   "Other",
 ];
+// app 1 - 100, 100 -500, 500 - 5000, 5000+
 export const countryValues = [
   "Afghanistan",
   "Albania",

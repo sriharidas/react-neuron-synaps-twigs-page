@@ -5,7 +5,9 @@ import {
   countryValues,
   howDoUKnowUs,
   closestCmp,
+  ApxCust,
 } from "./Options.js";
+
 const signupFields = [
   {
     Element: "input",
@@ -81,7 +83,7 @@ const signupFields = [
   },
   {
     Element: "select",
-    value: noEmployees,
+    value: ApxCust,
     label: "Approximate no of your customer",
     id: "NoOfCustomersInUser",
     name: "NoOfCustomersInUser",
@@ -139,18 +141,18 @@ const signupFields = [
 export const LoginValues = [
   {
     Element: "input",
-    type: "email",
-    label: "Email Id",
-    id: "login_email",
-    name: "login_email",
-    placeholder: "Enter Your Email Id",
+    type: "text",
+    label: "username",
+    id: "username",
+    name: "username",
+    placeholder: "Enter Your Username",
   },
   {
     Element: "input",
-    type: "password ",
+    type: "password",
     label: "Password",
-    id: "login_pwd",
-    name: "login_pwd",
+    id: "password",
+    name: "password",
     placeholder: "Enter Your Password",
   },
 ];

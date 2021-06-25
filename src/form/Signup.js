@@ -25,7 +25,7 @@ export default function Signup({ open, setState, redirect }) {
     FieldOfCustomerApp: "",
     CustomerDomain: "",
     HowDoTheyKnowUs: "",
-    AgreementStatus: "",
+    AgreementStatus: false,
     KnoxTableId: 13,
     AccoundCreated: null,
     AccoundLastlyUbdated: null,
@@ -141,7 +141,7 @@ export default function Signup({ open, setState, redirect }) {
         console.log("register", signupDetails);
         AccData["knoxTablePassword"] = resp["user"]["password"];
         AccData["userToken"] = resp["token"];
-        AccData["username"] = resp["user"]["username"];
+        AccData["userName"] = resp["user"]["username"];
         AccData["knoxTableId"] = resp["user"]["id"];
       })
       .catch((e) => alert(e));
@@ -170,6 +170,13 @@ export default function Signup({ open, setState, redirect }) {
         console.log("waiting for response....");
       }
     }, 1000);
+
+    // if (status === 1) {
+    //   setTimeout(() => {
+    //     setState(false);
+    //     redirect(true);
+    //   }, 3000);
+    // }
   };
 
   return (
