@@ -181,17 +181,6 @@ body {
   color: red;
 }
 
-.main-section-group {
-  color: red;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: flex-end;
-}
-.main-section {
-  height: 300px;
-  width: 33%;
-}
 @media (max-width: 960px) {
   #signup-form form,
   #login-form {

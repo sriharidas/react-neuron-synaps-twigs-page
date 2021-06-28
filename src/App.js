@@ -5,6 +5,12 @@ import logo from "./img/logo.png";
 import React, { useState } from "react";
 import Signup from "./form/Signup";
 import Login from "./form/Login";
+import { FaUsers } from "react-icons/fa";
+import Dashboard from "./home/Dashboard";
+// import { CgLogIn } from "react-icons/cg";
+import { BsClipboardData } from "react-icons/bs";
+import { GiOffshorePlatform } from "react-icons/gi";
+import { FiLogIn } from "react-icons/fi";
 
 function App() {
   const [signup, setSignup] = useState(false);
@@ -43,12 +49,16 @@ function App() {
         World's First AI Based Backend API System For Recommendation
       </p>
 
-      {/* <div className="main-section-group">
-        <div className="main-section">lorem</div>
-        <div className="main-section">lorem</div>
-        <div className="main-section">lorem</div>
-        <div className="main-section">lorem</div>
-      </div> */}
+      <div className="main-section-group">
+        {dashboardData.map((data) => (
+          <Dashboard
+            title={data.title}
+            icon={data.icon}
+            values={data.value}
+            styles={data.styles}
+          />
+        ))}
+      </div>
       <Signup open={signup} setState={setSignup} redirect={setLogin} />
       <Login open={login} setState={setLogin} redirect={setSignup} />
     </div>
@@ -56,3 +66,30 @@ function App() {
 }
 
 export default App;
+
+const dashboardData = [
+  {
+    title: "Amount of Data",
+    value: "2,600,000+",
+    styles: "main-section main-section-1",
+    icon: <BsClipboardData />,
+  },
+  {
+    title: "Number of Platforms",
+    value: "22+",
+    styles: "main-section main-section-2",
+    icon: <GiOffshorePlatform />,
+  },
+  {
+    title: "Number of users",
+    value: "500+",
+    styles: "main-section main-section-3",
+    icon: <FaUsers />,
+  },
+  {
+    title: "Amount of Data",
+    value: "2,600,000+",
+    styles: "main-section main-section-4",
+    icon: <FiLogIn />,
+  },
+];

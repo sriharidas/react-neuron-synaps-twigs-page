@@ -160,6 +160,10 @@ export default function Signup({ open, setState, redirect }) {
           .then((response) => {
             if (response.ok) {
               console.log("successful request");
+              setTimeout(() => {
+                setState(false);
+                redirect(true);
+              }, 2000);
             } else {
               console.warn("request t acc deatils failed");
             }
@@ -170,13 +174,6 @@ export default function Signup({ open, setState, redirect }) {
         console.log("waiting for response....");
       }
     }, 1000);
-
-    // if (status === 1) {
-    //   setTimeout(() => {
-    //     setState(false);
-    //     redirect(true);
-    //   }, 3000);
-    // }
   };
 
   return (
