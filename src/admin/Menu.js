@@ -4,6 +4,7 @@ import { RiDashboardFill } from "react-icons/ri";
 import { FaUserAlt, FaBell } from "react-icons/fa";
 import { MdContentPaste } from "react-icons/md";
 import { GrCopy } from "react-icons/gr";
+import { FiDatabase } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
 import { SiGooglemaps } from "react-icons/si";
 import { AiOutlineClose } from "react-icons/ai";
@@ -43,8 +44,8 @@ const MenuData = [
     title: "User Profile",
   },
   {
-    icon: <MdContentPaste />,
-    title: "Table List",
+    icon: <FiDatabase />,
+    title: "Data Circuit",
   },
   {
     icon: <GrCopy />,

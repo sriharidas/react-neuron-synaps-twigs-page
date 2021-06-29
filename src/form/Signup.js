@@ -9,7 +9,6 @@ export default function Signup({ open, setState, redirect }) {
   const init = {
     first_name: "",
     second_name: "",
-    username: "",
     email: "",
     password1: "",
     password2: "",
@@ -37,11 +36,11 @@ export default function Signup({ open, setState, redirect }) {
     password: "",
   });
   const HandleUpdate = (e) => {
-    console.log(e.target.name, e.target.value);
+    // console.log(e.target.name, e.target.value);
 
-    console.log("type", e.target.type, e.target.checked);
+    // console.log("type", e.target.type, e.target.checked);
     if (e.target.type === "checkbox") {
-      alert("yes");
+      // alert("yes");
       setSignupDeatils((prevState) => ({
         ...prevState,
         [e.target.name]: e.target.checked,
@@ -52,9 +51,9 @@ export default function Signup({ open, setState, redirect }) {
         [e.target.name]: e.target.value,
       }));
     }
-    console.log(signupDetails);
+    // console.log(signupDetails);
     setRegister({
-      username: signupDetails.username,
+      username: signupDetails.email,
       email: signupDetails.email,
       password: signupDetails.password1,
     });
@@ -63,12 +62,12 @@ export default function Signup({ open, setState, redirect }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(register);
+    // console.log(register);
     const d = new Date();
     const AccData = {
       first_name: signupDetails.first_name,
       second_name: signupDetails.second_name,
-      userName: signupDetails.username,
+      userName: signupDetails.email,
       email: signupDetails.email,
       userToken: signupDetails.userToken,
       knoxTablePassword: signupDetails.knoxTablePassword,
@@ -121,15 +120,15 @@ export default function Signup({ open, setState, redirect }) {
     })
       .then((response) => {
         if (response.ok) {
-          alert("successful request");
+          // alert("successful request");
         } else {
-          alert("request failed");
+          // alert("request failed");
         }
         return response.json();
       })
       .then((resp) => {
         status = 1;
-        console.log(resp);
+        // console.log(resp);
         setSignupDeatils((prevState) => ({
           ...prevState,
           username: resp["user"]["username"],
@@ -137,15 +136,15 @@ export default function Signup({ open, setState, redirect }) {
           userToken: resp["token"],
         }));
 
-        console.log(resp["user"]["password"], resp["token"]);
-        console.log("register", signupDetails);
+        // console.log(resp["user"]["password"], resp["token"]);
+        // console.log("register", signupDetails);
         AccData["knoxTablePassword"] = resp["user"]["password"];
         AccData["userToken"] = resp["token"];
         AccData["userName"] = resp["user"]["username"];
         AccData["knoxTableId"] = resp["user"]["id"];
-      })
-      .catch((e) => alert(e));
-    console.log(status);
+      });
+    // .catch((e) => alert(e));
+    // console.log(status);
 
     const timer = setInterval(() => {
       if (status === 1) {
@@ -156,22 +155,21 @@ export default function Signup({ open, setState, redirect }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(AccData),
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("successful request");
-              setTimeout(() => {
-                setState(false);
-                redirect(true);
-              }, 2000);
-            } else {
-              console.warn("request t acc deatils failed");
-            }
-            return response.json();
-          })
-          .then((resp) => console.log(resp));
+        }).then((response) => {
+          if (response.ok) {
+            // console.log("successful request");
+            setTimeout(() => {
+              setState(false);
+              redirect(true);
+            }, 2000);
+          } else {
+            // console.warn("request t acc deatils failed");
+          }
+          return response.json();
+        });
+        // .then((resp) => console.log(resp));
       } else {
-        console.log("waiting for response....");
+        // console.log("waiting for response....");
       }
     }, 1000);
   };
@@ -190,7 +188,7 @@ export default function Signup({ open, setState, redirect }) {
           <form method="post" onSubmit={handleSubmit}>
             {signupFields.map((field) => {
               const element = field["Element"] === "input" ? "input" : "select";
-              console.log(field["Element"], element);
+              // console.log(field["Element"], element);
               return element === "input" ? (
                 <Input
                   key={field["label"]}

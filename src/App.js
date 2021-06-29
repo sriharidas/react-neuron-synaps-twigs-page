@@ -71,25 +71,29 @@ const dashboardData = [
   {
     title: "Amount of Data",
     value: "2,600,000+",
-    styles: "main-section main-section-1",
+    // styles: "main-section main-section-1",
+    styles: "main-section",
     icon: <BsClipboardData />,
   },
   {
     title: "Number of Platforms",
     value: "22+",
-    styles: "main-section main-section-2",
+    // styles: "main-section main-section-2",
+    styles: "main-section",
     icon: <GiOffshorePlatform />,
   },
   {
     title: "Number of users",
     value: "500+",
-    styles: "main-section main-section-3",
+    // styles: "main-section main-section-3",
+    styles: "main-section",
     icon: <FaUsers />,
   },
   {
     title: "Amount of Data",
     value: "2,600,000+",
-    styles: "main-section main-section-4",
+    // styles: "main-section main-section-4",
+    styles: "main-section",
     icon: <FiLogIn />,
   },
 ];

@@ -25,14 +25,14 @@ const signupFields = [
     name: "second_name",
     placeholder: "Enter Your Last Name",
   },
-  {
-    Element: "input",
-    type: "text",
-    label: "Username",
-    id: "username",
-    name: "username",
-    placeholder: "Enter Your User Name",
-  },
+  // {
+  //   Element: "input",
+  //   type: "text",
+  //   label: "Username",
+  //   id: "username",
+  //   name: "username",
+  //   placeholder: "Enter Your User Name",
+  // },
   {
     Element: "input",
     type: "email",

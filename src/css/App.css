@@ -95,7 +95,7 @@ a {
 
 .header-main-content {
   position: absolute;
-  top: 35%;
+  top: 37%;
   right: 50%;
   transform: translate(50%, -50%);
   color: #fff;
@@ -117,9 +117,15 @@ a {
   padding-bottom: 100px;
 }
 .main-section {
-  height: 300px;
-  width: 300px;
-  background-color: #ccc;
+  height: 250px;
+  width: 250px;
+  background-color: transparent;
+  /* color: #fff;
+  border: 1px solid #ffc107;
+  background-color: #ffc107d8; */
+  color: #ffc107;
+  border: 1px solid #ffc107;
+  background-color: transparent;
   margin: 20px;
   padding: 25px;
   display: flex;
@@ -165,15 +171,15 @@ a {
 .main-section-header span {
   padding: 5px;
   display: inline-block;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #ffc107;
 }
 .main-section-desc {
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   padding: 15px 0;
   font-weight: 700;
 }
 .main-section-footer {
-  font-size: 1.6rem;
+  font-size: 1.25rem;
   font-weight: 1000;
 }
 
@@ -213,7 +219,8 @@ a {
   justify-content: flex-start;
   align-items: center;
   color: #555;
-  margin: 10px auto;
+  margin: 3px auto;
+  font-size: 0.9rem;
 }
 .admin-left-nav-group:hover {
   background-color: #a64ca6;
@@ -276,6 +283,10 @@ a {
   border: none;
   font-size: inherit;
   padding: inherit;
+  cursor: pointer;
+}
+.admin-header-toggle:hover {
+  color: #333;
 }
 /* .admin-right-header-right .search {
   background-color: #f1f1f1;
@@ -311,6 +322,7 @@ a {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
+  width: 100%;
 }
 .dashboard-top-header-left {
   font-size: 40px;
@@ -338,12 +350,12 @@ a {
   color: #fff;
 }
 .dashboard-top-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 5px;
   margin-top: -10px;
 }
 .dashboard-top-value {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   padding: 5px;
   text-align: center;
 }
@@ -367,7 +379,7 @@ a {
     text-align: center;
     width: 70%;
     line-height: 1.6;
-    top: 30%;
+    top: 50%;
   }
   .header-nav li a.header-btn-1 {
     padding: 10px;
@@ -376,7 +388,10 @@ a {
     width: 40%;
     /* top: calc(100% - 300px); */
   }
-
+  .main-section-group {
+    top: 80%;
+    padding-bottom: 50px;
+  }
   .admin-right-container {
     margin-left: 0;
   }
@@ -429,7 +444,7 @@ a {
   }
 
   .header-main-content {
-    top: 40%;
+    top: 50%;
     font-size: 1.4rem;
   }
   .main-section-group {
@@ -437,6 +452,10 @@ a {
   }
   .main-section {
     width: 80%;
+  }
+  .main-section-group {
+    padding-bottom: 30px;
+    top: 75%;
   }
   .admin-left-container {
     width: 100%;
