@@ -11,7 +11,7 @@ import Dashboard from "./home/Dashboard";
 import { BsClipboardData } from "react-icons/bs";
 import { GiOffshorePlatform } from "react-icons/gi";
 import { FiLogIn } from "react-icons/fi";
-
+import "./css/animation.css";
 function App() {
   const [signup, setSignup] = useState(false);
   const [login, setLogin] = useState(false);
@@ -58,6 +58,14 @@ function App() {
             styles={data.styles}
           />
         ))}
+      </div>
+      <div id="animation-container">
+        <div id="loading-container">
+          <span id="loading-1"></span>
+          <span id="loading-2"></span>
+          <span id="loading-3"></span>
+          <span id="loading-4"></span>
+        </div>
       </div>
       <Signup open={signup} setState={setSignup} redirect={setLogin} />
       <Login open={login} setState={setLogin} redirect={setSignup} />

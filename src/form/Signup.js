@@ -61,7 +61,7 @@ export default function Signup({ open, setState, redirect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    document.getElementById("animation-container").style.visibility = "visible";
     // console.log(register);
     const d = new Date();
     const AccData = {
@@ -128,14 +128,14 @@ export default function Signup({ open, setState, redirect }) {
       })
       .then((resp) => {
         status = 1;
-        // console.log(resp);
+        console.log(resp);
+        localStorage.setItem("userToken", resp['token'])
         setSignupDeatils((prevState) => ({
           ...prevState,
           username: resp["user"]["username"],
           knoxTablePassword: resp["user"]["password"],
           userToken: resp["token"],
         }));
-
         // console.log(resp["user"]["password"], resp["token"]);
         // console.log("register", signupDetails);
         AccData["knoxTablePassword"] = resp["user"]["password"];
@@ -155,19 +155,24 @@ export default function Signup({ open, setState, redirect }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(AccData),
-        }).then((response) => {
-          if (response.ok) {
-            // console.log("successful request");
-            setTimeout(() => {
-              setState(false);
-              redirect(true);
-            }, 2000);
-          } else {
-            // console.warn("request t acc deatils failed");
-          }
-          return response.json();
-        });
-        // .then((resp) => console.log(resp));
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("successful request");
+              setTimeout(() => {
+                document.getElementById(
+                  "animation-container"
+                ).style.visibility = "hidden";
+
+                setState(false);
+                redirect(true);
+              }, 2000);
+            } else {
+              console.warn("request t acc deatils failed");
+            }
+            return response.json();
+          })
+          .then((resp) => console.log(resp));
       } else {
         // console.log("waiting for response....");
       }

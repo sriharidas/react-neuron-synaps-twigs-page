@@ -18,6 +18,8 @@ export default function Login({ open, setState, redirect }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    document.getElementById("animation-container").style.visibility = "visible";
+    console.log(document.getElementById("animation-container"));
     fetch("https://neuron-dev.herokuapp.com/security/login/", {
       method: "POST",
       headers: {
@@ -31,15 +33,22 @@ export default function Login({ open, setState, redirect }) {
         return Response.json();
       })
       .then((resp) => {
+        document.getElementById("animation-container").style.visibility =
+          "hidden";
+
         console.log("Login Response", resp);
         if (resp["token"]) {
           console.log("valid login");
           // <Redirect to="/admin" />;
+          // document.getElementById("animation-container").style.display = "none";
+
           history.push("/admin");
         } else {
           console.warn("invalid login");
           // document.getElementById("error-msg").innerHTML =
           //   "Invalid username or password";
+          // document.getElementById("animation-container").style.display = "none";
+
           alert("Invalid username or password");
         }
       });

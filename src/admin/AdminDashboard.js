@@ -2,8 +2,9 @@ import React from "react";
 import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { IoIosNotifications } from "react-icons/io";
-import Dashboard from "./Admin{Pages/Dashboard";
-
+import Dashboard from "./AdminPages/Dashboard";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import DataCircuit from "./AdminPages/DataCircuit";
 export default function AdminDashboard({ state, setState }) {
   return (
     <div className="admin-right-container">
@@ -26,7 +27,11 @@ export default function AdminDashboard({ state, setState }) {
       </div>
 
       <div className="admin-right-main">
-        <Dashboard />
+        <Switch>
+          <Route exact path="/admin/" component={Dashboard} />
+          <Route path="/admin/datacircuit/" component={DataCircuit} />
+        </Switch>
+        {/* <Dashboard /> */}
       </div>
     </div>
   );

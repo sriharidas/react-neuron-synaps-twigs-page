@@ -350,14 +350,20 @@ a {
   color: #fff;
 }
 .dashboard-top-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 5px;
-  margin-top: -10px;
+  margin-top: 5px;
 }
 .dashboard-top-value {
   font-size: 1.25rem;
   padding: 5px;
   text-align: center;
+}
+@media (max-width: 1040px) {
+  .dashboard-top-header {
+    width: 45%;
+    margin-bottom: 35px;
+  }
 }
 @media (max-width: 840px) {
   .header-nav {
@@ -398,17 +404,13 @@ a {
   .admin-right-header-right {
     justify-content: flex-start;
     align-items: center;
+    margin-left: 0;
   }
   .admin-right-header-right > button {
     margin: 5px;
   }
 }
-@media (max-width: 1040px) {
-  .dashboard-top-header {
-    width: 31%;
-    margin-bottom: 35px;
-  }
-}
+
 @media (max-width: 720px) {
   .header-logo {
     left: 0;
@@ -458,7 +460,7 @@ a {
     top: 75%;
   }
   .admin-left-container {
-    width: 100%;
+    width: 250px;
   }
   .dashboard-top-header {
     width: 45%;
