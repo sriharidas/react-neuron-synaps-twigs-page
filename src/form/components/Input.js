@@ -18,6 +18,7 @@ export default function Input({
           id={id}
           placeholder={placeholder}
           onChange={onChange}
+          required
         />
         {type === "text" ? (
           <p id={id + "-error"} style={errorMsg}>

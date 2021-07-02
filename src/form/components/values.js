@@ -6,6 +6,7 @@ import {
   howDoUKnowUs,
   closestCmp,
   ApxCust,
+  YourServiceType,
 } from "./Options.js";
 
 const signupFields = [
@@ -100,7 +101,7 @@ const signupFields = [
   {
     Element: "input",
     type: "text",
-    label: "Contact number (optional)",
+    label: "Contact number",
     id: "ContactNumber",
     name: "ContactNumber",
     placeholder: "Enter Your Contact number",
@@ -120,6 +121,15 @@ const signupFields = [
     id: "FieldOfCustomerApp",
     name: "FieldOfCustomerApp",
     placeholder: "Eselect the Field of the App",
+  },
+  {
+    Element: "select",
+    value: YourServiceType,
+    label: "Your Service Type",
+    id: "YourServiceType",
+    name: "YourServiceType",
+    placeholder: "Eselect the Field of the App",
+    disabled: true,
   },
   {
     Element: "input",
@@ -142,7 +152,7 @@ export const LoginValues = [
   {
     Element: "input",
     type: "text",
-    label: "username",
+    label: "Email",
     id: "username",
     name: "username",
     placeholder: "Enter Your Username",

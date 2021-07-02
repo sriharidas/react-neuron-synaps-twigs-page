@@ -3,8 +3,8 @@ import file from "./../../samplecsv.csv";
 import Animation from "./../../animation/Animation";
 export default function DataCircuit() {
   const [Data, setData] = useState({
-    // userToken: localStorage.getItem("userToken"),
-    userToken: 123456,
+    userToken: localStorage.getItem("userToken"),
+    // userToken: 123456,
     noOfItems: 0,
     list: {},
   });

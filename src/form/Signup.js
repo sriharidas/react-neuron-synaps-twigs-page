@@ -58,19 +58,6 @@ export default function Signup({ open, setState, redirect }) {
         document.querySelector(".password1-error").innerHTML = "";
         document.querySelector(".password2-error").innerHTML = "";
       }
-      // Email Validation
-      if (
-        !(
-          document.getElementById("email").value.includes(".") &&
-          document.getElementById("email").value.includes("@")
-        ) &&
-        document.getElementById("email").value !== ""
-      ) {
-        document.querySelector(".email-error").innerHTML =
-          "Invalid email address";
-      } else {
-        document.querySelector(".email-error").innerHTML = "";
-      }
 
       // First Name Vaidation
       if (document.getElementById("first_name").value.length > 25) {
@@ -91,7 +78,25 @@ export default function Signup({ open, setState, redirect }) {
         setError(false);
       }
       // Username validation
-      if (document.getElementById("email").value.length > 50) {
+      // if (document.getElementById("email").value.length > ) {
+      //   document.getElementById("email-error").innerHTML =
+      //     "characater limt reached";
+      //   setError(true);
+      // } else {
+      //   document.getElementById("email-error").innerHTML = "";
+      //   setError(false);
+      // }
+      // Email Validation
+      if (
+        !(
+          document.getElementById("email").value.includes(".") &&
+          document.getElementById("email").value.includes("@")
+        ) &&
+        document.getElementById("email").value !== ""
+      ) {
+        document.querySelector(".email-error").innerHTML =
+          "Invalid email address";
+      } else if (document.getElementById("email").value.length > 50) {
         document.getElementById("email-error").innerHTML =
           "characater limt reached";
         setError(true);
@@ -99,6 +104,7 @@ export default function Signup({ open, setState, redirect }) {
         document.getElementById("email-error").innerHTML = "";
         setError(false);
       }
+
       // company name validation
       if (document.getElementById("userCompanyName").value.length > 25) {
         document.getElementById("userCompanyName-error").innerHTML =
@@ -244,16 +250,23 @@ export default function Signup({ open, setState, redirect }) {
           .then((response) => {
             if (response.ok) {
               console.log("successful request");
+              document.getElementById("animation-container").style.visibility =
+                "hidden";
               setTimeout(() => {
-                document.getElementById(
-                  "animation-container"
-                ).style.visibility = "hidden";
-
+                document.getElementById("alert-message").innerHTML =
+                  "Account Created";
+                document.getElementById("alert-message").style.padding = "10px";
                 setState(false);
                 redirect(true);
-              }, 2000);
+              }, 10000);
             } else {
               console.warn("request t acc deatils failed");
+              document.getElementById("alert-message").innerHTML =
+                "Failed to create an account";
+              document.getElementById("alert-message").style.padding = "10px";
+              document.getElementById("alert-message").style.background =
+                "#ff000044";
+              document.getElementById("alert-message").style.color = "#ff0000";
             }
             return response.json();
           })
@@ -274,7 +287,15 @@ export default function Signup({ open, setState, redirect }) {
               <AiOutlineClose />
             </button>
           </div>
-          <div></div>
+          <div
+            style={{
+              background: "#00ff0044",
+              width: "97%",
+              // padding: "10px",
+              color: "green",
+            }}
+            id="alert-message"
+          ></div>
           <form method="post" onSubmit={handleSubmit}>
             {signupFields.map((field) => {
               const element = field["Element"] === "input" ? "input" : "select";
@@ -297,6 +318,7 @@ export default function Signup({ open, setState, redirect }) {
                   label={field["label"]}
                   value={field["value"]}
                   onChange={HandleUpdate}
+                  disabled={field["disabled"]}
                 />
               ) : null;
             })}

@@ -9,6 +9,21 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.upcoming {
+  margin-left: 10px;
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  height: 70px;
+  width: 300px;
+  background-color: #dddddddd;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  border-radius: 30px;
+}
 
 .main {
   background-color: black;

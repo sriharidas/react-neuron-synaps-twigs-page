@@ -76,8 +76,22 @@ function App() {
             <a href="#">Home</a>
           </li>
           <li>
-            <a href="#">Documentation</a>
+            <a
+              href="#"
+              onMouseOver={() =>
+                (document.querySelector(".upcoming").style.visibility =
+                  "visible")
+              }
+              onMouseOut={() =>
+                (document.querySelector(".upcoming").style.visibility =
+                  "hidden")
+              }
+              style={{ cursor: "not-allowed" }}
+            >
+              Documentation
+            </a>
           </li>
+          <div className="upcoming">Documentation coming soon</div>
           {/* <li>
             <a href="#" className="header-btn-1" onClick={() => setLogin(true)}>
               Get Authorized

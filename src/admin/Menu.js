@@ -49,31 +49,31 @@ const MenuData = [
     title: "Dashboard",
     path: "/admin/",
   },
-  {
-    icon: <FaBell />,
-    title: "Notification",
-    path: "/admin/notification",
-  },
+  // {
+  //   icon: <FaBell />,
+  //   title: "Notification",
+  //   path: "/admin/notification",
+  // },
   {
     icon: <FiDatabase />,
     title: "Data Circuit",
     path: "/admin/datacircuit",
   },
-  {
-    icon: <SiFirebase />,
-    title: "Crashlytics",
-    path: "/admin/crashlytics",
-  },
-  {
-    icon: <AiFillSetting />,
-    title: "Settings",
-    path: "/admin/settings",
-  },
-  {
-    icon: <FaUserAlt />,
-    title: "User Profile",
-    path: "/admin/userprofile",
-  },
+  // {
+  //   icon: <SiFirebase />,
+  //   title: "Crashlytics",
+  //   path: "/admin/crashlytics",
+  // },
+  // {
+  //   icon: <AiFillSetting />,
+  //   title: "Settings",
+  //   path: "/admin/settings",
+  // },
+  // {
+  //   icon: <FaUserAlt />,
+  //   title: "User Profile",
+  //   path: "/admin/userprofile",
+  // },
 
   {
     icon: <FiLogIn />,
