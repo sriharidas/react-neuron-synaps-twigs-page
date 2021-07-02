@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../css/form.css";
 import { AiOutlineClose } from "react-icons/ai";
 import Input from "./components/Input";
@@ -35,6 +35,91 @@ export default function Signup({ open, setState, redirect }) {
     email: "",
     password: "",
   });
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (document.getElementById("signup-btn")) {
+      if (!error && signupDetails.AgreementStatus === true) {
+        document.getElementById("signup-btn").disabled = false;
+        console.log(document.getElementById("signup-btn"));
+      } else {
+        document.getElementById("signup-btn").disabled = true;
+      }
+      // Password Validation
+      if (
+        document.getElementById("password1").value !== "" &&
+        document.getElementById("password1").value !==
+          document.getElementById("password2").value
+      ) {
+        document.querySelector(".password1-error").innerHTML =
+          "password doesn't match";
+        document.querySelector(".password2-error").innerHTML =
+          "password doesn't match";
+      } else {
+        document.querySelector(".password1-error").innerHTML = "";
+        document.querySelector(".password2-error").innerHTML = "";
+      }
+      // Email Validation
+      if (
+        !(
+          document.getElementById("email").value.includes(".") &&
+          document.getElementById("email").value.includes("@")
+        ) &&
+        document.getElementById("email").value !== ""
+      ) {
+        document.querySelector(".email-error").innerHTML =
+          "Invalid email address";
+      } else {
+        document.querySelector(".email-error").innerHTML = "";
+      }
+
+      // First Name Vaidation
+      if (document.getElementById("first_name").value.length > 25) {
+        document.getElementById("first_name-error").innerHTML =
+          "characater limt reached";
+        setError(true);
+      } else {
+        document.getElementById("first_name-error").innerHTML = "";
+        setError(false);
+      }
+      // second name validation
+      if (document.getElementById("second_name").value.length > 25) {
+        document.getElementById("second_name-error").innerHTML =
+          "characater limt reached";
+        setError(true);
+      } else {
+        document.getElementById("second_name-error").innerHTML = "";
+        setError(false);
+      }
+      // Username validation
+      if (document.getElementById("email").value.length > 50) {
+        document.getElementById("email-error").innerHTML =
+          "characater limt reached";
+        setError(true);
+      } else {
+        document.getElementById("email-error").innerHTML = "";
+        setError(false);
+      }
+      // company name validation
+      if (document.getElementById("userCompanyName").value.length > 25) {
+        document.getElementById("userCompanyName-error").innerHTML =
+          "characater limt reached";
+        setError(true);
+      } else {
+        document.getElementById("userCompanyName-error").innerHTML = "";
+        setError(false);
+      }
+      // Domain validation
+      if (document.getElementById("CustomerDomain").value.length > 5) {
+        document.getElementById("CustomerDomain-error").innerHTML =
+          "characater limt reached";
+        setError(true);
+      } else {
+        document.getElementById("CustomerDomain-error").innerHTML = "";
+        setError(false);
+      }
+    }
+  });
+
   const HandleUpdate = (e) => {
     // console.log(e.target.name, e.target.value);
 
@@ -129,7 +214,7 @@ export default function Signup({ open, setState, redirect }) {
       .then((resp) => {
         status = 1;
         console.log(resp);
-        localStorage.setItem("userToken", resp['token'])
+        localStorage.setItem("userToken", resp["token"]);
         setSignupDeatils((prevState) => ({
           ...prevState,
           username: resp["user"]["username"],
@@ -231,7 +316,8 @@ export default function Signup({ open, setState, redirect }) {
                   </label>
                 </span>
               </div>
-              <input type="submit" value="Sign Up" />
+              {/* <p style={errorMsg}>Password doesn't match</p> */}
+              <input type="submit" value="Sign Up" id="signup-btn" />
               <hr />
               <div className="signup-footer">
                 <span>
@@ -259,3 +345,7 @@ export default function Signup({ open, setState, redirect }) {
     )
   );
 }
+// const errorMsg = {
+//   margin: "10px 0",
+//   color: "red",
+// };

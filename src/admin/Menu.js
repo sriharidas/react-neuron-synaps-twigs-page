@@ -6,11 +6,11 @@ import { MdContentPaste } from "react-icons/md";
 import { GrCopy } from "react-icons/gr";
 import { FiDatabase, FiLogIn } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
-import { SiGooglemaps } from "react-icons/si";
-import { AiOutlineClose } from "react-icons/ai";
+import { SiFirebase } from "react-icons/si";
+import { AiOutlineClose, AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
-export default function Menu({ state, setState }) {
+export default function Menu({ state, setState, setTitle }) {
   const history = useHistory();
   return (
     state && (
@@ -28,7 +28,10 @@ export default function Menu({ state, setState }) {
           {MenuData.map((item) => (
             <div
               className="admin-left-nav-group"
-              onClick={() => history.push(item.path)}
+              onClick={() => {
+                history.push(item.path);
+                setTitle(item.title);
+              }}
             >
               <span className="admin-left-nav-icon">{item.icon}</span>
               <div className="admin-left-nav-item">{item.title}</div>
@@ -47,36 +50,34 @@ const MenuData = [
     path: "/admin/",
   },
   {
-    icon: <FaUserAlt />,
-    title: "User Profile",
-    path: "/admin/",
+    icon: <FaBell />,
+    title: "Notification",
+    path: "/admin/notification",
   },
   {
     icon: <FiDatabase />,
     title: "Data Circuit",
     path: "/admin/datacircuit",
   },
-  // {
-  //   icon: <GrCopy />,
-  //   title: "Typography",
-  // },
   {
-    icon: <RiUserAddLine />,
-    title: "Icons",
-    path: "/admin/",
+    icon: <SiFirebase />,
+    title: "Crashlytics",
+    path: "/admin/crashlytics",
   },
-  // {
-  //   icon: <SiGooglemaps />,
-  //   title: "Maps",
-  // },
   {
-    icon: <FaBell />,
-    title: "Notification",
-    path: "/admin/",
+    icon: <AiFillSetting />,
+    title: "Settings",
+    path: "/admin/settings",
   },
+  {
+    icon: <FaUserAlt />,
+    title: "User Profile",
+    path: "/admin/userprofile",
+  },
+
   {
     icon: <FiLogIn />,
     title: "Log out",
-    path: "/admin/",
+    path: "/admin/logout",
   },
 ];

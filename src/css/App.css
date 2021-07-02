@@ -202,9 +202,9 @@ a {
   left: 0;
 }
 .admin-left-header {
-  padding-bottom: 16px;
+  padding-bottom: 12px;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   border-bottom: 1px solid #999;
   display: flex;
   justify-content: space-between;
@@ -220,7 +220,7 @@ a {
   align-items: center;
   color: #555;
   margin: 3px auto;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 .admin-left-nav-group:hover {
   background-color: #a64ca6;
@@ -243,7 +243,7 @@ a {
 .admin-right-container {
   /* margin-left: 300px; */
   width: 100%;
-  background-color: #e5e5e5;
+  background-color: #e9e9e9;
   padding: 30px;
   min-height: 100vh;
 }
@@ -321,7 +321,7 @@ a {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
   width: 100%;
 }
 .dashboard-top-header-left {
@@ -350,7 +350,7 @@ a {
   color: #fff;
 }
 .dashboard-top-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   padding: 5px;
   margin-top: 5px;
 }
@@ -358,6 +358,49 @@ a {
   font-size: 1.25rem;
   padding: 5px;
   text-align: center;
+}
+.dashboard-chart-container {
+  width: 80%;
+  margin-top: 60px;
+  padding: 20px;
+  border: 2px solid #000;
+}
+.dashboard-chart-container::before {
+  content: "Number of Api requests";
+  /* margin-top: -50px; */
+}
+.dashboard-chart {
+  width: inherit;
+}
+
+/* Data Circuit */
+.datacircuit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 200px);
+  justify-content: center;
+  text-align: left;
+}
+.datacircuit-formbtn {
+  width: 290px;
+  padding: 9px;
+  margin-top: 15px;
+  background: #00f;
+  color: #fff;
+  border: 2px solid #00f;
+  cursor: pointer;
+}
+.datacircuit-downloadtext {
+  margin-top: 10px;
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  text-align: center;
+  /* color: #fff; */
+  width: 290px;
+}
+.datacircuit-downloadtext > a {
+  color: #3a3aff;
 }
 @media (max-width: 1040px) {
   .dashboard-top-header {
@@ -465,6 +508,11 @@ a {
   .dashboard-top-header {
     width: 45%;
     margin-bottom: 35px;
+  }
+
+  .dashboard-chart-container {
+    width: 290px;
+    /* height: 500px; */
   }
 }
 @media (max-width: 540px) {

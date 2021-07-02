@@ -3,6 +3,7 @@ import { BsClipboardData } from "react-icons/bs";
 import { GiOffshorePlatform } from "react-icons/gi";
 import { FiLogIn } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
+import DashboardCharts from "./DashboardCharts";
 export default function Dashboard() {
   return (
     <div className="admin-right-dashboard-top">
@@ -15,6 +16,7 @@ export default function Dashboard() {
           </div>
         </div>
       ))}
+      <DashboardCharts />
     </div>
   );
 }
@@ -44,3 +46,24 @@ const dashboardData = [
     icon: <FiLogIn />,
   },
 ];
+
+/* 
+
+user profile
+settings
+dash
+log out
+data cir
+notification
+crash 
+*/
+
+/* 
+dash 
+notic
+data cir
+crash
+sett
+user profil
+logou
+*/

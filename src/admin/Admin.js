@@ -4,6 +4,7 @@ import AdminDashboard from "./AdminDashboard";
 import Menu from "./Menu";
 export default function Admin() {
   const [menu, setMenu] = useState(true);
+  const [title, SetTitle] = useState("Dashboard");
   // alert(window.innerWidth);
   window.addEventListener("resize", () => {
     window.innerWidth <= 840 ? setMenu(false) : setMenu(true);
@@ -23,8 +24,8 @@ export default function Admin() {
   });
   return (
     <div className="admin-container">
-      <Menu state={menu} setState={setMenu} />
-      <AdminDashboard state={menu} setState={setMenu} />
+      <Menu state={menu} setState={setMenu} setTitle={SetTitle} />
+      <AdminDashboard state={menu} setState={setMenu} Title={title} />
     </div>
   );
 }

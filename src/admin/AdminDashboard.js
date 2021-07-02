@@ -5,7 +5,8 @@ import { IoIosNotifications } from "react-icons/io";
 import Dashboard from "./AdminPages/Dashboard";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import DataCircuit from "./AdminPages/DataCircuit";
-export default function AdminDashboard({ state, setState }) {
+import Logout from "./AdminPages/Logout";
+export default function AdminDashboard({ state, setState, Title }) {
   return (
     <div className="admin-right-container">
       <div className="admin-right-header">
@@ -16,7 +17,7 @@ export default function AdminDashboard({ state, setState }) {
           >
             <FiMenu />
           </button>
-          Dashboard
+          {Title}
         </div>
         <div className="admin-right-header-right">
           <input placeholder="search" />
@@ -30,6 +31,7 @@ export default function AdminDashboard({ state, setState }) {
         <Switch>
           <Route exact path="/admin/" component={Dashboard} />
           <Route path="/admin/datacircuit/" component={DataCircuit} />
+          <Route path="/admin/logout" component={Logout} />
         </Switch>
         {/* <Dashboard /> */}
       </div>

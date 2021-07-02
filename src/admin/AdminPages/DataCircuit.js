@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import "./../../css/form.css";
+import file from "./../../samplecsv.csv";
+import Animation from "./../../animation/Animation";
 export default function DataCircuit() {
-  // useEffect(() => {
-
-  // }, []);
-
   const [Data, setData] = useState({
     // userToken: localStorage.getItem("userToken"),
     userToken: 123456,
@@ -29,18 +26,10 @@ export default function DataCircuit() {
     const fileContent = event.target.result; // reading the content of the uploaded file
     console.log("This is content of the file : ", fileContent);
     const data = fileContent.split("\n").slice(1); //spliting  the each array and return as array
-    finalItems.noOfItems = data.length; // finding the number of rows
-    for (let i = 0; i < data.length; i++) {
+    finalItems.noOfItems = data.length - 1; // finding the number of rows
+    for (let i = 0; i < data.length - 1; i++) {
       finalItems.list[i] = data[i];
     }
-    // const timer = setInterval(() => {
-    //   if (finalItems.list[0]) {
-    //     setData(finalItems);
-    //     clearInterval(timer);
-    //   } else {
-    //     console.log("waiting..");
-    //   }
-    // }, 1000);
     console.log(Data);
     setData((prevState) => ({
       ...prevState,
@@ -58,6 +47,7 @@ export default function DataCircuit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    document.getElementById("animation-container").style.visibility = "visible";
     const data = {
       userToken: Data.userToken,
       noOfItems: Data.noOfItems,
@@ -65,7 +55,7 @@ export default function DataCircuit() {
     };
     console.log(Data);
     console.log(JSON.stringify(Data));
-    fetch("http://neuron-dev.herokuapp.com/user_property_database/movies/", {
+    fetch("https://neuron-dev.herokuapp.com/user_property_database/movies/", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -78,33 +68,43 @@ export default function DataCircuit() {
         else console.log("request failed");
         return resp.json();
       })
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        if (resp) {
+          document.getElementById("animation-container").style.visibility =
+            "hidden";
+        }
+        console.log(resp);
+      })
       .catch((e) => console.warn(e));
   };
   return (
     <>
       {/* <h2>Upload a</h2> */}
-      <form style={formContainer} onSubmit={handleSubmit}>
+      <form className="datacircuit-container" onSubmit={handleSubmit}>
         <input type="file" id="fileInput" name=" fileInput" accept=".csv" />
-        <button type="submit" style={formBtn}>
-          upload
+        <button type="submit" className="datacircuit-formbtn">
+          submit file
         </button>
+
+        <div className="datacircuit-downloadtext">
+          Download sample csv&nbsp;
+          <a href={file} download className="datacircuit-downloadlink">
+            download
+          </a>
+        </div>
+        <Animation />
       </form>
     </>
   );
 }
 
-const formContainer = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  height: "300px",
-  justifyContent: "center",
-  textAlign: "left",
-};
-
-const formBtn = {
-  width: "290px",
-  padding: "7px",
-  marginTop: "15px",
-};
+// const downloadText = {
+//   marginTop: "10px",
+//   borderTop: "1px solid #000",
+//   paddingTop: "10px",
+//   textAlign: "center",
+//   width: "290px",
+// };
+// const downloadLink = {
+//   color: "#3a3aff",
+// };

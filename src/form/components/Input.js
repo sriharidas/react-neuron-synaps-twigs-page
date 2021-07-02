@@ -19,7 +19,28 @@ export default function Input({
           placeholder={placeholder}
           onChange={onChange}
         />
+        {type === "text" ? (
+          <p id={id + "-error"} style={errorMsg}>
+            {/* Password doesn't match */}
+          </p>
+        ) : null}
+        {type === "password" ? (
+          <p className={id + "-error"} style={errorMsg}>
+            {/* Password doesn't match */}
+          </p>
+        ) : null}
+        {type === "email" ? (
+          <p className="email-error" id={id + "-error"} style={errorMsg}>
+            {/* invalid */}
+          </p>
+        ) : null}
       </div>
     </>
   );
 }
+const errorMsg = {
+  // margin: "10px 0",
+  paddingTop: "5px",
+  fontSize: "0.8rem",
+  color: "red",
+};

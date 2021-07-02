@@ -78,7 +78,7 @@ export default function Login({ open, setState, redirect }) {
             ))}
             {/* <p id="error-msg">Error</p> */}
             <span id="forget-pwd">
-              <a href="#">Forget Password?</a>
+              {/* <a href="#">Forget Password?</a> */}
             </span>
             <input type="submit" value="submit" />
           </form>

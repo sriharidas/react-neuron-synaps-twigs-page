@@ -33,6 +33,7 @@ body {
 #signup-form {
   width: 75%;
   max-height: 90%;
+  /* padding: 10px; */
   display: flex;
   overflow-y: scroll;
   justify-content: center;
@@ -42,6 +43,11 @@ body {
   flex-direction: column;
   background-color: #fff;
   box-sizing: border-box;
+  border-radius: 10px;
+  text-shadow: 1px 1px 0.5px #ccc;
+  box-shadow: 3px 3px 30px 15px #ccc inset;
+  border: 1px solid #777;
+  background: linear-gradient(0deg, #ddd, #e5e5e5, #f1f1f1, #fff);
 }
 
 #signup-form button.form-close {
@@ -95,7 +101,7 @@ body {
   grid-column-start: 1;
   grid-column-end: span 3;
   text-align: center;
-  margin: 15px 0 7px 0;
+  margin: 15px 0 20px 0;
   /* text-transform: capitalize; */
 }
 
@@ -119,7 +125,8 @@ body {
   border-radius: 5px;
   padding: 10px 15px;
   cursor: pointer;
-  background-color: transparent;
+  background-color: #000;
+  color: #fff;
   margin: 10px 0;
   font-size: inherit;
   border-bottom: 2px solid var(--border-primary-color);
@@ -127,7 +134,15 @@ body {
 #signup-form .form-footer input[type="submit"]:hover,
 #login-form input[type="submit"]:hover {
   background-color: #f1f1f1;
+  border: 2px solid #000;
+
   color: #333;
+}
+#signup-form .form-footer input[type="submit"]:disabled,
+#signup-form .form-footer input[type="submit"]:disabled:hover {
+  background-color: #ccc;
+  border-color: #fff;
+  color: #777;
 }
 /* Login Page */
 
@@ -136,6 +151,11 @@ body {
   background-color: #fff;
   color: #000;
   padding: 30px;
+  border-radius: 20px;
+  text-shadow: 1px 1px 0.5px #ccc;
+  box-shadow: 3px 3px 30px 20px #ccc inset;
+  border: 1px solid #777;
+  background: linear-gradient(0deg, #d5d5d5, #e5e5e5, #f1f1f1, #fff);
 }
 #login-form .form-header button {
   background-color: transparent;
