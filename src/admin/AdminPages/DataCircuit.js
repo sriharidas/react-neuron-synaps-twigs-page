@@ -3,7 +3,8 @@ import file from "./../../samplecsv.csv";
 import Animation from "./../../animation/Animation";
 export default function DataCircuit() {
   const [Data, setData] = useState({
-    userToken: localStorage.getItem("userToken"),
+    userToken:
+      "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
     // userToken: 123456,
     noOfItems: 0,
     list: {},
@@ -25,10 +26,13 @@ export default function DataCircuit() {
 
     const fileContent = event.target.result; // reading the content of the uploaded file
     console.log("This is content of the file : ", fileContent);
-    const data = fileContent.split("\n").slice(1); //spliting  the each array and return as array
-    finalItems.noOfItems = data.length - 1; // finding the number of rows
-    for (let i = 0; i < data.length - 1; i++) {
+
+    const data = fileContent.split("\n"); //spliting  the each array and return as array
+    data.pop();
+    finalItems.noOfItems = data.length; // finding the number of rows
+    for (let i = 0; i < data.length; i++) {
       finalItems.list[i] = data[i];
+      console.log(data[i]);
     }
     console.log(Data);
     setData((prevState) => ({
@@ -53,8 +57,9 @@ export default function DataCircuit() {
       noOfItems: Data.noOfItems,
       list: Data.list,
     };
-    console.log(Data);
-    console.log(JSON.stringify(Data));
+    console.log("State", Data);
+    console.log(data);
+    console.log(JSON.stringify(data));
     fetch("https://neuron-dev.herokuapp.com/user_property_database/movies/", {
       method: "post",
       headers: {
@@ -66,12 +71,12 @@ export default function DataCircuit() {
       .then((resp) => {
         if (resp.ok) console.log("request sucessful");
         else console.log("request failed");
+        document.getElementById("animation-container").style.visibility =
+          "hidden";
         return resp.json();
       })
       .then((resp) => {
         if (resp) {
-          document.getElementById("animation-container").style.visibility =
-            "hidden";
         }
         console.log(resp);
       })
