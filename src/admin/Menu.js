@@ -69,11 +69,11 @@ const MenuData = [
   //   title: "Settings",
   //   path: "/admin/settings",
   // },
-  // {
-  //   icon: <FaUserAlt />,
-  //   title: "User Profile",
-  //   path: "/admin/userprofile",
-  // },
+  {
+    icon: <FaUserAlt />,
+    title: "User Profile",
+    path: "/admin/userprofile",
+  },
 
   {
     icon: <FiLogIn />,
