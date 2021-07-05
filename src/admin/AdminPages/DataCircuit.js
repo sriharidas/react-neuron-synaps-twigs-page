@@ -5,8 +5,8 @@ export default function DataCircuit() {
   const [Data, setData] = useState({
     // userToken:
     //   "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
-    userToken: 12345,
-    // userToken: localStorage.getItem("userToken"),
+    // userToken: 12345,
+    userToken: localStorage.getItem("userToken"),
     noOfItems: 0,
     list: {},
   });
@@ -57,7 +57,8 @@ export default function DataCircuit() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userToken: 12345,
+          userToken: localStorage.getItem("userToken"),
+          // userToken: 12345,
         }),
       }
     )
@@ -67,6 +68,10 @@ export default function DataCircuit() {
         const userData = resp["result"];
         if (userData.length > 0) {
           document.getElementById("user-table").innerHTML = "";
+          const Header = document.createElement("H3");
+          Header.setAttribute("class", "user-data-title");
+          Header.append(document.createTextNode("Movies data"));
+          document.getElementById("user-table").append(Header);
           const tableContainer = document.createElement("TABLE");
           tableContainer.setAttribute("id", "user-table-list");
           const Headers = ["Movie name", "Released Year", "Genre"];
