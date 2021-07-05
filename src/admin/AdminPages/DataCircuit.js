@@ -3,9 +3,10 @@ import file from "./../../samplecsv.csv";
 import Animation from "./../../animation/Animation";
 export default function DataCircuit() {
   const [Data, setData] = useState({
-    userToken:
-      "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
-    // userToken: 123456,
+    // userToken:
+    //   "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
+    userToken: 12345,
+    // userToken: localStorage.getItem("userToken"),
     noOfItems: 0,
     list: {},
   });
@@ -47,27 +48,82 @@ export default function DataCircuit() {
     document
       .getElementById("fileInput")
       .addEventListener("change", handleFileSelect, false);
+    fetch(
+      "https://neuron-dev.herokuapp.com/user_property_database/movies/get",
+      {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userToken: 12345,
+        }),
+      }
+    )
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log(resp["result"]);
+        const userData = resp["result"];
+        if (userData.length > 0) {
+          document.getElementById("user-table").innerHTML = "";
+          const tableContainer = document.createElement("TABLE");
+          tableContainer.setAttribute("id", "user-table-list");
+          const Headers = ["Movie name", "Released Year", "Genre"];
+          const tableHeader = document.createElement("TR");
+          const tableHead = document.createElement("THEAD");
+          Headers.map((title, index) => {
+            const TableTitle = document.createElement("TH");
+            const TableTitleValue = document.createTextNode(title);
+            TableTitle.append(TableTitleValue);
+            tableHeader.append(TableTitle);
+            // console.log()
+          });
+          const tableBody = document.createElement("TBODY");
+          userData.map((value) => {
+            // console.log(value.split(",,"));
+            const tablerow = document.createElement("TR");
+            value.split(",,").map((data) => {
+              // console.log(data);
+              const tableData = document.createElement("TD");
+              tableData.append(document.createTextNode(data));
+              tablerow.append(tableData);
+            });
+            tableBody.append(tablerow);
+            console.log(tablerow);
+          });
+          // tableContainer.append(tableHeader);
+          tableHead.append(tableHeader);
+          tableContainer.append(tableHead);
+          tableContainer.append(tableBody);
+          document.getElementById("user-table").append(tableContainer);
+        }
+      });
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     document.getElementById("animation-container").style.visibility = "visible";
-    const data = {
+    const data = JSON.stringify({
       userToken: Data.userToken,
       noOfItems: Data.noOfItems,
       list: Data.list,
-    };
+    });
     console.log("State", Data);
     console.log(data);
     console.log(JSON.stringify(data));
-    fetch("https://neuron-dev.herokuapp.com/user_property_database/movies/", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+
+    fetch(
+      "https://neuron-dev.herokuapp.com/user_property_database/movies/post",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: data,
+      }
+    )
       .then((resp) => {
         if (resp.ok) console.log("request sucessful");
         else console.log("request failed");
@@ -85,20 +141,24 @@ export default function DataCircuit() {
   return (
     <>
       {/* <h2>Upload a</h2> */}
-      <form className="datacircuit-container" onSubmit={handleSubmit}>
-        <input type="file" id="fileInput" name=" fileInput" accept=".csv" />
-        <button type="submit" className="datacircuit-formbtn">
-          submit file
-        </button>
+      <div className="datacircuit-container">
+        <div id="user-table">No data to display</div>
+        {/* <hr /> */}
+        <form onSubmit={handleSubmit}>
+          <input type="file" id="fileInput" name=" fileInput" accept=".csv" />
+          <button type="submit" className="datacircuit-formbtn">
+            submit file
+          </button>
 
-        <div className="datacircuit-downloadtext">
-          Download sample csv&nbsp;
-          <a href={file} download className="datacircuit-downloadlink">
-            download
-          </a>
-        </div>
-        <Animation />
-      </form>
+          <div className="datacircuit-downloadtext">
+            Download sample csv&nbsp;
+            <a href={file} download className="datacircuit-downloadlink">
+              download
+            </a>
+          </div>
+          <Animation />
+        </form>
+      </div>
     </>
   );
 }

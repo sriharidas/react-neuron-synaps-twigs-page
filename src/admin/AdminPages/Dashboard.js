@@ -20,9 +20,9 @@ export default function Dashboard() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // token:
-          //   "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
-          token: localStorage.getItem("userToken"),
+          token:
+            "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
+          // token: localStorage.getItem("userToken"),
         }),
       }
     )

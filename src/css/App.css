@@ -9,6 +9,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 .upcoming {
   margin-left: 10px;
   position: absolute;
@@ -397,10 +398,64 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 200px);
-  justify-content: center;
+  min-height: calc(100vh - 200px);
+  justify-content: space-around;
   text-align: left;
 }
+#user-table {
+  width: 80%;
+  border-bottom: 1px solid #000;
+}
+#user-table::before {
+  content: "Movies Data";
+  font-size: 1.2rem;
+  padding-bottom: 5px;
+  border-bottom: 3px solid orange;
+  cursor: pointer;
+}
+#user-table > table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+#user-table table thead {
+  background-color: white;
+  color: orange;
+  text-align: center;
+}
+#user-table table tr td,
+#user-table table tr th {
+  padding: 15px 10px;
+}
+#user-table table tr {
+  border-bottom: 1px solid #dddddd;
+}
+#user-table table tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+#user-table table tr:last-of-type {
+  border-bottom: 2px solid orange;
+}
+#user-table table tbody tr:hover {
+  color: orange;
+  cursor: pointer;
+}
+.datacircuit-container > form {
+  width: 280px;
+  height: auto;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center;
+  margin-top: 30px;
+  align-items: center;
+}
+
 .datacircuit-formbtn {
   width: 290px;
   padding: 9px;
@@ -532,6 +587,17 @@ a {
   .dashboard-chart-container {
     width: 290px;
     /* height: 500px; */
+  }
+  #user-table {
+    width: 100%;
+    font-size: 0.75rem;
+    overflow: scroll;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  #user-table table tr td,
+  #user-table table tr th {
+    padding: 10px 0;
   }
 }
 @media (max-width: 540px) {

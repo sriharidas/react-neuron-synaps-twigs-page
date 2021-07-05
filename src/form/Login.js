@@ -41,7 +41,7 @@ export default function Login({ open, setState, redirect }) {
           console.log("valid login");
           // <Redirect to="/admin" />;
           // document.getElementById("animation-container").style.display = "none";
-
+          localStorage.setItem("userToken", resp["token"]);
           history.push("/admin");
         } else {
           console.warn("invalid login");
@@ -49,7 +49,12 @@ export default function Login({ open, setState, redirect }) {
           //   "Invalid username or password";
           // document.getElementById("animation-container").style.display = "none";
 
-          alert("Invalid username or password");
+          // alert("Invalid username or password");
+          document.getElementById("error-msg").innerHTML =
+            "Invalid Username or Password";
+          document.getElementById("error-msg").style = {
+            padding: "10px",
+          };
         }
       });
   };
@@ -65,6 +70,8 @@ export default function Login({ open, setState, redirect }) {
           </div>
 
           <form onSubmit={handleSubmit} method="post">
+            <p id="error-msg"></p>
+
             {LoginValues.map((field) => (
               <Input
                 type={field["type"]}
@@ -76,7 +83,6 @@ export default function Login({ open, setState, redirect }) {
                 onChange={handleChange}
               />
             ))}
-            {/* <p id="error-msg">Error</p> */}
             <span id="forget-pwd">
               {/* <a href="#">Forget Password?</a> */}
             </span>

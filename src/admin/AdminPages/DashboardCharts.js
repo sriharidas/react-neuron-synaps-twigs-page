@@ -12,7 +12,7 @@ export default function DashboardCharts() {
       {
         method: "POST",
         body: JSON.stringify({
-          token: 12345,
+          token: localStorage.getItem("userToken"),
           range: 7,
         }),
         headers: {
@@ -23,10 +23,12 @@ export default function DashboardCharts() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        setChartData({
-          xData: response["daysList"].reverse(),
-          yData: response["APIrequests"].reverse(),
-        });
+        if (response) {
+          setChartData({
+            xData: response["daysList"].reverse(),
+            yData: response["APIrqquests"].reverse(),
+          });
+        }
       });
   }, []);
 
