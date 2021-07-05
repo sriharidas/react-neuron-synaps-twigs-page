@@ -39,10 +39,21 @@ export default function Login({ open, setState, redirect }) {
         console.log("Login Response", resp);
         if (resp["token"]) {
           console.log("valid login");
-          // <Redirect to="/admin" />;
-          // document.getElementById("animation-container").style.display = "none";
-          localStorage.setItem("userToken", resp["token"]);
-          history.push("/admin");
+          fetch("https://neuron-dev.herokuapp.com/security/usertoken/get", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: loginDetails.username,
+            }),
+          })
+            .then((resp) => resp.json())
+            .then((resp) => {
+              console.log("key", resp);
+              localStorage.setItem("userToken", resp["Token"]);
+              history.push("/admin");
+            });
         } else {
           console.warn("invalid login");
           // document.getElementById("error-msg").innerHTML =

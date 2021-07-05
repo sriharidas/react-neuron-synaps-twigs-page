@@ -115,7 +115,7 @@ export default function Signup({ open, setState, redirect }) {
         setError(false);
       }
       // Domain validation
-      if (document.getElementById("CustomerDomain").value.length > 5) {
+      if (document.getElementById("CustomerDomain").value.length > 50) {
         document.getElementById("CustomerDomain-error").innerHTML =
           "characater limt reached";
         setError(true);
@@ -252,10 +252,10 @@ export default function Signup({ open, setState, redirect }) {
               console.log("successful request");
               document.getElementById("animation-container").style.visibility =
                 "hidden";
+              document.getElementById("alert-message").innerHTML =
+                "Account Created";
+              document.getElementById("alert-message").style.padding = "10px";
               setTimeout(() => {
-                document.getElementById("alert-message").innerHTML =
-                  "Account Created";
-                document.getElementById("alert-message").style.padding = "10px";
                 setState(false);
                 redirect(true);
               }, 10000);
