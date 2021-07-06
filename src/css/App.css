@@ -28,7 +28,9 @@ a {
 
 .main {
   background-color: black;
-  /* height: 200vh; */
+  width: 100vw;
+  overflow-x: hidden;
+  height: fit-content;
 }
 .header-container {
   position: absolute;
@@ -415,11 +417,14 @@ a {
   border-bottom: 3px solid orange;
   cursor: pointer;
 } */
+/* #user-table::before {
+  content: "<GrAdd/>";
+} */
 #user-table > table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   width: 100%;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -485,7 +490,7 @@ a {
   margin: 20px auto;
   background-color: white;
   text-align: left;
-  border-left: 5px solid rgb(116, 116, 233);
+  /* border-left: 5px solid rgb(116, 116, 233); */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -497,14 +502,18 @@ a {
   color: rgb(78, 71, 71);
   outline: none;
   border: 0px;
-  padding: 10px;
-  border-bottom: 2px solid green;
+  border: 1px solid #ddd;
+  /* border-bottom: 2px solid green;   */
   font-size: 18px;
   display: block;
-  border-radius: 10px;
-  letter-spacing: 1.5px;
+  border-radius: 4px;
+  padding: 15px;
+  /* letter-spacing: 1.2px; */
 }
-
+.user-profile input:hover {
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
 .user-profile form label {
   /* text-align: left */
   padding: 10px;
@@ -519,6 +528,10 @@ a {
   background-color: transparent;
   border: none;
   font-size: 1.1rem;
+}
+.user-profile-pwd > button :hover {
+  cursor: pointer;
+  color: #333;
 }
 .userprofile-form-groups {
   margin: 20px;

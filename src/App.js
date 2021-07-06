@@ -60,67 +60,69 @@ function App() {
     },
   ];
   return (
-    <div className="main">
+    <>
       <Particles
         params={particles_params}
         height="100vh"
         style={{ position: "fixed" }}
       />
-      <div className="header-container">
-        <div className="header-logo">
-          <img src={logo} alt="logo" />
-        </div>
+      <div className="main">
+        <div className="header-container">
+          <div className="header-logo">
+            <img src={logo} alt="logo" />
+          </div>
 
-        <ul className="header-nav">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a
-              href="#"
-              onMouseOver={() =>
-                (document.querySelector(".upcoming").style.visibility =
-                  "visible")
-              }
-              onMouseOut={() =>
-                (document.querySelector(".upcoming").style.visibility =
-                  "hidden")
-              }
-              style={{ cursor: "not-allowed" }}
-            >
-              Documentation
-            </a>
-          </li>
-          <div className="upcoming">Documentation coming soon</div>
-          {/* <li>
+          <ul className="header-nav">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onMouseOver={() =>
+                  (document.querySelector(".upcoming").style.visibility =
+                    "visible")
+                }
+                onMouseOut={() =>
+                  (document.querySelector(".upcoming").style.visibility =
+                    "hidden")
+                }
+                style={{ cursor: "not-allowed" }}
+              >
+                Documentation
+              </a>
+            </li>
+            <div className="upcoming">Documentation coming soon</div>
+            {/* <li>
             <a href="#" className="header-btn-1" onClick={() => setLogin(true)}>
               Get Authorized
             </a>
           </li> */}
-        </ul>
+          </ul>
 
-        <button className="header-btn" onClick={() => setLogin(true)}>
-          Get Authorized
-        </button>
-      </div>
-      <p className="header-main-content">
-        World's First AI Based Backend API System For Recommendation
-      </p>
+          <button className="header-btn" onClick={() => setLogin(true)}>
+            Get Authorized
+          </button>
+        </div>
+        <p className="header-main-content">
+          World's First AI Based Backend API System For Recommendation
+        </p>
 
-      <div className="main-section-group">
-        {dashboardData.map((data) => (
-          <Dashboard
-            title={data.title}
-            icon={data.icon}
-            values={data.value}
-            styles={data.styles}
-          />
-        ))}
+        <div className="main-section-group">
+          {dashboardData.map((data) => (
+            <Dashboard
+              title={data.title}
+              icon={data.icon}
+              values={data.value}
+              styles={data.styles}
+            />
+          ))}
+        </div>
+        <Animation />
+        <Signup open={signup} setState={setSignup} redirect={setLogin} />
+        <Login open={login} setState={setLogin} redirect={setSignup} />
       </div>
-      <Animation />
-      <Signup open={signup} setState={setSignup} redirect={setLogin} />
-      <Login open={login} setState={setLogin} redirect={setSignup} />
-    </div>
+    </>
   );
 }
 

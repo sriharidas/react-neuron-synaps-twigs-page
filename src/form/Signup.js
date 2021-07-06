@@ -4,6 +4,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import Input from "./components/Input";
 import Select from "./components/Select";
 import signupFields from "./components/values";
+import { GiCondorEmblem } from "react-icons/gi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { MdErrorOutline } from "react-icons/md";
 export default function Signup({ open, setState, redirect }) {
   //   const [signup, setsignup] = useState(open);
   const init = {
@@ -35,6 +38,8 @@ export default function Signup({ open, setState, redirect }) {
     email: "",
     password: "",
   });
+  const [Status, SetStatus] = useState(false);
+
   const [error, setError] = useState(false);
   useEffect(() => {
     if (document.getElementById("signup-btn")) {
@@ -104,7 +109,26 @@ export default function Signup({ open, setState, redirect }) {
         document.getElementById("email-error").innerHTML = "";
         setError(false);
       }
-
+      if (
+        document.getElementById("password1").value !== "" &&
+        document.getElementById("password1").value.length < 8
+      ) {
+        document.querySelector(".password1-error").innerHTML =
+          "Enter atleast 8 characters";
+        setError(false);
+      } else {
+        setError(true);
+      }
+      if (
+        document.getElementById("password2").value !== "" &&
+        document.getElementById("password2").value.length < 8
+      ) {
+        document.querySelector(".password2-error").innerHTML =
+          "Enter atleast 8 characters";
+        setError(false);
+      } else {
+        setError(true);
+      }
       // company name validation
       if (document.getElementById("userCompanyName").value.length > 25) {
         document.getElementById("userCompanyName-error").innerHTML =
@@ -218,27 +242,48 @@ export default function Signup({ open, setState, redirect }) {
         return response.json();
       })
       .then((resp) => {
-        status = 1;
-        console.log(resp);
-        localStorage.setItem("userToken", resp["token"]);
-        setSignupDeatils((prevState) => ({
-          ...prevState,
-          username: resp["user"]["username"],
-          knoxTablePassword: resp["user"]["password"],
-          userToken: resp["token"],
-        }));
-        // console.log(resp["user"]["password"], resp["token"]);
-        // console.log("register", signupDetails);
-        AccData["knoxTablePassword"] = resp["user"]["password"];
-        AccData["userToken"] = resp["token"];
-        AccData["userName"] = resp["user"]["username"];
-        AccData["knoxTableId"] = resp["user"]["id"];
-      });
+        if (resp["token"] !== undefined) {
+          status = 1;
+          console.log(resp);
+          localStorage.setItem("userToken", resp["token"]);
+          setSignupDeatils((prevState) => ({
+            ...prevState,
+            username: resp["user"]["username"],
+            knoxTablePassword: resp["user"]["password"],
+            userToken: resp["token"],
+          }));
+          // console.log(resp["user"]["password"], resp["token"]);
+          // console.log("register", signupDetails);
+          AccData["knoxTablePassword"] = resp["user"]["password"];
+          AccData["userToken"] = resp["token"];
+          AccData["userName"] = resp["user"]["username"];
+          AccData["knoxTableId"] = resp["user"]["id"];
+          SetStatus(true);
+        } else {
+          status = 0;
+          SetStatus(false);
+          document.getElementById("animation-container").style.visibility =
+            "hidden";
+          console.warn(resp);
+          document.querySelector(".alert-message-container").style.display =
+            "flex";
+          document.querySelector(".alert-message").style.color = "#f00";
+          document.querySelector(".alert-text").innerHTML = Object.values(
+            resp
+          )[0];
+          document.getElementById("alert-message").style.color = "#ff0000";
+          setTimeout(() => {
+            document.querySelector(".alert-message-container").style.display =
+              "none";
+          }, 10000);
+        }
+      })
+      .catch((e) => console.warn(e));
     // .catch((e) => alert(e));
     // console.log(status);
-
+    console.log("show: ", status);
     const timer = setInterval(() => {
-      if (status === 1) {
+      if (status) {
         clearInterval(timer);
         fetch("https://neuron-dev.herokuapp.com/accounts/details/", {
           method: "POST",
@@ -248,25 +293,41 @@ export default function Signup({ open, setState, redirect }) {
           body: JSON.stringify(AccData),
         })
           .then((response) => {
+            document.querySelector(".alert-message-container").style.display =
+              "flex";
             if (response.ok) {
               console.log("successful request");
               document.getElementById("animation-container").style.visibility =
                 "hidden";
-              document.getElementById("alert-message").innerHTML =
+              document.querySelector(".alert-message").style.color = "#0f0";
+              document.querySelector(".alert-text").innerHTML =
                 "Account Created";
-              document.getElementById("alert-message").style.padding = "10px";
               setTimeout(() => {
+                document.querySelector(
+                  ".alert-message-container"
+                ).style.display = "none";
                 setState(false);
                 redirect(true);
               }, 10000);
             } else {
               console.warn("request t acc deatils failed");
-              document.getElementById("alert-message").innerHTML =
-                "Failed to create an account";
-              document.getElementById("alert-message").style.padding = "10px";
-              document.getElementById("alert-message").style.background =
-                "#ff000044";
+              document.getElementById("animation-container").style.visibility =
+                "hidden";
+              console.warn(response);
+              document.querySelector(".alert-message-container").style.display =
+                "flex";
+              document.querySelector(".alert-message").style.color = "#f00";
+              document.querySelector(".alert-text").innerHTML = Object.values(
+                response
+              )[0];
               document.getElementById("alert-message").style.color = "#ff0000";
+              setTimeout(
+                () =>
+                  (document.querySelector(
+                    ".alert-message-container"
+                  ).style.display = "none"),
+                10000
+              );
             }
             return response.json();
           })
@@ -287,15 +348,20 @@ export default function Signup({ open, setState, redirect }) {
               <AiOutlineClose />
             </button>
           </div>
-          <div
-            style={{
-              background: "#00ff0044",
-              width: "97%",
-              // padding: "10px",
-              color: "green",
-            }}
-            id="alert-message"
-          ></div>
+          <div className="alert-message-container">
+            <div id="alert-message" className="alert-message">
+              <span className="alert-message-icon">
+                {/* <AiOutlineCheckCircle /> */}
+                {Status === true ? (
+                  <AiOutlineCheckCircle />
+                ) : (
+                  <MdErrorOutline />
+                )}
+              </span>
+              <span className="alert-text">{/* Account Created */}</span>
+              {/* Account Created */}
+            </div>
+          </div>
           <form method="post" onSubmit={handleSubmit}>
             {signupFields.map((field) => {
               const element = field["Element"] === "input" ? "input" : "select";

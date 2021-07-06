@@ -13,7 +13,7 @@ export default function Dashboard() {
   });
   useEffect(() => {
     fetch(
-      "http://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_API_req/get",
+      "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_API_req/get",
       {
         method: "post",
         headers: {
