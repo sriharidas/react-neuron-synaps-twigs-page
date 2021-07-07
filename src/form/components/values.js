@@ -1,3 +1,4 @@
+import DependencyList from "./DependencyList.js";
 import {
   servicesValues,
   noEmployees,
@@ -8,7 +9,33 @@ import {
   ApxCust,
   YourServiceType,
 } from "./Options.js";
-
+const DependencyListData = [
+  {
+    Element: "select",
+    value: servicesValues,
+    label: "Service required",
+    id: "OurServiseRequired",
+    name: "OurServiseRequired",
+    placeholder: "Service required?",
+  },
+  {
+    Element: "select",
+    value: YourServiceType,
+    label: "Your App Service Type",
+    id: "YourServiceType",
+    name: "YourServiceType",
+    placeholder: "Eselect the Field of the App",
+    disabled: true,
+  },
+  {
+    Element: "select",
+    value: FieldValues,
+    label: "Field of the app",
+    id: "FieldOfCustomerApp",
+    name: "FieldOfCustomerApp",
+    placeholder: "Eselect the Field of the App",
+  },
+];
 const signupFields = [
   {
     Element: "input",
@@ -106,31 +133,65 @@ const signupFields = [
     name: "ContactNumber",
     placeholder: "Enter Your Contact number",
   },
+  // {
+  //   type: "dependancy list",
+  //   value: [
+  //     {
+  //       Element: "select",
+  //       value: servicesValues,
+  //       label: "Service required",
+  //       id: "OurServiseRequired",
+  //       name: "OurServiseRequired",
+  //       placeholder: "Service required?",
+  //     },
+  //     {
+  //       Element: "select",
+  //       value: YourServiceType,
+  //       label: "Your App Service Type",
+  //       id: "YourServiceType",
+  //       name: "YourServiceType",
+  //       placeholder: "Eselect the Field of the App",
+  //       disabled: true,
+  //     },
+  //     {
+  //       Element: "select",
+  //       value: FieldValues,
+  //       label: "Field of the app",
+  //       id: "FieldOfCustomerApp",
+  //       name: "FieldOfCustomerApp",
+  //       placeholder: "Eselect the Field of the App",
+  //     },
+  //   ],
+  // },
   {
-    Element: "select",
-    value: servicesValues,
-    label: "Service required",
-    id: "OurServiseRequired",
-    name: "OurServiseRequired",
-    placeholder: "Service required?",
-  },
-  {
-    Element: "select",
-    value: YourServiceType,
-    label: "Your App Service Type",
-    id: "YourServiceType",
-    name: "YourServiceType",
-    placeholder: "Eselect the Field of the App",
-    disabled: true,
-  },
-  {
-    Element: "select",
-    value: FieldValues,
-    label: "Field of the app",
-    id: "FieldOfCustomerApp",
-    name: "FieldOfCustomerApp",
-    placeholder: "Eselect the Field of the App",
-  },
+    Element: "list",
+    type: "list",
+    data: DependencyListData,
+  }, // {,
+  //   Element: "select",
+  //   value: servicesValues,
+  //   label: "Service required",
+  //   id: "OurServiseRequired",
+  //   name: "OurServiseRequired",
+  //   placeholder: "Service required?",
+  // },
+  // {
+  //   Element: "select",
+  //   value: YourServiceType,
+  //   label: "Your App Service Type",
+  //   id: "YourServiceType",
+  //   name: "YourServiceType",
+  //   placeholder: "Eselect the Field of the App",
+  //   disabled: true,
+  // },
+  // {
+  //   Element: "select",
+  //   value: FieldValues,
+  //   label: "Field of the app",
+  //   id: "FieldOfCustomerApp",
+  //   name: "FieldOfCustomerApp",
+  //   placeholder: "Eselect the Field of the App",
+  // },
   {
     Element: "input",
     type: "text",
@@ -148,6 +209,7 @@ const signupFields = [
     placeholder: "How do you know us?",
   },
 ];
+
 export const LoginValues = [
   {
     Element: "input",

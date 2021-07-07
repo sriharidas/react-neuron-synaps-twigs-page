@@ -7,6 +7,8 @@ import signupFields from "./components/values";
 import { GiCondorEmblem } from "react-icons/gi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { MdErrorOutline } from "react-icons/md";
+import DependencyList from "./components/DependencyList";
+
 export default function Signup({ open, setState, redirect }) {
   //   const [signup, setsignup] = useState(open);
   const init = {
@@ -43,6 +45,7 @@ export default function Signup({ open, setState, redirect }) {
   const [error, setError] = useState(false);
   useEffect(() => {
     if (document.getElementById("signup-btn")) {
+      document.getElementById("ContactNumber").required = false;
       if (!error && signupDetails.AgreementStatus === true) {
         document.getElementById("signup-btn").disabled = false;
         console.log(document.getElementById("signup-btn"));
@@ -364,7 +367,7 @@ export default function Signup({ open, setState, redirect }) {
           </div>
           <form method="post" onSubmit={handleSubmit}>
             {signupFields.map((field) => {
-              const element = field["Element"] === "input" ? "input" : "select";
+              const element = field["Element"];
               // console.log(field["Element"], element);
               return element === "input" ? (
                 <Input
@@ -386,7 +389,9 @@ export default function Signup({ open, setState, redirect }) {
                   onChange={HandleUpdate}
                   disabled={field["disabled"]}
                 />
-              ) : null;
+              ) : (
+                <DependencyList onChange={HandleUpdate} data={field["data"]} />
+              );
             })}
 
             <div className="form-footer">

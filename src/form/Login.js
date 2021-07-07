@@ -39,6 +39,8 @@ export default function Login({ open, setState, redirect }) {
         console.log("Login Response", resp);
         if (resp["token"]) {
           console.log("valid login");
+          // localStorage.setItem("userToken", resp["Token"]);
+          // history.push("/admin");
           fetch("https://neuron-dev.herokuapp.com/security/usertoken/get", {
             method: "POST",
             headers: {

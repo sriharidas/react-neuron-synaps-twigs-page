@@ -378,11 +378,12 @@ a {
   text-align: center;
 }
 .dashboard-chart-container {
-  width: 60%;
+  width: 65%;
   margin-top: 60px;
   padding: 20px;
   flex-basis: 1;
   margin-right: auto;
+  margin-left: auto;
   background-color: #fff;
   /* border: 1px solid #000; */
 }
@@ -392,9 +393,13 @@ a {
   /* margin-top: -50px; */
 }
 .dashboard-chart {
-  width: inherit;
+  width: 80%;
+  height: 50%;
 }
-
+.dashboard-chart canvas {
+  width: inherit;
+  height: inherit;
+}
 /* Data Circuit */
 .datacircuit-container {
   display: flex;

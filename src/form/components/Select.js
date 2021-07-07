@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Select({ name, id, label, value, onChange, disabled }) {
-  console.log(disabled);
+  // console.log(id, value);
   return (
     <>
       <div className="form-groups">
@@ -10,6 +10,7 @@ export default function Select({ name, id, label, value, onChange, disabled }) {
           placeholder="select a option"
           name={name}
           onChange={onChange}
+          id={id}
           required
         >
           <option value="none">none</option>

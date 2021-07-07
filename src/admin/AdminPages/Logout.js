@@ -9,7 +9,7 @@ export default function Logout() {
     }, 1000);
 
     // console.log(token, typeof token);
-    // localStorage.removeItem("userToken");
+    localStorage.removeItem("userToken");
 
     // fetch("https://neuron-dev.herokuapp.com/security/logout", {
     //   method: "POST",
