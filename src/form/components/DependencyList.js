@@ -16,8 +16,8 @@ export default function DependencyList({ data, onChange }) {
 
   const UpdateState = () => {
     const primaryField = document.getElementById("OurServiseRequired");
-    const secondaryField = document.getElementById("YourServiceType");
-    const TeritaryField = document.getElementById("FieldOfCustomerApp");
+    // const secondaryField = document.getElementById("YourServiceType");
+    // const TeritaryField = document.getElementById("FieldOfCustomerApp");
 
     if (primaryField !== null) {
       SetPrimaryData(primaryField.value);
@@ -32,8 +32,8 @@ export default function DependencyList({ data, onChange }) {
           FieldOfCustomerApp: ["movie", "song"],
         }));
         // Disabling songs
-        TeritaryField.options[2].disabled = true;
-        TeritaryField.options[1].disabled = false;
+        // TeritaryField.options[2].disabled = true;
+        // TeritaryField.options[1].disabled = false;
       } else if (
         document.getElementById("OurServiseRequired").value === "Suggestion"
       ) {
@@ -42,8 +42,8 @@ export default function DependencyList({ data, onChange }) {
           YourServiceType: ["Informational"],
           FieldOfCustomerApp: ["education"],
         }));
-        TeritaryField.options[1].disabled = true;
-        secondaryField.options[1].disabled = true;
+        // TeritaryField.options[1].disabled = true;
+        // secondaryField.options[1].disabled = true;
       } else {
         setData((prevState) => ({
           ...prevState,

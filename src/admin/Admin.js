@@ -7,10 +7,10 @@ export default function Admin() {
   const [title, SetTitle] = useState("Dashboard");
   // alert(window.innerWidth);
   window.addEventListener("resize", () => {
-    window.innerWidth <= 840 ? setMenu(false) : setMenu(true);
+    window.innerWidth <= 540 ? setMenu(false) : setMenu(true);
   });
   useEffect(() => {
-    if (window.innerWidth >= 540) {
+    if (window.innerWidth >= 840) {
       if (!menu) {
         document.querySelector(".admin-right-container").style = {
           width: "100%",

@@ -104,10 +104,14 @@ function App() {
             Get Authorized
           </button>
         </div>
-        <p className="header-main-content">
-          World's First AI Based Backend API System For Recommendation
-        </p>
-
+        <div className="header-main-container">
+          <div className="header-main-content-1">
+            <p>World's First AI Based Backend API System For Recommendation</p>
+          </div>
+          <div className="header-main-content-2">
+            <p>World's Second AI Based Backend API System For Suggestion</p>
+          </div>
+        </div>
         <div className="main-section-group">
           {dashboardData.map((data) => (
             <Dashboard

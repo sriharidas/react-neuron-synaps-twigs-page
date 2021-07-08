@@ -74,7 +74,24 @@ export default function Dashboard() {
           </div>
         </div>
       ))}
-      <DashboardCharts />
+      <div className="dashboard-chart-grid">
+        <DashboardCharts
+          url={
+            "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_API_req_graph/get_data"
+          }
+          range={7}
+          borderColor={"#3a3aff88"}
+          label={"Number of api Requests"}
+        />
+        <DashboardCharts
+          url={
+            "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_customers_req_graph/get_data"
+          }
+          range={7}
+          borderColor={"#3aff3a88"}
+          label={"Number of customers Requests"}
+        />
+      </div>
     </div>
   );
 }

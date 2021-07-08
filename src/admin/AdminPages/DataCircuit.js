@@ -71,6 +71,7 @@ export default function DataCircuit() {
         .then((resp) => {
           console.log(resp["result"]);
           const userData = resp["result"];
+          console.log(resp);
           document.getElementById("animation-container").style.visibility =
             "hidden";
           if (userData.length > 0) {
