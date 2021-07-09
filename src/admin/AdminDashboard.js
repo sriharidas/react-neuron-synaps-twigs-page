@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { IoIosNotifications } from "react-icons/io";
-import Dashboard from "./AdminPages/Dashboard";
+import Dashboard from "./AdminPages/Dashboard/Dashboard";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import DataCircuit from "./AdminPages/DataCircuit";
 import Logout from "./AdminPages/Logout";

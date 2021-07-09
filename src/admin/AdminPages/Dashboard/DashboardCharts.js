@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-export default function DashboardCharts({ url, range, borderColor, label }) {
+export default function DashboardCharts({
+  url,
+  range,
+  borderColor,
+  label,
+  title,
+}) {
   const [chartData, setChartData] = useState({
     xData: "",
     yData: "",
@@ -31,6 +37,7 @@ export default function DashboardCharts({ url, range, borderColor, label }) {
 
   return (
     <div className="dashboard-chart-container">
+      <h2 className="dashboard-chart-title">{title}</h2>
       <Line
         data={{
           labels: chartData.xData,

@@ -4,6 +4,7 @@ import { GiOffshorePlatform } from "react-icons/gi";
 import { FiLogIn } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
 import DashboardCharts from "./DashboardCharts";
+import DashboardFeed from "./DashboardFeed";
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState({
     noOfRequests: "",
@@ -74,23 +75,36 @@ export default function Dashboard() {
           </div>
         </div>
       ))}
-      <div className="dashboard-chart-grid">
-        <DashboardCharts
-          url={
-            "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_API_req_graph/get_data"
-          }
-          range={7}
-          borderColor={"#3a3aff88"}
-          label={"Number of api Requests"}
-        />
-        <DashboardCharts
-          url={
-            "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_customers_req_graph/get_data"
-          }
-          range={7}
-          borderColor={"#3aff3a88"}
-          label={"Number of customers Requests"}
-        />
+      <div className="dashboard-chart-grid-container">
+        <h2 className="dashboard-chart-grid-title">Requests</h2>
+        <div className="dashboard-chart-grid">
+          <DashboardCharts
+            url={
+              "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_API_req_graph/get_data"
+            }
+            range={7}
+            borderColor={"#3a3aff88"}
+            label={"Number of api Requests"}
+            title="Number of Api Requests"
+          />
+          <DashboardCharts
+            url={
+              "https://neuron-dev.herokuapp.com/accounts/admin_panel/no_of_customers_req_graph/get_data"
+            }
+            range={7}
+            borderColor={"#3aff3a88"}
+            label={"Number of customers Requests"}
+            title="Number of Customers"
+          />
+        </div>
+      </div>
+
+      <div className="dashboard-feed">
+        <h2 className="dashboard-primary-title ">Trending</h2>
+        <div className="dashbaord-feed-wrapper">
+          <DashboardFeed />
+          {/* <DashboardFeed /> */}
+        </div>
       </div>
     </div>
   );
