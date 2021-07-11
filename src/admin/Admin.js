@@ -7,7 +7,8 @@ export default function Admin() {
   const [title, SetTitle] = useState("Dashboard");
   // alert(window.innerWidth);
   window.addEventListener("resize", () => {
-    window.innerWidth <= 540 ? setMenu(false) : setMenu(true);
+    window.innerWidth >= 840 ? setMenu(true) : setMenu(false);
+    // setMenu(false);
   });
   useEffect(() => {
     if (window.innerWidth >= 840) {
@@ -20,6 +21,11 @@ export default function Admin() {
         document.querySelector(".admin-right-container").style.marginLeft =
           "300px";
       }
+    } else {
+      document.querySelector(".admin-right-container").style = {
+        width: "100%",
+        marginLeft: "0",
+      };
     }
   });
   return (

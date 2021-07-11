@@ -15,7 +15,7 @@
   visibility: hidden;
   align-content: center;
   color: #fff;
-  z-index: 20000;
+  z-index: 1000;
 }
 
 #loading-container {

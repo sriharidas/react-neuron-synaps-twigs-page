@@ -116,10 +116,10 @@ export default function DataCircuit() {
           }
         });
     }
-  }, []);
+  }, [setUploadMovie]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     document.getElementById("animation-container").style.visibility = "visible";
     const data = JSON.stringify({
       userToken: Data.userToken,

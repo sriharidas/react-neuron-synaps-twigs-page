@@ -53,7 +53,7 @@ export default function Dashboard() {
     },
     {
       title: "Number of Countries",
-      value: dashboard.noOfCountries,
+      value: dashboard.noOfCustomers,
       styles: "dashboard-top-header-left dashboard-top-header-left-3",
       icon: <FaUsers />,
     },

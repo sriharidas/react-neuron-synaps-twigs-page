@@ -12,6 +12,7 @@ import { BsClipboardData } from "react-icons/bs";
 import { GiOffshorePlatform } from "react-icons/gi";
 // import { FiLogIn } from "react-icons/fi";
 import { VscServerProcess } from "react-icons/vsc";
+import { IoIosArrowUp } from "react-icons/io";
 import "./css/animation.css";
 import Animation from "./animation/Animation";
 function App() {
@@ -63,7 +64,7 @@ function App() {
     <>
       <Particles
         params={particles_params}
-        height="100vh"
+        // height="inherit"
         style={{ position: "fixed" }}
       />
       <div className="main">
@@ -77,27 +78,10 @@ function App() {
               <a href="#">Home</a>
             </li>
             <li>
-              <a
-                href="#"
-                onMouseOver={() =>
-                  (document.querySelector(".upcoming").style.visibility =
-                    "visible")
-                }
-                onMouseOut={() =>
-                  (document.querySelector(".upcoming").style.visibility =
-                    "hidden")
-                }
-                style={{ cursor: "not-allowed" }}
-              >
+              <a href="#" style={{ cursor: "not-allowed" }} disabled>
                 Documentation
               </a>
             </li>
-            <div className="upcoming">Documentation coming soon</div>
-            {/* <li>
-            <a href="#" className="header-btn-1" onClick={() => setLogin(true)}>
-              Get Authorized
-            </a>
-          </li> */}
           </ul>
 
           <button className="header-btn" onClick={() => setLogin(true)}>
@@ -113,14 +97,36 @@ function App() {
           </div>
         </div>
         <div className="main-section-group">
-          {dashboardData.map((data) => (
-            <Dashboard
-              title={data.title}
-              icon={data.icon}
-              values={data.value}
-              styles={data.styles}
-            />
-          ))}
+          <div className="main-section-cards-1">
+            {dashboardData.map((data) => (
+              <Dashboard
+                title={data.title}
+                icon={data.icon}
+                values={data.value}
+                styles={data.styles}
+              />
+            ))}
+          </div>
+
+          <div className="main-section-2-container">
+            <div className="main-section-2-header">
+              <span>
+                <IoIosArrowUp />
+              </span>
+            </div>
+            <h2 className="main-section-2-title">Why Neuron?</h2>
+            <div className="main-section-2-content">
+              {/* <div className="main-section-2-cards">Free to use</div>
+              <div className="main-section-2-cards">Free to use</div>
+              <div className="main-section-2-cards">Free to use</div>
+              <div className="main-section-2-cards">Free to use</div>
+              <div className="main-section-2-cards">Free to use</div>
+              <div className="main-section-2-cards">Free to use</div> */}
+              {Menucards2.map((card) => (
+                <div className={card.style}>{card.content}</div>
+              ))}
+            </div>
+          </div>
         </div>
         <Animation />
         <Signup open={signup} setState={setSignup} redirect={setLogin} />
@@ -131,3 +137,30 @@ function App() {
 }
 
 export default App;
+
+const Menucards2 = [
+  {
+    content: "Free to use",
+    style: "main-section-2-cards main-section-2-cards-1",
+  },
+  {
+    content: "Recommendation for everything",
+    style: "main-section-2-cards main-section-2-cards-2",
+  },
+  {
+    content: "Easy to use",
+    style: "main-section-2-cards main-section-2-cards-3",
+  },
+  {
+    content: "Powerful AI recommendation",
+    style: "main-section-2-cards main-section-2-cards-4",
+  },
+  {
+    content: "Wonderful documentation",
+    style: "main-section-2-cards main-section-2-cards-5",
+  },
+  {
+    content: "High Control",
+    style: "main-section-2-cards main-section-2-cards-6",
+  },
+];

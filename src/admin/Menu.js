@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./../css/App.css";
 import { RiDashboardFill } from "react-icons/ri";
 import { FaUserAlt, FaBell } from "react-icons/fa";
@@ -11,7 +11,32 @@ import { AiOutlineClose, AiFillSetting } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
 export default function Menu({ state, setState, setTitle }) {
+  const [activeLink, setActivateLink] = useState("");
   const history = useHistory();
+  useEffect(() => {
+    if (
+      state &&
+      document.getElementById(activeLink) !== "" &&
+      activeLink !== ""
+    ) {
+      console.log(document.getElementById(activeLink));
+      console.log(MenuData);
+
+      MenuData.map((element) => {
+        // hover effect
+        // document.getElementById(element.id).onhover = () => {
+        //   console.log("hovering", element.id);
+        // };
+        // active link
+        console.log(element.id === activeLink, element.id, activeLink);
+        document.getElementById(element.id).style.cssText =
+          "background:inherit;color: #000";
+      });
+      console.log("Target", document.getElementById(activeLink));
+      document.getElementById(activeLink).style.cssText =
+        "background:#3a3aff;color: #fff";
+    }
+  });
   return (
     state && (
       <div className="admin-left-container">
@@ -26,16 +51,18 @@ export default function Menu({ state, setState, setTitle }) {
         </div>
         <div className="admin-left-nav">
           {MenuData.map((item) => (
-            <div
+            <a
               className="admin-left-nav-group"
               onClick={() => {
                 history.push(item.path);
                 setTitle(item.title);
+                setActivateLink(item.id);
               }}
+              id={item.id}
             >
               <span className="admin-left-nav-icon">{item.icon}</span>
-              <div className="admin-left-nav-item">{item.title}</div>
-            </div>
+              <span className="admin-left-nav-item">{item.title}</span>
+            </a>
           ))}
         </div>
       </div>
@@ -48,6 +75,7 @@ const MenuData = [
     icon: <RiDashboardFill />,
     title: "Dashboard",
     path: "/admin/",
+    id: "menu-dashboard",
   },
   // {
   //   icon: <FaBell />,
@@ -58,6 +86,7 @@ const MenuData = [
     icon: <FiDatabase />,
     title: "Data Circuit",
     path: "/admin/datacircuit",
+    id: "menu-datacircuit",
   },
   // {
   //   icon: <SiFirebase />,
@@ -73,11 +102,13 @@ const MenuData = [
     icon: <FaUserAlt />,
     title: "User Profile",
     path: "/admin/userprofile",
+    id: "menu-userprofile",
   },
 
   {
     icon: <FiLogIn />,
     title: "Log out",
     path: "/admin/logout",
+    id: "menu-logout",
   },
 ];

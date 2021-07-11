@@ -20,7 +20,7 @@ export default function DashboardFeed() {
       .then((resp) => resp.json())
       .then((resp) => {
         console.log("Trending", resp);
-        setFedData(resp["trending_customers"]);
+        setFedData(resp["trending_customers"].reverse());
         console.log("state", feedData);
       });
   }, []);
