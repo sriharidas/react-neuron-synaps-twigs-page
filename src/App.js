@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./css/App.css";
 import Particles from "react-particles-js";
 import particles_params from "./particles";
-import logo from "./img/logo.png";
 import Signup from "./form/Signup";
 import Login from "./form/Login";
 import { FaUsers } from "react-icons/fa";
@@ -15,10 +14,12 @@ import { VscServerProcess } from "react-icons/vsc";
 import { IoIosArrowUp } from "react-icons/io";
 import "./css/animation.css";
 import Animation from "./animation/Animation";
+import HomeHeader from "./home/HomeHeader";
 function App() {
   const [signup, setSignup] = useState(false);
   const [login, setLogin] = useState(false);
   const [FieldData, setFiledData] = useState("");
+  const [scrollEffect, setScrollEffect] = useState(false);
   useEffect(() => {
     fetch("https://neuron-dev.herokuapp.com/company_insights_snippets/get", {
       method: "get",
@@ -30,6 +31,49 @@ function App() {
         console.log("state", FieldData);
       });
   }, []);
+  useEffect(() => {
+    if (document.querySelector(".main-section-2-contaiener") !== undefined) {
+      const cards_2 = document.querySelector(".main-section-2-container");
+      const MainHeader2 = document.querySelector(".main-section-2-header");
+      const MainContainer = document.querySelector(".main-section-2-container");
+      window.addEventListener("scroll", () => {
+        if (cards_2.offsetTop + window.innerHeight / 4 <= window.scrollY) {
+          document.querySelector(".main-section-2-header-nav").style.display =
+            "block";
+          document.querySelector(".main-section-2-header").style.display =
+            "none";
+        } else {
+          document.querySelector(".main-section-2-header-nav").style.display =
+            "none";
+          document.querySelector(".main-section-2-header").style.display =
+            "flex";
+        }
+      });
+
+      window.addEventListener("mousewheel", () => {
+        if (scrollEffect && MainContainer.style.position !== "relative") {
+          MainContainer.style = "animation:ScrollDownEffect 2.5s ease-in-out";
+          setTimeout(() => {
+            MainContainer.style = "position:relative;";
+            setScrollEffect(false);
+          }, 2500);
+        }
+      });
+
+      MainHeader2.addEventListener("click", () => {
+        // document.getElementById("scrollArrow").href =
+        //   "#main-section-2-container";
+        document.querySelector(".main-section-2-header-nav").style.display =
+          "block";
+        MainContainer.style =
+          "position:fixed; z-index: 100 ; animation: ScrollUpEffect 2.5s ease-in-out";
+        setTimeout(() => {
+          MainContainer.style = "position: fixed;top:0;";
+          setScrollEffect(true);
+        }, 2500);
+      });
+    }
+  });
   const dashboardData = [
     {
       title: "Amount of Data",
@@ -68,26 +112,7 @@ function App() {
         style={{ position: "fixed" }}
       />
       <div className="main">
-        <div className="header-container">
-          <div className="header-logo">
-            <img src={logo} alt="logo" />
-          </div>
-
-          <ul className="header-nav">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#" style={{ cursor: "not-allowed" }} disabled>
-                Documentation
-              </a>
-            </li>
-          </ul>
-
-          <button className="header-btn" onClick={() => setLogin(true)}>
-            Get Authorized
-          </button>
-        </div>
+        <HomeHeader setLogin={setLogin} />
         <div className="header-main-container">
           <div className="header-main-content-1">
             <p>World's First AI Based Backend API System For Recommendation</p>
@@ -107,21 +132,23 @@ function App() {
               />
             ))}
           </div>
+          <div
+            className="main-section-2-container"
+            id="main-section-2-container"
+          >
+            <div className="main-section-2-header-nav">
+              <HomeHeader setLogin={setLogin} />
+            </div>
 
-          <div className="main-section-2-container">
             <div className="main-section-2-header">
               <span>
-                <IoIosArrowUp />
+                <a id="scrollArrow">
+                  <IoIosArrowUp />
+                </a>
               </span>
             </div>
             <h2 className="main-section-2-title">Why Neuron?</h2>
             <div className="main-section-2-content">
-              {/* <div className="main-section-2-cards">Free to use</div>
-              <div className="main-section-2-cards">Free to use</div>
-              <div className="main-section-2-cards">Free to use</div>
-              <div className="main-section-2-cards">Free to use</div>
-              <div className="main-section-2-cards">Free to use</div>
-              <div className="main-section-2-cards">Free to use</div> */}
               {Menucards2.map((card) => (
                 <div className={card.style}>{card.content}</div>
               ))}
