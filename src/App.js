@@ -4,7 +4,7 @@ import Particles from "react-particles-js";
 import particles_params from "./particles";
 import Signup from "./form/Signup";
 import Login from "./form/Login";
-import { FaUsers } from "react-icons/fa";
+import { FaOtter, FaUsers } from "react-icons/fa";
 import Dashboard from "./home/Dashboard";
 // import { CgLogIn } from "react-icons/cg";
 import { BsClipboardData } from "react-icons/bs";
@@ -36,27 +36,81 @@ function App() {
       const cards_2 = document.querySelector(".main-section-2-container");
       const MainHeader2 = document.querySelector(".main-section-2-header");
       const MainContainer = document.querySelector(".main-section-2-container");
-      window.addEventListener("scroll", () => {
-        if (cards_2.offsetTop + window.innerHeight / 4 <= window.scrollY) {
-          document.querySelector(".main-section-2-header-nav").style.display =
-            "block";
-          document.querySelector(".main-section-2-header").style.display =
-            "none";
-        } else {
-          document.querySelector(".main-section-2-header-nav").style.display =
-            "none";
-          document.querySelector(".main-section-2-header").style.display =
-            "flex";
+      const cardsList = Array(
+        document.querySelectorAll(".main-section-2-cards")
+      );
+      const cardsArray = cardsList[0];
+
+      console.log(cardsArray.length);
+
+      cardsList.map((element) => {
+        console.log("element", element.length);
+        for (let i = 0; i < element.length; i++) {
+          console.log("element", element[i]);
+          element[i].addEventListener("mouseover", () => {
+            console.log("hovering", element[i]);
+            element[i].innerHTML = "Hovering";
+          });
+          element[i].addEventListener("mouseout", () => {
+            console.log("hovering", element[i]);
+            element[i].innerHTML = Menucards2[i].content;
+          });
         }
       });
+      // window.addEventListener("scroll",()=>{
+      // if (cards_2.offsetTop <= window.scrollY) {
+      // document.querySelector(".main-section-2-header-nav").style.display =
+      //   "block";
+      // document.querySelector(".main-section-2-header").style.display =
+      //   "none";
+
+      // MainContainer.style =
+      //   "position:fixed; z-index: 100 ; animation: ScrollUpEffect 0.5s ease-in-out";
+      // setTimeout(() => {
+      //   MainContainer.style = "position: fixed;top:0;";
+      //   setScrollEffect(true);
+      // }, 500);
+      // } else {
+      //   document.querySelector(".main-section-2-header-nav").style.display =
+      //     "none";
+      //   document.querySelector(".main-section-2-header").style.display =
+      //     "flex";
+      // }
+      // })
+      window.addEventListener(
+        "mousewheel",
+        () => {
+          setTimeout(() => {
+            if (!scrollEffect && MainContainer.style.position === "relative") {
+              document.querySelector(
+                ".main-section-2-header-nav"
+              ).style.display = "block";
+              MainContainer.style =
+                "position:fixed; z-index: 100 ; animation: ScrollUpEffect 1s ease-in-out";
+              setTimeout(() => {
+                MainContainer.style = "position: fixed;top:0;";
+                // setScrollEffect(true);
+              }, 1000);
+            } else {
+              MainContainer.style =
+                "animation:ScrollDownEffect 0.5s ease-in-out";
+              setTimeout(() => {
+                MainContainer.style = "position:relative;";
+                setScrollEffect(false);
+              }, 500);
+            }
+          });
+        },
+        500
+      );
 
       window.addEventListener("mousewheel", () => {
         if (scrollEffect && MainContainer.style.position !== "relative") {
-          MainContainer.style = "animation:ScrollDownEffect 2.5s ease-in-out";
-          setTimeout(() => {
-            MainContainer.style = "position:relative;";
-            setScrollEffect(false);
-          }, 2500);
+          // MainContainer.style = "animation:ScrollDownEffect 0.5s ease-in-out";
+          // setTimeout(() => {
+          //   MainContainer.style = "position:relative;";
+          //   setScrollEffect(false);
+          // }, 500);
         }
       });
 
@@ -66,11 +120,11 @@ function App() {
         document.querySelector(".main-section-2-header-nav").style.display =
           "block";
         MainContainer.style =
-          "position:fixed; z-index: 100 ; animation: ScrollUpEffect 2.5s ease-in-out";
+          "position:fixed; z-index: 100 ; animation: ScrollUpEffect 0.5s ease-in-out";
         setTimeout(() => {
           MainContainer.style = "position: fixed;top:0;";
           setScrollEffect(true);
-        }, 2500);
+        }, 500);
       });
     }
   });
@@ -168,26 +222,33 @@ export default App;
 const Menucards2 = [
   {
     content: "Free to use",
+    hoverContent: "This is a content displays on mousehover",
     style: "main-section-2-cards main-section-2-cards-1",
   },
   {
     content: "Recommendation for everything",
+    hoverContent: "This is a content displays on mousehover",
     style: "main-section-2-cards main-section-2-cards-2",
   },
   {
     content: "Easy to use",
+    hoverContent: "This is a content displays on mousehover",
     style: "main-section-2-cards main-section-2-cards-3",
   },
   {
     content: "Powerful AI recommendation",
+    hoverContent: "This is a content displays on mousehover",
     style: "main-section-2-cards main-section-2-cards-4",
   },
   {
     content: "Wonderful documentation",
+    hoverContent: "This is a content displays on mousehover",
     style: "main-section-2-cards main-section-2-cards-5",
   },
   {
     content: "High Control",
+    hoverContent: "This is a content displays on mousehover",
+
     style: "main-section-2-cards main-section-2-cards-6",
   },
 ];
