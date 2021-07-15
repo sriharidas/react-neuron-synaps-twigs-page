@@ -11,7 +11,9 @@ export default function HomeHeader({ setLogin }) {
 
       <ul className="header-nav">
         <li>
-          <a href="#">Home</a>
+          <a href="#" onClick={() => history.push("/")}>
+            Home
+          </a>
         </li>
         <li>
           <a href="#" onClick={() => history.push("/documentation")}>

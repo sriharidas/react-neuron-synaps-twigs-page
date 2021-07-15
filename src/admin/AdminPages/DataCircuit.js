@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import file from "./../../samplecsv.csv";
 import Animation from "./../../animation/Animation";
 import { GrAdd } from "react-icons/gr";
+import { FiAlertTriangle } from "react-icons/fi";
+import { AiOutlineClose } from "react-icons/ai";
 export default function DataCircuit() {
   const [Data, setData] = useState({
     // userToken:
     //   "c81e04cd58af886fecf097728764819364ff9138730e4b791841e2b06f9196e3",
     // userToken: 12345,
     userToken: localStorage.getItem("userToken"),
-    noOfItems: 0,
     list: {},
   });
+  const [alertBox, setalertBox] = useState(false);
   const [UploadMovies, setUploadMovie] = useState(false);
+  const [errorMessages, setErrorMessage] = useState([]);
+  const [error, setError] = useState(false);
   const handleFileSelect = (event) => {
     const reader = new FileReader();
     reader.onload = handleFileLoad;
@@ -31,20 +35,25 @@ export default function DataCircuit() {
     console.log("This is content of the file : ", fileContent);
 
     const data = fileContent.split("\n"); //spliting  the each array and return as array
-    data.pop();
-    finalItems.noOfItems = data.length; // finding the number of rows
-    for (let i = 0; i < data.length; i++) {
-      finalItems.list[i] = data[i];
-      console.log(data[i]);
-    }
-    console.log(Data);
+    // data.pop();
+    console.log("data", data);
     setData((prevState) => ({
       ...prevState,
-      noOfItems: finalItems.noOfItems,
-      list: finalItems.list,
+      list: data,
     }));
-    console.log(finalItems);
-    console.log(JSON.stringify(finalItems));
+    // finalItems.noOfItems = data.length; // finding the number of rows
+    // for (let i = 0; i < data.length; i++) {
+    //   finalItems.list[i] = data[i];
+    //   console.log(data[i]);
+    // }
+    // console.log(Data);
+    // setData((prevState) => ({
+    //   ...prevState,
+    //   noOfItems: finalItems.noOfItems,
+    //   list: finalItems.list,
+    // }));
+    // console.log(finalItems);
+    // console.log(JSON.stringify(finalItems));
   };
   useEffect(() => {
     if (document.getElementById("animation-container")) {
@@ -52,25 +61,22 @@ export default function DataCircuit() {
         "visible";
       document
         .getElementById("fileInput")
-        .addEventListener("change", handleFileSelect, false);
-      fetch(
-        "https://neuron-dev.herokuapp.com/user_property_database/movies/get",
-        {
-          method: "POST",
-          headers: {
-            Accept: "*/*",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userToken: localStorage.getItem("userToken"),
-            // userToken: 123456,
-          }),
-        }
-      )
+        .addEventListener("input", handleFileSelect, false);
+      fetch("https://neuron-dev.herokuapp.com/user_property_database/get", {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userToken: localStorage.getItem("userToken"),
+          // userToken: 123456,
+        }),
+      })
         .then((resp) => resp.json())
         .then((resp) => {
           console.log(resp["result"]);
-          const userData = resp["result"];
+          const userData = resp["movies_list"];
           console.log(resp);
           document.getElementById("animation-container").style.visibility =
             "hidden";
@@ -83,7 +89,7 @@ export default function DataCircuit() {
             document.getElementById("user-table").append(Header);
             const tableContainer = document.createElement("TABLE");
             tableContainer.setAttribute("id", "user-table-list");
-            const Headers = ["Movie name", "Released Year", "Genre"];
+            const Headers = resp["topics"];
             const tableHeader = document.createElement("TR");
             const tableHead = document.createElement("THEAD");
             Headers.map((title, index) => {
@@ -97,7 +103,7 @@ export default function DataCircuit() {
             userData.map((value) => {
               // console.log(value.split(",,"));
               const tablerow = document.createElement("TR");
-              value.split(",,").map((data) => {
+              value.split("//").map((data) => {
                 // console.log(data);
                 const tableData = document.createElement("TD");
                 tableData.append(document.createTextNode(data));
@@ -118,48 +124,104 @@ export default function DataCircuit() {
     }
   }, [setUploadMovie]);
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    document.getElementById("animation-container").style.visibility = "visible";
-    const data = JSON.stringify({
-      userToken: Data.userToken,
-      noOfItems: Data.noOfItems,
-      list: Data.list,
-    });
-    console.log("State", Data);
-    console.log(data);
-    console.log(JSON.stringify(data));
-
-    fetch(
-      "https://neuron-dev.herokuapp.com/user_property_database/movies/post",
-      {
-        method: "post",
+  function handleSubmit(e) {
+    e.preventDefault();
+    // document.getElementById("animation-container").style.visibility = "visible";
+    // setError([""]);
+    let errorArray = [];
+    Data.list.map((x) => {
+      fetch("https://neuron-dev.herokuapp.com/user_property_database/post", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
-        body: data,
-      }
-    )
-      .then((resp) => {
-        if (resp.ok) console.log("request sucessful");
-        else console.log("request failed");
-        document.getElementById("animation-container").style.visibility =
-          "hidden";
-        return resp.json();
+        body: JSON.stringify({
+          userToken: Data.userToken,
+          name: x,
+        }),
       })
-      .then((resp) => {
-        if (resp) {
+        .then((resp) => resp.json())
+        .then((resp) => {
+          console.log(resp);
+          if (resp["result"].includes("Error")) {
+            let error = resp["result"];
+            errorArray.push(error);
+            console.log(errorMessages);
+            setError(true);
+          }
+        });
+      setErrorMessage(errorArray);
+      const timer = setInterval(() => {
+        if (errorMessages.length === errorArray.length) {
+          clearInterval(timer);
         }
-        console.log(resp);
-      })
-      .catch((e) => console.warn(e));
-  };
+      }, 1000);
+      setalertBox(true);
+    });
+    // const data = JSON.stringify({
+    //   userToken: Data.userToken,
+    //   noOfItems: Data.noOfItems,
+    //   list: Data.list,
+    // });
+
+    // fetch(
+    //   "https://neuron-dev.herokuapp.com/user_property_database/movies/post",
+    //   {
+    //     method: "post",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Accept: "application/json",
+    //     },
+    //     body: data,
+    //   }
+    // )
+    //   .then((resp) => {
+    //     if (resp.ok) console.log("request sucessful");
+    //     else console.log("request failed");
+    //     document.getElementById("animation-container").style.visibility =
+    //       "hidden";
+    //     return resp.json();
+    //   })
+    //   .then((resp) => {
+    //     if (resp) {
+    //     }
+    //     console.log(resp);
+    //   })
+    //   .catch((e) => console.warn(e));
+  }
+
   return (
     <>
       {/* <h2>Upload a</h2> */}
       <div className="datacircuit-container">
         <div id="user-table">No data to display</div>
+        {alertBox && (
+          <div className="datacircuit-error-message-container">
+            <div className="datacircuit-error-messages">
+              <span className="close">
+                <a onClick={() => setalertBox(false)}>
+                  <AiOutlineClose />
+                </a>
+              </span>
+              {errorMessages.map((err) => (
+                <div>
+                  <span>
+                    <FiAlertTriangle />
+                  </span>
+                  <span>{err}</span>
+                </div>
+              ))}
+
+              {/* <div>
+                <span>
+                  <FiAlertTriangle />
+                </span>
+                <span>Movie Name alredy exist in database</span>
+              </div> */}
+            </div>
+          </div>
+        )}
+
         {/* <hr /> */}
         {true && (
           <form onSubmit={handleSubmit}>

@@ -11,15 +11,14 @@ import { BsClipboardData } from "react-icons/bs";
 import { GiOffshorePlatform } from "react-icons/gi";
 // import { FiLogIn } from "react-icons/fi";
 import { VscServerProcess } from "react-icons/vsc";
-import { IoIosArrowUp } from "react-icons/io";
 import "./css/animation.css";
 import Animation from "./animation/Animation";
 import HomeHeader from "./home/HomeHeader";
+import WhyNeuron from "./home/WhyNeuron";
 function App() {
   const [signup, setSignup] = useState(false);
   const [login, setLogin] = useState(false);
   const [FieldData, setFiledData] = useState("");
-  const [scrollEffect, setScrollEffect] = useState(false);
   useEffect(() => {
     fetch("https://neuron-dev.herokuapp.com/company_insights_snippets/get", {
       method: "get",
@@ -31,103 +30,7 @@ function App() {
         console.log("state", FieldData);
       });
   }, []);
-  useEffect(() => {
-    if (document.querySelector(".main-section-2-contaiener") !== undefined) {
-      const cards_2 = document.querySelector(".main-section-2-container");
-      const MainHeader2 = document.querySelector(".main-section-2-header");
-      const MainContainer = document.querySelector(".main-section-2-container");
-      const cardsList = Array(
-        document.querySelectorAll(".main-section-2-cards")
-      );
-      const cardsArray = cardsList[0];
 
-      console.log(cardsArray.length);
-
-      cardsList.map((element) => {
-        console.log("element", element.length);
-        for (let i = 0; i < element.length; i++) {
-          console.log("element", element[i]);
-          element[i].addEventListener("mouseover", () => {
-            console.log("hovering", element[i]);
-            element[i].innerHTML = "Hovering";
-          });
-          element[i].addEventListener("mouseout", () => {
-            console.log("hovering", element[i]);
-            element[i].innerHTML = Menucards2[i].content;
-          });
-        }
-      });
-      // window.addEventListener("scroll",()=>{
-      // if (cards_2.offsetTop <= window.scrollY) {
-      // document.querySelector(".main-section-2-header-nav").style.display =
-      //   "block";
-      // document.querySelector(".main-section-2-header").style.display =
-      //   "none";
-
-      // MainContainer.style =
-      //   "position:fixed; z-index: 100 ; animation: ScrollUpEffect 0.5s ease-in-out";
-      // setTimeout(() => {
-      //   MainContainer.style = "position: fixed;top:0;";
-      //   setScrollEffect(true);
-      // }, 500);
-      // } else {
-      //   document.querySelector(".main-section-2-header-nav").style.display =
-      //     "none";
-      //   document.querySelector(".main-section-2-header").style.display =
-      //     "flex";
-      // }
-      // })
-      window.addEventListener(
-        "mousewheel",
-        () => {
-          setTimeout(() => {
-            if (!scrollEffect && MainContainer.style.position === "relative") {
-              document.querySelector(
-                ".main-section-2-header-nav"
-              ).style.display = "block";
-              MainContainer.style =
-                "position:fixed; z-index: 100 ; animation: ScrollUpEffect 1s ease-in-out";
-              setTimeout(() => {
-                MainContainer.style = "position: fixed;top:0;";
-                // setScrollEffect(true);
-              }, 1000);
-            } else {
-              MainContainer.style =
-                "animation:ScrollDownEffect 0.5s ease-in-out";
-              setTimeout(() => {
-                MainContainer.style = "position:relative;";
-                setScrollEffect(false);
-              }, 500);
-            }
-          });
-        },
-        500
-      );
-
-      window.addEventListener("mousewheel", () => {
-        if (scrollEffect && MainContainer.style.position !== "relative") {
-          // MainContainer.style = "animation:ScrollDownEffect 0.5s ease-in-out";
-          // setTimeout(() => {
-          //   MainContainer.style = "position:relative;";
-          //   setScrollEffect(false);
-          // }, 500);
-        }
-      });
-
-      MainHeader2.addEventListener("click", () => {
-        // document.getElementById("scrollArrow").href =
-        //   "#main-section-2-container";
-        document.querySelector(".main-section-2-header-nav").style.display =
-          "block";
-        MainContainer.style =
-          "position:fixed; z-index: 100 ; animation: ScrollUpEffect 0.5s ease-in-out";
-        setTimeout(() => {
-          MainContainer.style = "position: fixed;top:0;";
-          setScrollEffect(true);
-        }, 500);
-      });
-    }
-  });
   const dashboardData = [
     {
       title: "Amount of Data",
@@ -186,28 +89,7 @@ function App() {
               />
             ))}
           </div>
-          <div
-            className="main-section-2-container"
-            id="main-section-2-container"
-          >
-            <div className="main-section-2-header-nav">
-              <HomeHeader setLogin={setLogin} />
-            </div>
-
-            <div className="main-section-2-header">
-              <span>
-                <a id="scrollArrow">
-                  <IoIosArrowUp />
-                </a>
-              </span>
-            </div>
-            <h2 className="main-section-2-title">Why Neuron?</h2>
-            <div className="main-section-2-content">
-              {Menucards2.map((card) => (
-                <div className={card.style}>{card.content}</div>
-              ))}
-            </div>
-          </div>
+          <WhyNeuron setLogin={setLogin} />
         </div>
         <Animation />
         <Signup open={signup} setState={setSignup} redirect={setLogin} />
@@ -218,37 +100,3 @@ function App() {
 }
 
 export default App;
-
-const Menucards2 = [
-  {
-    content: "Free to use",
-    hoverContent: "This is a content displays on mousehover",
-    style: "main-section-2-cards main-section-2-cards-1",
-  },
-  {
-    content: "Recommendation for everything",
-    hoverContent: "This is a content displays on mousehover",
-    style: "main-section-2-cards main-section-2-cards-2",
-  },
-  {
-    content: "Easy to use",
-    hoverContent: "This is a content displays on mousehover",
-    style: "main-section-2-cards main-section-2-cards-3",
-  },
-  {
-    content: "Powerful AI recommendation",
-    hoverContent: "This is a content displays on mousehover",
-    style: "main-section-2-cards main-section-2-cards-4",
-  },
-  {
-    content: "Wonderful documentation",
-    hoverContent: "This is a content displays on mousehover",
-    style: "main-section-2-cards main-section-2-cards-5",
-  },
-  {
-    content: "High Control",
-    hoverContent: "This is a content displays on mousehover",
-
-    style: "main-section-2-cards main-section-2-cards-6",
-  },
-];
