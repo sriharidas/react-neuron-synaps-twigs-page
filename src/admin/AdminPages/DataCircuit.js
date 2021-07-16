@@ -16,6 +16,7 @@ export default function DataCircuit() {
   const [UploadMovies, setUploadMovie] = useState(false);
   const [errorMessages, setErrorMessage] = useState([]);
   const [error, setError] = useState(false);
+  const [progress, setProgress] = useState(false);
   const handleFileSelect = (event) => {
     const reader = new FileReader();
     reader.onload = handleFileLoad;
@@ -125,10 +126,18 @@ export default function DataCircuit() {
   }, [setUploadMovie]);
 
   function handleSubmit(e) {
+    var errorArray = [];
+    const progressContainer = document.querySelector(
+      ".datacircuit-progress-container"
+    );
+    const progressValue = document.querySelector(
+      ".datacircuit-progress-bar-value"
+    );
+    progressValue.style.width = "0%";
+    progressContainer.style.display = "flex";
     e.preventDefault();
     // document.getElementById("animation-container").style.visibility = "visible";
     // setError([""]);
-    let errorArray = [];
     Data.list.map((x) => {
       fetch("https://neuron-dev.herokuapp.com/user_property_database/post", {
         method: "POST",
@@ -149,15 +158,29 @@ export default function DataCircuit() {
             console.log(errorMessages);
             setError(true);
           }
+          let prg = (errorArray.length / Data.list.length) * 100;
+
+          // setProgress(prg);
+          console.log("progress", prg);
+          progressValue.style.width = `${prg}%`;
+          if (prg === 100) {
+            setTimeout(() => {
+              progressContainer.style.display = "none";
+            }, 500);
+          }
         });
-      setErrorMessage(errorArray);
-      const timer = setInterval(() => {
-        if (errorMessages.length === errorArray.length) {
-          clearInterval(timer);
-        }
-      }, 1000);
-      setalertBox(true);
     });
+    // progressContainer.style.display = "none";
+
+    setErrorMessage(errorArray);
+
+    const timer = setInterval(() => {
+      if (errorMessages.length === errorArray.length) {
+        clearInterval(timer);
+        setalertBox(true);
+      }
+    }, 100);
+
     // const data = JSON.stringify({
     //   userToken: Data.userToken,
     //   noOfItems: Data.noOfItems,
@@ -221,6 +244,14 @@ export default function DataCircuit() {
             </div>
           </div>
         )}
+
+        <div className="datacircuit-progress-container">
+          <div className="datacircuit-progress">
+            <div className="datacircuit-progress-bar">
+              <div className="datacircuit-progress-bar-value"></div>
+            </div>
+          </div>
+        </div>
 
         {/* <hr /> */}
         {true && (
