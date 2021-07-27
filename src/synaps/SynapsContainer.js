@@ -55,7 +55,7 @@ export default function SynapsContainer() {
           {" "}
           + add parent synap
         </button>
-        {UserData.synaps !== "no data available" ? (
+        {UserData.synaps !== "No data available" ? (
           Object.keys(UserData.synaps).map((x) => (
             <Synaps
               id={x}

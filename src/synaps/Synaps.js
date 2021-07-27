@@ -19,6 +19,7 @@ export default function Synaps({ id, name, updateDisplay, updateParentSynap }) {
       .then((resp) => {
         console.log("child of" + id + " : ", resp);
         console.log(Object.keys(resp)[0], Object.values(resp)[0]);
+        // if(Re)
         setChild(resp);
       });
     console.log(id, name);
@@ -47,14 +48,6 @@ export default function Synaps({ id, name, updateDisplay, updateParentSynap }) {
         </div>
         {Object.keys(Child).length > 0 ? (
           <>
-            {/* <p>Child Synap</p>
-            <select>
-              {Object.keys(Child).map((x) => (
-                <option
-                  value={`${x}_${Child[x]}`}
-                >{`${x} - ${Child[x]}`}</option>
-              ))}
-            </select> */}
             {Object.keys(Child).map((x) => (
               <Synaps
                 id={x}
@@ -62,6 +55,7 @@ export default function Synaps({ id, name, updateDisplay, updateParentSynap }) {
                 updateDisplay={updateDisplay}
                 updateParentSynap={updateParentSynap}
               />
+              // <span>Data</span>
             ))}
           </>
         ) : null}
