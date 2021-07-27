@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./css/App.css";
+import "./css/synap.css";
 import Particles from "react-particles-js";
 import particles_params from "./particles";
 import Signup from "./form/Signup";

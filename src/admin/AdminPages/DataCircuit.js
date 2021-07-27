@@ -4,6 +4,7 @@ import Animation from "./../../animation/Animation";
 import { GrAdd } from "react-icons/gr";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
+import Input from "./../../form/components/Input";
 export default function DataCircuit() {
   const [Data, setData] = useState({
     // userToken:
@@ -16,7 +17,8 @@ export default function DataCircuit() {
   const [UploadMovies, setUploadMovie] = useState(false);
   const [errorMessages, setErrorMessage] = useState([]);
   const [error, setError] = useState(false);
-  const [progress, setProgress] = useState(false);
+  // const [progress, setProgress] = useState(false);
+  const [Upload, setUpload] = useState(false);
   const handleFileSelect = (event) => {
     const reader = new FileReader();
     reader.onload = handleFileLoad;
@@ -56,6 +58,7 @@ export default function DataCircuit() {
     // console.log(finalItems);
     // console.log(JSON.stringify(finalItems));
   };
+
   useEffect(() => {
     if (document.getElementById("animation-container")) {
       document.getElementById("animation-container").style.visibility =
@@ -84,10 +87,19 @@ export default function DataCircuit() {
           if (userData.length > 0) {
             setUploadMovie(true);
             document.getElementById("user-table").innerHTML = "";
+            const HeaderWrapper = document.createElement("DIV");
+            HeaderWrapper.setAttribute("class", "user-data-header");
             const Header = document.createElement("H3");
             Header.setAttribute("class", "user-data-title");
             Header.append(document.createTextNode("Movies data"));
-            document.getElementById("user-table").append(Header);
+            HeaderWrapper.append(Header);
+            const upload = document.createElement("div");
+            upload.setAttribute("class", "upload-movie");
+            upload.append(document.createTextNode("+"));
+            upload.setAttribute("title", "add a movie");
+            Header.append(upload);
+            HeaderWrapper.append(upload);
+            document.getElementById("user-table").append(HeaderWrapper);
             const tableContainer = document.createElement("TABLE");
             tableContainer.setAttribute("id", "user-table-list");
             const Headers = resp["topics"];
@@ -118,6 +130,12 @@ export default function DataCircuit() {
             tableContainer.append(tableHead);
             tableContainer.append(tableBody);
             document.getElementById("user-table").append(tableContainer);
+            document
+              .querySelector(".upload-movie")
+              .addEventListener("click", () => {
+                // console.log("upload movie");
+                setUpload(true);
+              });
           } else {
             setUploadMovie(false);
           }
@@ -127,6 +145,7 @@ export default function DataCircuit() {
 
   function handleSubmit(e) {
     var errorArray = [];
+    var uploadedArray = [];
     const progressContainer = document.querySelector(
       ".datacircuit-progress-container"
     );
@@ -136,8 +155,7 @@ export default function DataCircuit() {
     progressValue.style.width = "0%";
     progressContainer.style.display = "flex";
     e.preventDefault();
-    // document.getElementById("animation-container").style.visibility = "visible";
-    // setError([""]);
+    e.target.rest();
     Data.list.map((x) => {
       fetch("https://neuron-dev.herokuapp.com/user_property_database/post", {
         method: "POST",
@@ -152,13 +170,14 @@ export default function DataCircuit() {
         .then((resp) => resp.json())
         .then((resp) => {
           console.log(resp);
+          uploadedArray.push(resp["result"]);
           if (resp["result"].includes("Error")) {
             let error = resp["result"];
             errorArray.push(error);
             console.log(errorMessages);
             setError(true);
           }
-          let prg = (errorArray.length / Data.list.length) * 100;
+          let prg = (uploadedArray.length / Data.list.length) * 100;
 
           // setProgress(prg);
           console.log("progress", prg);
@@ -166,6 +185,7 @@ export default function DataCircuit() {
           if (prg === 100) {
             setTimeout(() => {
               progressContainer.style.display = "none";
+              setUpload(false);
             }, 500);
           }
         });
@@ -212,7 +232,14 @@ export default function DataCircuit() {
     //   })
     //   .catch((e) => console.warn(e));
   }
-
+  const HandleUpdate = (e) => {
+    e.preventDefault();
+    setData((prevState) => ({
+      ...prevState,
+      list: [e.target.value],
+    }));
+    console.log(Data);
+  };
   return (
     <>
       {/* <h2>Upload a</h2> */}
@@ -252,14 +279,36 @@ export default function DataCircuit() {
             </div>
           </div>
         </div>
-
+        {Upload && (
+          <div className="datacircuit-upload">
+            <form onSubmit={handleSubmit}>
+              <div className="datacircuit-upload-header">
+                <h3>Upload a Movie</h3>
+                <span onClick={() => setUpload(false)}>
+                  <AiOutlineClose />
+                </span>
+              </div>
+              <Input
+                type="text"
+                name="movie"
+                id="movie"
+                placeholder="Movie Name"
+                label="movie Name"
+                onChange={HandleUpdate}
+              />
+              <input type="submit" value="upload movie" />
+            </form>
+          </div>
+        )}
         {/* <hr /> */}
         {true && (
           <form onSubmit={handleSubmit}>
             <input type="file" id="fileInput" name=" fileInput" accept=".csv" />
-            <button type="submit" className="datacircuit-formbtn">
-              submit file
-            </button>
+            <input
+              type="submit"
+              className="datacircuit-formbtn"
+              value="upload movie"
+            />
 
             <div className="datacircuit-downloadtext">
               Download sample csv&nbsp;

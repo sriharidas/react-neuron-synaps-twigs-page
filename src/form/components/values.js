@@ -36,7 +36,73 @@ const DependencyListData = [
     placeholder: "Eselect the Field of the App",
   },
 ];
-const signupFields = [
+export const newSignupFields = [
+  {
+    Element: "input",
+    type: "text",
+    label: "First Name",
+    id: "first_name",
+    name: "first_name",
+    placeholder: "Enter Your First Name",
+  },
+  {
+    Element: "input",
+    type: "text",
+    label: "last Name",
+    id: "last_name",
+    name: "last_name",
+    placeholder: "Enter Your last Name",
+  },
+  {
+    Element: "input",
+    type: "email",
+    label: "Email",
+    id: "email",
+    name: "email",
+    placeholder: "Enter Your email id",
+  },
+  {
+    Element: "input",
+    type: "password",
+    label: "Password",
+    id: "pasword1",
+    name: "password",
+    placeholder: "Enter Your password",
+  },
+  {
+    Element: "input",
+    type: "password",
+    label: "Confirm Password",
+    id: "password2",
+    name: "password",
+    placeholder: "Enter Your Confirm Password",
+  },
+  {
+    Element: "input",
+    type: "text",
+    label: "Who created account",
+    id: "who",
+    name: "who",
+    placeholder: "Enter Your Who created account",
+  },
+  // {
+  //   Element: "select",
+  //   value: closestCmp,
+  //   label: "Closest post in company",
+  //   id: "who",
+  //   name: "who",
+  //   placeholder: "Enter the Closest post in company",
+  // },
+  {
+    Element: "input",
+    type: "text",
+    label: "Company Name",
+    id: "company_name",
+    name: "company_name",
+    placeholder: "Enter Your Company Name",
+  },
+];
+export const signupFields = [
   {
     Element: "input",
     type: "text",
@@ -215,9 +281,9 @@ export const LoginValues = [
     Element: "input",
     type: "text",
     label: "Email",
-    id: "username",
-    name: "username",
-    placeholder: "Enter Your Username",
+    id: "email",
+    name: "email",
+    placeholder: "Enter Your Email Address",
   },
   {
     Element: "input",
@@ -228,7 +294,7 @@ export const LoginValues = [
     placeholder: "Enter Your Password",
   },
 ];
-export default signupFields;
+// export default signupFields;
 // First name
 // Second name
 // Company name

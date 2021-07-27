@@ -22,12 +22,7 @@ export default function HomeHeader({ setLogin }) {
         </li>
       </ul>
       <div className="header-btn-grp">
-        <button
-          className="header-btn header-btn-1"
-          onClick={() => setLogin(true)}
-        >
-          Demo Sites
-        </button>
+        <button className="header-btn header-btn-1">Demo Sites</button>
         <button
           className="header-btn header-btn-2"
           onClick={() => setLogin(true)}

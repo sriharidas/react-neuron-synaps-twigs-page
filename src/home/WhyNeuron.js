@@ -22,18 +22,18 @@ export default function WhyNeuron({ setLogin }) {
       );
       const cardsArray = cardsList[0];
 
-      console.log(cardsArray.length);
+      // console.log(cardsArray.length);
 
       cardsList.map((element) => {
         console.log("element", element.length);
         for (let i = 0; i < element.length; i++) {
-          console.log("element", element[i]);
+          // console.log("element", element[i]);
           element[i].addEventListener("mouseover", () => {
-            console.log("hovering", element[i]);
-            element[i].innerHTML = "Hovering";
+            // console.log("hovering", element[i]);
+            element[i].innerHTML = Menucards2[i].hoverContent;
           });
           element[i].addEventListener("mouseout", () => {
-            console.log("hovering", element[i]);
+            // console.log("hovering", element[i]);
             element[i].innerHTML = Menucards2[i].content;
           });
         }
@@ -62,11 +62,19 @@ export default function WhyNeuron({ setLogin }) {
       // }
       // });
       //   });
+      document.addEventListener("scroll", () => {
+        if (MainContainer.style.position === "fixed") {
+          // console.log(window.scrollY <= MainContainer.offsetHeight);
+          // console.log("scroll events");
+          MainContainer.style.top = -window.scrollY + "px";
+        }
+      });
       MainContentBackbtn.addEventListener("click", () => {
         MainContainer.style =
           "position:fixed; z-index: 100 ; animation: ScrollDownEffect 0.75s ease-in-out";
         setTimeout(() => {
           MainContentWrapper.style.display = "none";
+          MainContainer.style = "position: relative;top:0px;";
         }, 750);
       });
       MainHeader2.addEventListener("click", () => {

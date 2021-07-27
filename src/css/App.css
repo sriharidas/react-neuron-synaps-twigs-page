@@ -338,7 +338,7 @@ a {
   display: none;
 }
 .main-section-2-cards {
-  height: 100%;
+  height: 33vh;
   width: 85%;
   margin: auto;
   border: 2px solid #cccc;
@@ -394,13 +394,13 @@ a {
 .main-section-2-cards:hover {
   cursor: pointer;
   color: #f1f1f1;
-  font-size: 1.55em;
+  font-size: 1.25rem;
 }
 .main-section-2-cards-1:hover {
   background-color: #fff;
   color: #800080;
   /* animation: CardsHoverEffect 3s ease-out; */
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   transition: all 0.5s ease-out;
   /* box-shadow: 11px 11px 20px #80008088 inset, -11px -11px 20px #80008088 inset; */
 }
@@ -408,35 +408,35 @@ a {
   transition: all 0.5s ease-out;
   background-color: #fff;
   color: #008b45;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   /* box-shadow: 11px 11px 20px #008b4588 inset, -11px -11px 20px #008b4588 inset; */
 }
 .main-section-2-cards-3:hover {
   transition: all 0.5s ease-in;
   background-color: #fff;
   color: #333;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   /* box-shadow: 11px 11px 20px #3333 inset, -11px -11px 20px #3333 inset; */
 }
 .main-section-2-cards-4:hover {
   transition: all 0.5s ease-out;
   background-color: #fff;
   color: #ff4500;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   /* box-shadow: 11px 11px 20px #ff450088 inset, -11px -11px 20px #ff450088 inset; */
 }
 .main-section-2-cards-6:hover {
   transition: all 0.5s ease-out;
   background-color: #fff;
   color: #ffa500;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   /* box-shadow: 11px 11px 20px #ffa50088 inset, -11px -11px 20px #ffa50088 inset; */
 }
 .main-section-2-cards-5:hover {
   transition: all 0.5s ease-out;
   background-color: #fff;
   color: #44f;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   /* box-shadow: 11px 11px 20px #44f8 inset, -11px -11px 20px #44f8 inset; */
 }
 /* admin page */
@@ -833,11 +833,30 @@ h2.dashboard-feed-main-title {
   border-radius: inherit;
   /* transition: all 2s ease-in; */
 }
+.user-data-header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.user-data-header div {
+  /* padding: 0 30px; */
+  width: 30px;
+  height: 30px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  /* margin-top: -10px; */
+  /* width: fit-content; */
+  cursor: pointer;
+  border-radius: 50%;
+  /* border: 2px solid #ccc; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #user-table {
   width: 80%;
   overflow: scroll;
   height: 65vh;
-
   text-align: center;
   border-bottom: 1px solid #000;
 }
@@ -914,6 +933,55 @@ h2.dashboard-feed-main-title {
 .datacircuit-downloadtext > a {
   color: #3a3aff;
 }
+.datacircuit-upload {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #0008;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.datacircuit-upload-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+}
+.datacircuit-upload form {
+  width: 40%;
+  height: auto;
+  padding: 30px;
+  background-color: #ccc;
+  text-align: center;
+}
+.datacircuit-upload form .form-groups {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 15px;
+}
+.datacircuit-upload form .form-groups label {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+.datacircuit-upload form input {
+  width: 60%;
+  padding: 7px;
+}
+.datacircuit-upload form input[type="submit"] {
+  background-color: #3a3aff;
+  color: #fff;
+  border: 2px solid #3a3aff;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
 /* user profile */
 .user-profile {
   width: 85%;
@@ -968,6 +1036,7 @@ h2.dashboard-feed-main-title {
   margin: 20px;
   /* display: none; */
 }
+
 @media (max-width: 1040px) {
   .dashboard-top-header {
     width: 45%;
@@ -1044,6 +1113,9 @@ h2.dashboard-feed-main-title {
     width: 85vw;
     margin: 10px 0;
   }
+  .datacircuit-upload form {
+    width: 75%;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1060,7 +1132,7 @@ h2.dashboard-feed-main-title {
   }
   .header-btn-grp {
     top: 140px;
-    flex-direction: column;
+    /* flex-direction: column; */
   }
   .header-btn {
     right: 0;
@@ -1072,7 +1144,7 @@ h2.dashboard-feed-main-title {
   .header-btn {
     left: 0;
     right: 0;
-    margin: auto;
+    /* margin: auto; */
   }
   .header-nav {
     left: 0;
@@ -1146,7 +1218,15 @@ h2.dashboard-feed-main-title {
     /* margin: 0; */
   }
   .dashboard-feed-container {
-    width: 100%;
+    width: 90%;
+  }
+  .datacircuit-upload form {
+    width: 95%;
+    /* text-align: left; */
+    padding: 20px;
+  }
+  .datacircuit-upload form input {
+    width: 90%;
   }
 }
 @media (max-width: 540px) {

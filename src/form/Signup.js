@@ -3,7 +3,8 @@ import "./../css/form.css";
 import { AiOutlineClose } from "react-icons/ai";
 import Input from "./components/Input";
 import Select from "./components/Select";
-import signupFields from "./components/values";
+import { signupFields } from "./components/values";
+import { newSignupFields } from "./components/values";
 import { GiCondorEmblem } from "react-icons/gi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { MdErrorOutline } from "react-icons/md";
@@ -11,334 +12,94 @@ import DependencyList from "./components/DependencyList";
 
 export default function Signup({ open, setState, redirect }) {
   //   const [signup, setsignup] = useState(open);
-  const init = {
-    first_name: "",
-    second_name: "",
-    email: "",
-    password1: "",
-    password2: "",
-    userToken: "",
-    knoxTablePassword: "",
-    userCompanyName: "",
-    userCountry: "",
-    NoOfEmpInUser: "",
-    NoOfCustomersInUser: "",
-    WhoCreatedAccount: "",
-    ContactNumber: "",
-    OurServiseRequired: "",
-    FieldOfCustomerApp: "",
-    CustomerDomain: "",
-    HowDoTheyKnowUs: "",
-    AgreementStatus: false,
-    KnoxTableId: 13,
-    AccoundCreated: null,
-    AccoundLastlyUbdated: null,
-  };
-  const [signupDetails, setSignupDeatils] = useState(init);
+
+  const [signupDetails, setSignupDeatils] = useState("");
   const [register, setRegister] = useState({
     username: "",
     email: "",
     password: "",
   });
-  const [Status, SetStatus] = useState(false);
-
-  const [error, setError] = useState(false);
+  const [Status, SetStatus] = useState(true);
   useEffect(() => {
-    if (document.getElementById("signup-btn")) {
-      document.getElementById("ContactNumber").required = false;
-      if (!error && signupDetails.AgreementStatus === true) {
-        document.getElementById("signup-btn").disabled = false;
-        console.log(document.getElementById("signup-btn"));
-      } else {
-        document.getElementById("signup-btn").disabled = true;
-      }
-      // Password Validation
+    if (document.getElementById("signup-form") !== undefined) {
+      const password = document.getElementById("password1");
+      const confirm_password = document.getElementById("password2");
+      const password_error = document.querySelector(".password1-error");
+      const confirm_password_error = document.querySelector(".password2-error");
       if (
-        document.getElementById("password1").value !== "" &&
-        document.getElementById("password1").value !==
-          document.getElementById("password2").value
+        password !== "" &&
+        confirm_password !== "" &&
+        password !== confirm_password
       ) {
-        document.querySelector(".password1-error").innerHTML =
-          "password doesn't match";
-        document.querySelector(".password2-error").innerHTML =
-          "password doesn't match";
-      } else {
-        document.querySelector(".password1-error").innerHTML = "";
-        document.querySelector(".password2-error").innerHTML = "";
-      }
-
-      // First Name Vaidation
-      if (document.getElementById("first_name").value.length > 25) {
-        document.getElementById("first_name-error").innerHTML =
-          "characater limt reached";
-        setError(true);
-      } else {
-        document.getElementById("first_name-error").innerHTML = "";
-        setError(false);
-      }
-      // second name validation
-      if (document.getElementById("second_name").value.length > 25) {
-        document.getElementById("second_name-error").innerHTML =
-          "characater limt reached";
-        setError(true);
-      } else {
-        document.getElementById("second_name-error").innerHTML = "";
-        setError(false);
-      }
-      // Username validation
-      // if (document.getElementById("email").value.length > ) {
-      //   document.getElementById("email-error").innerHTML =
-      //     "characater limt reached";
-      //   setError(true);
-      // } else {
-      //   document.getElementById("email-error").innerHTML = "";
-      //   setError(false);
-      // }
-      // Email Validation
-      if (
-        !(
-          document.getElementById("email").value.includes(".") &&
-          document.getElementById("email").value.includes("@")
-        ) &&
-        document.getElementById("email").value !== ""
-      ) {
-        document.querySelector(".email-error").innerHTML =
-          "Invalid email address";
-      } else if (document.getElementById("email").value.length > 50) {
-        document.getElementById("email-error").innerHTML =
-          "characater limt reached";
-        setError(true);
-      } else {
-        document.getElementById("email-error").innerHTML = "";
-        setError(false);
-      }
-      if (
-        document.getElementById("password1").value !== "" &&
-        document.getElementById("password1").value.length < 8
-      ) {
-        document.querySelector(".password1-error").innerHTML =
-          "Enter atleast 8 characters";
-        setError(false);
-      } else {
-        setError(true);
-      }
-      if (
-        document.getElementById("password2").value !== "" &&
-        document.getElementById("password2").value.length < 8
-      ) {
-        document.querySelector(".password2-error").innerHTML =
-          "Enter atleast 8 characters";
-        setError(false);
-      } else {
-        setError(true);
-      }
-      // company name validation
-      if (document.getElementById("userCompanyName").value.length > 25) {
-        document.getElementById("userCompanyName-error").innerHTML =
-          "characater limt reached";
-        setError(true);
-      } else {
-        document.getElementById("userCompanyName-error").innerHTML = "";
-        setError(false);
-      }
-      // Domain validation
-      if (document.getElementById("CustomerDomain").value.length > 50) {
-        document.getElementById("CustomerDomain-error").innerHTML =
-          "characater limt reached";
-        setError(true);
-      } else {
-        document.getElementById("CustomerDomain-error").innerHTML = "";
-        setError(false);
+        // confirm_password_error.innerHTML = "Password doesn't match";
+        console.log(confirm_password_error);
       }
     }
-  });
-
+  }, [signupDetails]);
   const HandleUpdate = (e) => {
     // console.log(e.target.name, e.target.value);
 
     // console.log("type", e.target.type, e.target.checked);
-    if (e.target.type === "checkbox") {
-      // alert("yes");
-      setSignupDeatils((prevState) => ({
-        ...prevState,
-        [e.target.name]: e.target.checked,
-      }));
-    } else {
-      setSignupDeatils((prevState) => ({
-        ...prevState,
-        [e.target.name]: e.target.value,
-      }));
-    }
+
+    setSignupDeatils((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+
     // console.log(signupDetails);
-    setRegister({
-      username: signupDetails.email,
-      email: signupDetails.email,
-      password: signupDetails.password1,
-    });
+    // setRegister({
+    //   username: signupDetails.email,
+    //   email: signupDetails.email,
+    //   password: signupDetails.password1,
+    // });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // e.target.reset();
     document.getElementById("animation-container").style.visibility = "visible";
     // console.log(register);
-    const d = new Date();
-    const AccData = {
-      first_name: signupDetails.first_name,
-      second_name: signupDetails.second_name,
-      userName: signupDetails.email,
-      email: signupDetails.email,
-      userToken: signupDetails.userToken,
-      knoxTablePassword: signupDetails.knoxTablePassword,
-      userCompanyName: signupDetails.userCompanyName,
-      userCountry: signupDetails.userCountry,
-      NoOfEmpInUser: signupDetails.NoOfEmpInUser,
-      NoOfCustomersInUser: signupDetails.NoOfCustomersInUser,
-      WhoCreatedAccount: signupDetails.WhoCreatedAccount,
-      ContactNumber: signupDetails.ContactNumber,
-      OurServiseRequired: signupDetails.OurServiseRequired,
-      FieldOfCustomerApp: signupDetails.FieldOfCustomerApp,
-      CustomerDomain: signupDetails.CustomerDomain,
-      HowDoTheyKnowUs: signupDetails.HowDoTheyKnowUs,
-      AgreementStatus: signupDetails.AgreementStatus,
-      knoxTableId: "",
-      // AccoundCreated: "2012-09-04 06:00:00.000000",
-      // AccoundLastlyUbdated: "2012-09-04 06:00:00.000000",
-      AccoundCreated:
-        d.getFullYear() +
-        "-" +
-        d.getMonth() +
-        "-" +
-        d.getDate() +
-        " " +
-        d.getHours() +
-        ":" +
-        d.getMinutes() +
-        ":" +
-        d.getSeconds(),
-      AccoundLastlyUbdated:
-        d.getFullYear() +
-        "-" +
-        d.getMonth() +
-        "-" +
-        d.getDate() +
-        " " +
-        d.getHours() +
-        ":" +
-        d.getMinutes() +
-        ":" +
-        d.getSeconds(),
-    };
-    var status = 0;
-    fetch("https://neuron-dev.herokuapp.com/security/register/", {
+    console.log(JSON.stringify(signupDetails));
+    const animationContainer = document.getElementById("animation-container");
+    const alertMessageContainer = document.querySelector(
+      ".alert-message-container"
+    );
+    const alertMessage = document.querySelector(".alert-message");
+    const alertText = document.querySelector(".alert-text");
+    fetch("/accounts/signup/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "*/*",
       },
-      body: JSON.stringify(register),
+      body: JSON.stringify(signupDetails),
     })
-      .then((response) => {
-        if (response.ok) {
-          // alert("successful request");
-        } else {
-          // alert("request failed");
+      .then((resp) => {
+        if (!resp.ok) {
+          alert("Error while creating account");
+          animationContainer.style.visibility = "hidden";
         }
-        return response.json();
+        return resp.json();
       })
       .then((resp) => {
-        if (resp["token"] !== undefined) {
-          status = 1;
-          console.log(resp);
-          localStorage.setItem("userToken", resp["token"]);
-          setSignupDeatils((prevState) => ({
-            ...prevState,
-            username: resp["user"]["username"],
-            knoxTablePassword: resp["user"]["password"],
-            userToken: resp["token"],
-          }));
-          // console.log(resp["user"]["password"], resp["token"]);
-          // console.log("register", signupDetails);
-          AccData["knoxTablePassword"] = resp["user"]["password"];
-          AccData["userToken"] = resp["token"];
-          AccData["userName"] = resp["user"]["username"];
-          AccData["knoxTableId"] = resp["user"]["id"];
-          SetStatus(true);
-        } else {
-          status = 0;
+        console.log(Object.keys(resp));
+        animationContainer.style.visibility = "hidden";
+        alertMessageContainer.style.display = "flex";
+        if (Object.keys(resp) == "error") {
           SetStatus(false);
-          document.getElementById("animation-container").style.visibility =
-            "hidden";
-          console.warn(resp);
-          document.querySelector(".alert-message-container").style.display =
-            "flex";
-          document.querySelector(".alert-message").style.color = "#f00";
-          document.querySelector(".alert-text").innerHTML = Object.values(
-            resp
-          )[0];
-          document.getElementById("alert-message").style.color = "#ff0000";
-          setTimeout(() => {
-            document.querySelector(".alert-message-container").style.display =
-              "none";
-          }, 10000);
+          alertText.innerHTML = resp["error"];
+          alertMessage.style.color = "#f00";
+        } else {
+          SetStatus(true);
+          alertText.innerHTML = resp[Object.keys(resp)];
+          alertMessage.style.color = "#0f0";
         }
-      })
-      .catch((e) => console.warn(e));
-    // .catch((e) => alert(e));
-    // console.log(status);
-    console.log("show: ", status);
-    const timer = setInterval(() => {
-      if (status) {
-        clearInterval(timer);
-        fetch("https://neuron-dev.herokuapp.com/accounts/details/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(AccData),
-        })
-          .then((response) => {
-            document.querySelector(".alert-message-container").style.display =
-              "flex";
-            if (response.ok) {
-              console.log("successful request");
-              document.getElementById("animation-container").style.visibility =
-                "hidden";
-              document.querySelector(".alert-message").style.color = "#0f0";
-              document.querySelector(".alert-text").innerHTML =
-                "Account Created";
-              setTimeout(() => {
-                document.querySelector(
-                  ".alert-message-container"
-                ).style.display = "none";
-                setState(false);
-                redirect(true);
-              }, 10000);
-            } else {
-              console.warn("request t acc deatils failed");
-              document.getElementById("animation-container").style.visibility =
-                "hidden";
-              console.warn(response);
-              document.querySelector(".alert-message-container").style.display =
-                "flex";
-              document.querySelector(".alert-message").style.color = "#f00";
-              document.querySelector(".alert-text").innerHTML = Object.values(
-                response
-              )[0];
-              document.getElementById("alert-message").style.color = "#ff0000";
-              setTimeout(
-                () =>
-                  (document.querySelector(
-                    ".alert-message-container"
-                  ).style.display = "none"),
-                10000
-              );
-            }
-            return response.json();
-          })
-          .then((resp) => console.log(resp));
-      } else {
-        // console.log("waiting for response....");
-      }
-    }, 1000);
+        setTimeout(() => {
+          alertMessageContainer.style.display = "none";
+          // document.querySelector('.alert-text').innerHTML= resp['result']
+        }, 5000);
+        console.log(resp);
+      });
   };
 
   return (
@@ -366,7 +127,7 @@ export default function Signup({ open, setState, redirect }) {
             </div>
           </div>
           <form method="post" onSubmit={handleSubmit}>
-            {signupFields.map((field) => {
+            {newSignupFields.map((field) => {
               const element = field["Element"];
               // console.log(field["Element"], element);
               return element === "input" ? (
@@ -379,7 +140,7 @@ export default function Signup({ open, setState, redirect }) {
                   placeholder={field["placeholder"]}
                   onChange={HandleUpdate}
                 />
-              ) : element === "select" ? (
+              ) : (
                 <Select
                   key={field["label"]}
                   name={field["name"]}
@@ -389,8 +150,6 @@ export default function Signup({ open, setState, redirect }) {
                   onChange={HandleUpdate}
                   disabled={field["disabled"]}
                 />
-              ) : (
-                <DependencyList onChange={HandleUpdate} data={field["data"]} />
               );
             })}
 
@@ -400,7 +159,7 @@ export default function Signup({ open, setState, redirect }) {
                   type="checkbox"
                   id="terms"
                   name="AgreementStatus"
-                  onChange={HandleUpdate}
+                  // onChange={HandleUpdate}
                 />
 
                 <span>

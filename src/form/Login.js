@@ -3,9 +3,12 @@ import { AiOutlineClose } from "react-icons/ai";
 import Input from "./components/Input";
 import { LoginValues } from "./components/values";
 import { useHistory } from "react-router-dom";
+import SynapsPage from "./../synaps/SynapsPage";
+
 export default function Login({ open, setState, redirect }) {
+  // console.log(open, redirect, setState);
   const initialValue = {
-    username: "",
+    email: "",
     password: "",
   };
   const [loginDetails, setLoginDeatils] = useState(initialValue);
@@ -18,58 +21,36 @@ export default function Login({ open, setState, redirect }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    document.getElementById("animation-container").style.visibility = "visible";
-    console.log(document.getElementById("animation-container"));
-    fetch("https://neuron-dev.herokuapp.com/security/login/", {
+    // e.target.reset();
+    const animationContainer = document.getElementById("animation-container");
+    const error_msg = document.querySelector("#error-msg");
+    animationContainer.style.visibility = "visible";
+    fetch("/accounts/signin/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(loginDetails),
     })
-      .then((Response) => {
-        if (Response.ok) console.log("Login Successful request");
-        else console.warn("Login request failed");
-        return Response.json();
-      })
+      .then((resp) => resp.json())
       .then((resp) => {
-        document.getElementById("animation-container").style.visibility =
-          "hidden";
-
-        console.log("Login Response", resp);
-        if (resp["token"]) {
-          console.log("valid login");
-          // localStorage.setItem("userToken", resp["Token"]);
-          // history.push("/admin");
-          fetch("https://neuron-dev.herokuapp.com/security/usertoken/get", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: loginDetails.username,
-            }),
-          })
-            .then((resp) => resp.json())
-            .then((resp) => {
-              console.log("key", resp);
-              localStorage.setItem("userToken", resp["Token"]);
-              history.push("/admin");
-            });
-        } else {
-          console.warn("invalid login");
-          // document.getElementById("error-msg").innerHTML =
-          //   "Invalid username or password";
-          // document.getElementById("animation-container").style.display = "none";
-
-          // alert("Invalid username or password");
-          document.getElementById("error-msg").innerHTML =
-            "Invalid Username or Password";
-          document.getElementById("error-msg").style = {
-            padding: "10px",
-          };
+        animationContainer.style.visibility = "hidden";
+        console.log(resp);
+        if (Object.keys(resp).shift() === "Error") {
+          error_msg.innerHTML = resp["Error"];
+          error_msg.style = "color:red; background: #f888; padding: 10px;";
+          return;
         }
+        error_msg.innerHTML = resp[Object.keys(resp).shift()]
+          .split("_")
+          .join(" ");
+        error_msg.style = "color:green; background: #0f08; padding: 10px;";
+        localStorage.setItem("loginData", JSON.stringify(resp));
+        setTimeout(() => {
+          history.push("/synaps");
+        }, 3000);
       });
+    console.log(loginDetails);
   };
   return (
     open && (
