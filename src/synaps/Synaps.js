@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
+import Animation from "../animation/Animation";
 
-export default function Synaps({ id, name, updateDisplay, updateParentSynap }) {
+export default function Synaps({
+  id,
+  name,
+  updateDisplay,
+  updateParentSynap,
+  Update,
+}) {
   const [Child, setChild] = useState({});
   useEffect(() => {
+    const animationContainer = document.getElementById("animation-container");
+    animationContainer.style.visibility = "visible";
     fetch("/synapses/fetch/", {
       method: "POST",
       headers: {
@@ -17,23 +26,28 @@ export default function Synaps({ id, name, updateDisplay, updateParentSynap }) {
     })
       .then((resp) => resp.json())
       .then((resp) => {
-        console.log("child of" + id + " : ", resp);
-        console.log(Object.keys(resp)[0], Object.values(resp)[0]);
+        // console.log("child of" + id + " : ", resp);
+        // console.log(Object.keys(resp)[0], Object.values(resp)[0]);
         // if(Re)
         setChild(resp);
       });
-    console.log(id, name);
+    setTimeout(() => {
+      console.log(animationContainer.style.visibility);
+      animationContainer.style.visibility = "hidden";
+    }, 600);
+    // console.log(id, name);
   }, []);
-  console.log("prop", id, name);
+  // console.log("prop", id, name);
   return (
     <>
       <div
         style={{
-          borderLeft: "1.5px solid #000",
+          borderLeft: "2px solid #000",
           margin: "15px",
           padding: " 5px 10px",
         }}
       >
+        <Animation />
         <div>
           <span>{id + ") - " + name}</span>
           <button

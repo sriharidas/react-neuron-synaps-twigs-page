@@ -3,6 +3,7 @@ import Header from "../synaps/Header";
 import CreateSnapForm from "../synaps/CreateSnapForm";
 import AddSynapstoTwigForm from "./addSynapstoTwigForm";
 import TwigsSynaps from "./TwigsSynaps";
+import Animation from "./../animation/Animation";
 export default function TwigsContainer() {
   const [UserData, setUserData] = useState(
     JSON.parse(localStorage.getItem("loginData"))
@@ -108,7 +109,10 @@ export default function TwigsContainer() {
       }),
     })
       .then((resp) => resp.json())
-      .then((resp) => console.log("result", resp));
+      .then((resp) => {
+        console.log("result", resp);
+        window.location.reload();
+      });
     setDisplay(false);
   };
 
@@ -145,32 +149,36 @@ export default function TwigsContainer() {
         <button className="floating-add-twigs" onClick={() => setDisplay(true)}>
           + Add a Twig
         </button>
-        {EdgeSynaps !== {} && Object.keys(EdgeSynaps).length > 0 && (
-          <table className="syanp-table">
-            <caption>Edge Synapes</caption>
-            <thead>
-              <tr>
-                <th>Syanp Id</th>
-                <th>Syanp Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(EdgeSynaps).map((item) => (
-                <tr>
-                  <td>{item}</td>
-                  <td>{EdgeSynaps[item]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-
-        <TwigsSynaps
-          UserData={UserData}
-          TwigsData={TwigsData}
-          AddSynaps={AddSynaps}
-          props={false}
-        />
+        <div className="twig-table-container">
+          {EdgeSynaps !== {} && Object.keys(EdgeSynaps).length > 0 && (
+            <div className="twigs-prop-table-container">
+              <table className="syanp-table">
+                <caption>Edge Synapes</caption>
+                <thead>
+                  <tr>
+                    <th>Syanp Id</th>
+                    <th>Syanp Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.keys(EdgeSynaps).map((item) => (
+                    <tr>
+                      <td>{item}</td>
+                      <td>{EdgeSynaps[item]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <Animation />
+          <TwigsSynaps
+            UserData={UserData}
+            TwigsData={TwigsData}
+            AddSynaps={AddSynaps}
+            props={false}
+          />
+        </div>
       </div>
       <CreateSnapForm
         display={Display}

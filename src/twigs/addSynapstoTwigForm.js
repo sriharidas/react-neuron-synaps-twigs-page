@@ -69,7 +69,10 @@ export default function AddSynapstoTwigForm({
         body: JSON.stringify(data),
       })
         .then((resp) => resp.json())
-        .then((resp) => console.log(resp));
+        .then((resp) => {
+          console.log(resp);
+          window.location.reload();
+        });
     });
     UpdateDisplay(false);
   };

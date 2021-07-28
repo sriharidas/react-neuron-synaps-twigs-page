@@ -11,9 +11,30 @@ export default function SynapsContainer() {
     id: "",
     name: "",
   });
+  const [updateState, setUpdateState] = useState(0);
   useEffect(() => {
     console.log("Base Synaps", UserData.synaps);
+    fetch("/synapses/parent/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: UserData.email,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log("Parent Synaps", resp);
+        setUserData((prevState) => ({
+          ...prevState,
+          synaps: resp["Results"],
+        }));
+      });
   }, []);
+  useEffect(() => {
+    console.log(UserData);
+  }, [UserData]);
   const createSnap = (e) => {
     // e.preventDefault();
     const synapName = document.querySelector("#create-synap");
@@ -39,13 +60,18 @@ export default function SynapsContainer() {
       body: data,
     })
       .then((resp) => resp.json())
-      .then((resp) => console.log(resp));
+      .then((resp) => {
+        console.log(resp);
+
+        setUpdateState((prevState) => prevState + 1);
+        window.location.reload();
+      });
   };
   return (
     <div className="synaps-container">
       <Header title={"Synaps Page"} />
       <div className="synaps-main-container">
-        <button
+        {/* <button
           className="floating-add-synaps"
           onClick={() => {
             setDisplayForm(true);
@@ -54,16 +80,33 @@ export default function SynapsContainer() {
         >
           {" "}
           + add parent synap
-        </button>
+        </button> */}
         {UserData.synaps !== "No data available" ? (
-          Object.keys(UserData.synaps).map((x) => (
-            <Synaps
-              id={x}
-              name={UserData.synaps[x]}
-              updateDisplay={setDisplayForm}
-              updateParentSynap={setParentSynap}
-            />
-          ))
+          <>
+            <p style={{ marginTop: "10px", padding: "7px", fontWeight: "700" }}>
+              <span style={{ padding: "inherit" }}>Base Synaps</span>
+              <button
+                onClick={() => {
+                  setDisplayForm(true);
+                  setParentSynap({ id: "", name: "" });
+                }}
+              >
+                {" "}
+                + add base synap
+              </button>
+            </p>
+
+            {Object.keys(UserData.synaps).map((x) => (
+              <Synaps
+                id={x}
+                name={UserData.synaps[x]}
+                updateDisplay={setDisplayForm}
+                updateParentSynap={setParentSynap}
+                UpdateState={setUpdateState}
+                Update={updateState}
+              />
+            ))}
+          </>
         ) : (
           <div className="synap-message">
             <span> No data Avilable yet </span>

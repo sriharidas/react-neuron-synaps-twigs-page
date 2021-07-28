@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import Animation from "./../animation/Animation";
 export default function TwigsSynaps({
   UserData,
   AddSynaps,
@@ -16,6 +16,9 @@ export default function TwigsSynaps({
     if (Object.keys(TwigsData).length < 0) {
       return;
     }
+    const animationContainer = document.getElementById("animation-container");
+    animationContainer.style.visibility = "visible";
+
     Object.keys(TwigsData).forEach((x) => {
       const data = JSON.stringify({
         email: UserData.email,
@@ -51,12 +54,15 @@ export default function TwigsSynaps({
             }));
           }
         });
+      animationContainer.style.visibility = "hidden";
     });
     setloaded(true);
   }, [TwigsData, UserData]);
   useEffect(() => {
     if (selectedTwig === "") return;
     console.log(TwigsData[selectedTwig]);
+    const animationContainer = document.getElementById("animation-container");
+    animationContainer.style.visibility = "visible";
     fetch("/twigs/get/properties", {
       method: "POST",
       headers: {
@@ -71,6 +77,7 @@ export default function TwigsSynaps({
       .then((resp) => {
         console.log(resp);
         setSelectedTwigProps(resp);
+        animationContainer.style.visibility = "hidden";
       });
   }, [selectedTwig]);
   const addPropstoTwig = (e) => {
@@ -94,19 +101,24 @@ export default function TwigsSynaps({
       body: JSON.stringify(data),
     })
       .then((resp) => resp.json())
-      .then((resp) => console.log("addes props ?", resp));
+      .then((resp) => {
+        console.log("addes props ?", resp);
+        window.location.reload();
+      });
     setPropForm(false);
   };
   return (
     <>
+      <Animation />
       {TwigsandSyanp !== {} && Object.keys(TwigsData).length > 0 && (
-        <>
+        <div className="twigs-prop-table-container">
           <table className="twigs-table">
             <caption>Twigs Table</caption>
             <thead>
               <tr>
                 <th>Twig id</th>
                 <th>Twig name</th>
+
                 {!props && <th>Connected Synaps</th>}
               </tr>
             </thead>
@@ -159,8 +171,9 @@ export default function TwigsSynaps({
             </tbody>
           </table>
           {props && (
-            <>
-              <table>
+            <div className="props-table-container">
+              <Animation />
+              <table className="props-table">
                 <thead>
                   <tr>
                     <th colSpan="2">Props</th>
@@ -241,9 +254,9 @@ export default function TwigsSynaps({
                   </div>
                 </div>
               )}
-            </>
+            </div>
           )}
-        </>
+        </div>
       )}
     </>
   );

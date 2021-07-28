@@ -60,29 +60,32 @@ export default function PropsContainer() {
       .then((resp) => resp.json())
       .then((resp) => {
         console.log("Prop created", resp);
+        window.location.reload();
       });
   };
   useEffect(() => console.log("deafult props", DefaultProps), [DefaultProps]);
   return (
-    <div
-      style={{ background: "#fff", color: "#000", height: "100vh" }}
-      className="twigs-container"
-    >
-      <Header title={"Bonding"} />
-      <div className="props-conatiner twigs-main-container">
-        <button
-          className="floating-props-btn"
-          onClick={() => setDisplayForm(true)}
-        >
-          + Add Props
-        </button>
-        <TwigsSynaps
-          UserData={UserData}
-          AddSynaps={() => {}}
-          TwigsData={TwigsData}
-          props={true}
-          propsList={DefaultProps}
-        />
+    <>
+      <div
+        style={{ background: "#fff", color: "#000", height: "100vh" }}
+        className="twigs-container"
+      >
+        <Header title={"Bonding"} />
+        <div className="props-conatiner twigs-main-container">
+          <button
+            className="floating-props-btn"
+            onClick={() => setDisplayForm(true)}
+          >
+            + Add Props
+          </button>
+          <TwigsSynaps
+            UserData={UserData}
+            AddSynaps={() => {}}
+            TwigsData={TwigsData}
+            props={true}
+            propsList={DefaultProps}
+          />
+        </div>
       </div>
       <CreateSnapForm
         label="props"
@@ -91,6 +94,6 @@ export default function PropsContainer() {
         placeholder={"Enter the prop name"}
         createSnapFunc={createProp}
       />
-    </div>
+    </>
   );
 }
