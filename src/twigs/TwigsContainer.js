@@ -18,7 +18,7 @@ export default function TwigsContainer() {
   const [TwigSyanpForm, setTwigSyanpForm] = useState(false);
   useEffect(() => {
     // console.log(UserData.email, "'s Synaps are", UserData.synaps);
-    fetch("/twigs/fetch/", {
+    fetch("https://neurontech.herokuapp.com/twigs/fetch/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export default function TwigsContainer() {
     if (Object.keys(EdgeSynaps).length > 0) {
       return;
     }
-    fetch("/synapses/edge/", {
+    fetch("https://neurontech.herokuapp.com/synapses/edge/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +98,7 @@ export default function TwigsContainer() {
     e.preventDefault();
     const newTwig = document.querySelector("#create-twig");
     console.log("create Twig for", newTwig.value);
-    fetch("/twigs/create/", {
+    fetch("https://neurontech.herokuapp.com/twigs/create/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -149,36 +149,57 @@ export default function TwigsContainer() {
         <button className="floating-add-twigs" onClick={() => setDisplay(true)}>
           + Add a Twig
         </button>
-        <div className="twig-table-container">
-          {EdgeSynaps !== {} && Object.keys(EdgeSynaps).length > 0 && (
-            <div className="twigs-prop-table-container">
-              <table className="syanp-table">
-                <caption>Edge Synapes</caption>
-                <thead>
-                  <tr>
-                    <th>Syanp Id</th>
-                    <th>Syanp Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(EdgeSynaps).map((item) => (
-                    <tr>
-                      <td>{item}</td>
-                      <td>{EdgeSynaps[item]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        {Object.keys(TwigsData).length > 0 ? (
+          <>
+            <div className="twig-table-container">
+              {EdgeSynaps !== {} && Object.keys(EdgeSynaps).length > 0 && (
+                <div className="twigs-prop-table-container">
+                  <table className="syanp-table">
+                    <caption>Edge Synapes</caption>
+                    <thead>
+                      <tr>
+                        <th>Syanp Id</th>
+                        <th>Syanp Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.keys(EdgeSynaps).map((item) => (
+                        <tr>
+                          <td>{item}</td>
+                          <td>{EdgeSynaps[item]}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
-          )}
-          <Animation />
-          <TwigsSynaps
-            UserData={UserData}
-            TwigsData={TwigsData}
-            AddSynaps={AddSynaps}
-            props={false}
-          />
-        </div>
+          </>
+        ) : (
+          <>
+            <div className="synap-message">
+              <span> No data Avilable yet </span>
+              <span>
+                Create one?{""}
+                <button
+                  onClick={() => {
+                    setDisplay(true);
+                  }}
+                >
+                  Create a twig
+                </button>
+              </span>
+            </div>
+          </>
+        )}
+
+        <Animation />
+        <TwigsSynaps
+          UserData={UserData}
+          TwigsData={TwigsData}
+          AddSynaps={AddSynaps}
+          props={false}
+        />
       </div>
       <CreateSnapForm
         display={Display}

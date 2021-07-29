@@ -11,7 +11,7 @@ export default function PropsContainer() {
   const [TwigsData, setTwigsData] = useState({});
   // const [UpdateStatus, setUpdateStatus] = useState(false);
   useEffect(() => {
-    fetch("/properties/twigs/propKey/fetch", {
+    fetch("https://neurontech.herokuapp.com/properties/twigs/propKey/fetch", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export default function PropsContainer() {
 
   useEffect(() => {
     // console.log(UserData.email, "'s Synaps are", UserData.synaps);
-    fetch("/twigs/fetch/", {
+    fetch("https://neurontech.herokuapp.com/twigs/fetch/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,21 +71,37 @@ export default function PropsContainer() {
         className="twigs-container"
       >
         <Header title={"Bonding"} />
-        <div className="props-conatiner twigs-main-container">
-          <button
-            className="floating-props-btn"
-            onClick={() => setDisplayForm(true)}
-          >
-            + Add Props
-          </button>
-          <TwigsSynaps
-            UserData={UserData}
-            AddSynaps={() => {}}
-            TwigsData={TwigsData}
-            props={true}
-            propsList={DefaultProps}
-          />
-        </div>
+        {Object.keys(DefaultProps).length > 0 ? (
+          <div className="props-conatiner twigs-main-container">
+            <button
+              className="floating-props-btn"
+              onClick={() => setDisplayForm(true)}
+            >
+              + Add Props
+            </button>
+            <TwigsSynaps
+              UserData={UserData}
+              AddSynaps={() => {}}
+              TwigsData={TwigsData}
+              props={true}
+              propsList={DefaultProps}
+            />
+          </div>
+        ) : (
+          <div className="synap-message">
+            <span> No data Avilable yet </span>
+            <span>
+              Create one?{""}
+              <button
+                onClick={() => {
+                  setDisplayForm(true);
+                }}
+              >
+                Create a prop
+              </button>
+            </span>
+          </div>
+        )}
       </div>
       <CreateSnapForm
         label="props"

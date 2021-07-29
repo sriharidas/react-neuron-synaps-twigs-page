@@ -66,7 +66,7 @@ export default function Signup({ open, setState, redirect }) {
     );
     const alertMessage = document.querySelector(".alert-message");
     const alertText = document.querySelector(".alert-text");
-    fetch("/accounts/signup/", {
+    fetch("https://neurontech.herokuapp.com/accounts/signup/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

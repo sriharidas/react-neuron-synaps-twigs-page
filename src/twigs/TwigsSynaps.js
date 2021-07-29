@@ -13,11 +13,14 @@ export default function TwigsSynaps({
   const [selectedTwig, setSelectedtwig] = useState("");
   const [propForm, setPropForm] = useState(false);
   useEffect(() => {
-    if (Object.keys(TwigsData).length < 0) {
-      return;
-    }
     const animationContainer = document.getElementById("animation-container");
     animationContainer.style.visibility = "visible";
+    console.log(Object.keys(TwigsData).length);
+    if (Object.keys(TwigsData).length <= 0) {
+      console.log("No data");
+      animationContainer.style.visibility = "hidden";
+      return;
+    }
 
     Object.keys(TwigsData).forEach((x) => {
       const data = JSON.stringify({
@@ -26,7 +29,7 @@ export default function TwigsSynaps({
         twig_name: TwigsData[x],
       });
       // console.log(data);
-      fetch("/twigs/get/synapses", {
+      fetch("https://neurontech.herokuapp.com/twigs/get/synapses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,8 +56,8 @@ export default function TwigsSynaps({
               [String(x)]: resp["synaps"],
             }));
           }
+          animationContainer.style.visibility = "hidden";
         });
-      animationContainer.style.visibility = "hidden";
     });
     setloaded(true);
   }, [TwigsData, UserData]);
@@ -174,6 +177,7 @@ export default function TwigsSynaps({
             <div className="props-table-container">
               <Animation />
               <table className="props-table">
+                <caption>Props</caption>
                 <thead>
                   <tr>
                     <th colSpan="2">Props</th>

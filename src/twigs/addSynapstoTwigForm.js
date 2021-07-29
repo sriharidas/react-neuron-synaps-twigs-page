@@ -61,7 +61,7 @@ export default function AddSynapstoTwigForm({
         synap_id: Number(item.id),
       };
       console.log(JSON.stringify(data));
-      fetch("/twigs/bond/", {
+      fetch("https://neurontech.herokuapp.com/twigs/bond/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

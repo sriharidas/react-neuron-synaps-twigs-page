@@ -12,7 +12,7 @@ export default function Synaps({
   useEffect(() => {
     const animationContainer = document.getElementById("animation-container");
     animationContainer.style.visibility = "visible";
-    fetch("/synapses/fetch/", {
+    fetch("https://neurontech.herokuapp.com/synapses/fetch/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,10 +31,10 @@ export default function Synaps({
         // if(Re)
         setChild(resp);
       });
-    setTimeout(() => {
-      console.log(animationContainer.style.visibility);
-      animationContainer.style.visibility = "hidden";
-    }, 600);
+
+    console.log(animationContainer.style.visibility);
+    animationContainer.style.visibility = "hidden";
+
     // console.log(id, name);
   }, []);
   // console.log("prop", id, name);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Synaps from "./Synaps";
 import CreateSnapForm from "./CreateSnapForm";
+import Animation from "../animation/Animation";
 export default function SynapsContainer() {
   const [UserData, setUserData] = useState(
     JSON.parse(localStorage.getItem("loginData"))
@@ -13,8 +14,10 @@ export default function SynapsContainer() {
   });
   const [updateState, setUpdateState] = useState(0);
   useEffect(() => {
+    const animationContainer = document.getElementById("animation-container");
+    animationContainer.style.visibility = "visible";
     console.log("Base Synaps", UserData.synaps);
-    fetch("/synapses/parent/", {
+    fetch("https://neurontech.herokuapp.com/synapses/parent/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,6 +33,7 @@ export default function SynapsContainer() {
           ...prevState,
           synaps: resp["Results"],
         }));
+        animationContainer.style.visibility = "hidden";
       });
   }, []);
   useEffect(() => {
@@ -52,7 +56,7 @@ export default function SynapsContainer() {
       },
     });
     console.log(data);
-    fetch("/synapses/create/", {
+    fetch("https://neurontech.herokuapp.com/synapses/create/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,6 +75,7 @@ export default function SynapsContainer() {
     <div className="synaps-container">
       <Header title={"Synaps Page"} />
       <div className="synaps-main-container">
+        <Animation />
         {/* <button
           className="floating-add-synaps"
           onClick={() => {
