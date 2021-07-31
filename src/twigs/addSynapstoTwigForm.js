@@ -11,7 +11,14 @@ export default function AddSynapstoTwigForm({
 }) {
   useEffect(() => {
     console.log("selected", selectedSynaps);
-  }, [selectedSynaps]);
+    const checkboxGroup = document.querySelector(".twigs-checkbox-group");
+    if (display && checkboxGroup) {
+      console.log("checkbox", checkboxGroup);
+      if (Object.keys(edgeSynaps).length >= 10)
+        checkboxGroup.style.display = "grid";
+      else checkboxGroup.style.display = "block";
+    }
+  }, [edgeSynaps, selectedSynaps, display]);
   const handleChanage = (e) => {
     //   checking whether checkbox is selected
     if (e.target.checked === true) {
@@ -92,19 +99,21 @@ export default function AddSynapstoTwigForm({
             </div>
             <div className="form-input-group">
               <label>Select synaps</label>
-              {Object.keys(edgeSynaps).map((x) => (
-                <div>
-                  <input
-                    id={`${x}-${edgeSynaps[x]}`}
-                    name={`${x}-${edgeSynaps[x]}`}
-                    type="checkbox"
-                    onChange={handleChanage}
-                  />
-                  <label htmlFor={`${x}-${edgeSynaps[x]}`}>
-                    {`${edgeSynaps[x]}`}
-                  </label>
-                </div>
-              ))}
+              <div className="twigs-checkbox-group">
+                {Object.keys(edgeSynaps).map((x) => (
+                  <div>
+                    <input
+                      id={`${x}-${edgeSynaps[x]}`}
+                      name={`${x}-${edgeSynaps[x]}`}
+                      type="checkbox"
+                      onChange={handleChanage}
+                    />
+                    <label htmlFor={`${x}-${edgeSynaps[x]}`}>
+                      {`${edgeSynaps[x]}`}
+                    </label>
+                  </div>
+                ))}
+              </div>
             </div>
             <hr />
             <button type="submit">Link</button>

@@ -115,7 +115,7 @@ export default function TwigsSynaps({
       <Animation />
       {TwigsandSyanp !== {} && Object.keys(TwigsData).length > 0 && (
         <div className="twigs-prop-table-container">
-          <div>
+          <div className="table-wrapper">
             <table className="twigs-table">
               <caption>Twigs Table</caption>
               <thead>
@@ -178,8 +178,7 @@ export default function TwigsSynaps({
 
           {props && (
             <div className="props-table-container">
-              <Animation />
-              <div>
+              <div className="props-table-wrapper">
                 <table className="props-table">
                   <caption>Props</caption>
                   <thead>
@@ -231,41 +230,39 @@ export default function TwigsSynaps({
                   </tbody>
                 </table>
               </div>
-              {propForm && (
-                <div className="twigs-form-container props-from-container">
-                  <div className="twigs-form-main props-form-main">
-                    <h2>
-                      Props{" "}
-                      <button onClick={() => setPropForm(false)}>X</button>
-                    </h2>
-                    <form method="POST" onSubmit={addPropstoTwig}>
-                      <div className="form-input-group">
-                        <label>select the prop you would like to add</label>
-                        <select id="props-name">
-                          {Object.keys(selectedTwigProps).length > 0 &&
-                            Object.values(propsList).map((x) =>
-                              Object.keys(
-                                selectedTwigProps.properties
-                              ).includes(x) ? (
-                                <option disabled={true}>{x}</option>
-                              ) : (
-                                <option>{x}</option>
-                              )
-                            )}
-                        </select>
-                      </div>
-                      <div className="form-input-group">
-                        <label>Prop Value</label>
-                        <input id="props-value" placeholder="Prop value  " />
-                      </div>
-                      <hr />
-                      <button type="submit">Add</button>
-                    </form>
-                  </div>
-                </div>
-              )}
             </div>
           )}
+        </div>
+      )}
+      {propForm && (
+        <div className="twigs-form-container props-from-container">
+          <div className="twigs-form-main props-form-main">
+            <h2>
+              Props <button onClick={() => setPropForm(false)}>X</button>
+            </h2>
+            <form method="POST" onSubmit={addPropstoTwig}>
+              <div className="form-input-group">
+                <label>select the prop you would like to add</label>
+                <select id="props-name">
+                  {Object.keys(selectedTwigProps).length > 0 &&
+                    Object.values(propsList).map((x) =>
+                      Object.keys(selectedTwigProps.properties).includes(x) ? (
+                        <option disabled={true}>{x}</option>
+                      ) : (
+                        <option>{x}</option>
+                      )
+                    )}
+                </select>
+              </div>
+              <div className="form-input-group">
+                <label>Prop Value</label>
+                <input id="props-value" placeholder="Prop value  " />
+              </div>
+              <hr />
+              <button type="submit">Add</button>
+            </form>
+          </div>
+          <Animation />
         </div>
       )}
     </>

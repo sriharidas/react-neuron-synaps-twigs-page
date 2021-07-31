@@ -2,6 +2,7 @@ button {
   cursor: pointer;
   padding: 4px;
 }
+
 .synaps-container {
   width: 100%;
   height: 100vh;
@@ -99,6 +100,7 @@ button {
   width: 100%;
   height: 100vh;
   background-color: #fff;
+  position: relative;
 }
 .twigs-main-container {
   position: relative;
@@ -142,7 +144,7 @@ button {
 .twigs-main-container table.twigs-table td > button {
   position: absolute;
   right: 10px;
-  bottom: 10%;
+  bottom: 25%;
   padding: 5px;
   background-color: transparent;
   border: none;
@@ -162,19 +164,37 @@ button {
   background-color: #666;
   color: #fff;
 }
+
+.props-container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow: scroll;
+  position: relative;
+}
+.floating-props-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* Twigs Form */
+
 .twigs-form-container {
   width: 100%;
   height: 100vh;
   background-color: #0008;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0;
 }
 .twigs-form-main {
-  width: 40%;
+  width: 45%;
   min-height: 300px;
   padding: 20px;
   background-color: #eee;
@@ -198,7 +218,7 @@ button {
   cursor: pointer;
 }
 .twigs-form-main form {
-  width: 80%;
+  width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -238,20 +258,15 @@ button {
   width: 100%;
   background-color: #000;
 }
-
-.props-container {
+.twigs-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 160px;
   overflow: scroll;
-  position: relative;
+  /* border: 1px solid #ccc; */
 }
-.floating-props-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  padding: 5px;
-  cursor: pointer;
-}
+/* props Form */
 
 .props-from-container {
   position: fixed;
@@ -292,10 +307,11 @@ button {
 .twigs-prop-table-container table.twigs-table,
 .twigs-prop-table-container table.syanp-table {
   width: 90%;
-  height: 100%;
+  /* height: 100%; */
+  height: fit-content;
   /* overflow: scroll; */
 }
-.twigs-prop-table-container div {
+.twigs-prop-table-container > div {
   width: 90%;
   height: 80vh;
   overflow: scroll;
@@ -304,6 +320,9 @@ button {
   margin-top: 50px;
   display: flex;
   justify-content: space-evenly;
+}
+.twigs-prop-table-container tr td {
+  padding: 20px;
 }
 .props-conatiner table.twigs-table {
   width: 80%;
