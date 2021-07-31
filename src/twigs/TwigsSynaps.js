@@ -115,116 +115,122 @@ export default function TwigsSynaps({
       <Animation />
       {TwigsandSyanp !== {} && Object.keys(TwigsData).length > 0 && (
         <div className="twigs-prop-table-container">
-          <table className="twigs-table">
-            <caption>Twigs Table</caption>
-            <thead>
-              <tr>
-                <th>Twig id</th>
-                <th>Twig name</th>
-
-                {!props && <th>Connected Synaps</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(TwigsData).map((x) => (
+          <div>
+            <table className="twigs-table">
+              <caption>Twigs Table</caption>
+              <thead>
                 <tr>
-                  {/* <span>{x + " - " + TwigsData[x]} </span> */}
-                  <td>{x}</td>
-                  <td
-                    onClick={() => {
-                      props && setSelectedtwig(x);
-                    }}
-                  >
-                    {TwigsData[x] + " "}
-                    {props && (
-                      <button
-                        onClick={() => {
-                          console.log("select a prop", propsList);
-                          setPropForm(true);
-                        }}
-                      >
-                        {" "}
-                        +{" "}
-                      </button>
-                    )}
-                  </td>
-                  {!props && (
-                    <td>
-                      <select onChange={AddSynaps}>
-                        {isloaded &&
-                        Object.keys(TwigsandSyanp).length ===
-                          Object.keys(TwigsData).length &&
-                        Object.keys(TwigsandSyanp[x]).pop() !== "result" ? (
-                          <>
-                            {Object.keys(TwigsandSyanp[x]).map((data) => (
-                              <option selected={true}>
-                                {data + " - " + TwigsandSyanp[x][data]}
-                              </option>
-                            ))}
-                          </>
-                        ) : (
-                          <option>None</option>
-                        )}
-                        <option value={"add-" + x}> + Add Synap</option>
-                      </select>
-                    </td>
-                  )}
+                  <th>Twig id</th>
+                  <th>Twig name</th>
+
+                  {!props && <th>Connected Synaps</th>}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {Object.keys(TwigsData).map((x) => (
+                  <tr>
+                    {/* <span>{x + " - " + TwigsData[x]} </span> */}
+                    <td>{x}</td>
+                    <td
+                      onClick={() => {
+                        props && setSelectedtwig(x);
+                      }}
+                    >
+                      {TwigsData[x] + " "}
+                      {props && (
+                        <button
+                          onClick={() => {
+                            console.log("select a prop", propsList);
+                            setPropForm(true);
+                          }}
+                        >
+                          {" "}
+                          +{" "}
+                        </button>
+                      )}
+                    </td>
+                    {!props && (
+                      <td>
+                        <select onChange={AddSynaps}>
+                          {isloaded &&
+                          Object.keys(TwigsandSyanp).length ===
+                            Object.keys(TwigsData).length &&
+                          Object.keys(TwigsandSyanp[x]).pop() !== "result" ? (
+                            <>
+                              {Object.keys(TwigsandSyanp[x]).map((data) => (
+                                <option selected={true}>
+                                  {data + " - " + TwigsandSyanp[x][data]}
+                                </option>
+                              ))}
+                            </>
+                          ) : (
+                            <option>None</option>
+                          )}
+                          <option value={"add-" + x}> + Add Synap</option>
+                        </select>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
           {props && (
             <div className="props-table-container">
               <Animation />
-              <table className="props-table">
-                <caption>Props</caption>
-                <thead>
-                  <tr>
-                    <th colSpan="2">Props</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(selectedTwigProps).length > 0 ? (
-                    <>
-                      {Object.keys(selectedTwigProps.properties).length > 0 ? (
-                        <>
-                          <tr>
-                            <th>property Name</th>
-                            <th>property value</th>
-                          </tr>
-                          {Object.keys(selectedTwigProps.properties).map(
-                            (prop) => (
-                              <tr>
-                                <td>{prop}</td>
+              <div>
+                <table className="props-table">
+                  <caption>Props</caption>
+                  <thead>
+                    <tr>
+                      <th colSpan="2">Props</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(selectedTwigProps).length > 0 ? (
+                      <>
+                        {Object.keys(selectedTwigProps.properties).length >
+                        0 ? (
+                          <>
+                            <tr>
+                              <th>property Name</th>
+                              <th>property value</th>
+                            </tr>
+                            {Object.keys(selectedTwigProps.properties).map(
+                              (prop) => (
+                                <tr>
+                                  <td>{prop}</td>
 
-                                <td>{selectedTwigProps.properties[prop]}</td>
-                              </tr>
-                            )
-                          )}
-                        </>
-                      ) : (
+                                  <td>{selectedTwigProps.properties[prop]}</td>
+                                </tr>
+                              )
+                            )}
+                          </>
+                        ) : (
+                          <tr>
+                            <td>
+                              No properties present{" "}
+                              <button>
+                                +add props to {TwigsData[selectedTwig]}
+                              </button>
+                            </td>
+                          </tr>
+                        )}
+                      </>
+                    ) : (
+                      <>
                         <tr>
                           <td>
-                            No properties present{" "}
-                            <button>
-                              +add props to {TwigsData[selectedTwig]}
-                            </button>
+                            Select a Twig to view props{" "}
+                            <button>+add props to twig</button>
                           </td>
                         </tr>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <tr>
-                        <td>
-                          Select a Twig to view props{" "}
-                          <button>+add props to twig</button>
-                        </td>
-                      </tr>
-                    </>
-                  )}
-                </tbody>
-              </table>
+                      </>
+                    )}
+                  </tbody>
+                </table>
+              </div>
               {propForm && (
                 <div className="twigs-form-container props-from-container">
                   <div className="twigs-form-main props-form-main">

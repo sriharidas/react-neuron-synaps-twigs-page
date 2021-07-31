@@ -146,31 +146,36 @@ export default function TwigsContainer() {
     <div className="twigs-container">
       <Header title={"Twigs Page"} />
       <div className="twigs-main-container">
-        <button className="floating-add-twigs" onClick={() => setDisplay(true)}>
-          + Add a Twig
-        </button>
         {Object.keys(TwigsData).length > 0 ? (
           <>
+            <button
+              className="floating-add-twigs"
+              onClick={() => setDisplay(true)}
+            >
+              + Add a Twig
+            </button>
             <div className="twig-table-container">
               {EdgeSynaps !== {} && Object.keys(EdgeSynaps).length > 0 && (
                 <div className="twigs-prop-table-container">
-                  <table className="syanp-table">
-                    <caption>Edge Synapes</caption>
-                    <thead>
-                      <tr>
-                        <th>Syanp Id</th>
-                        <th>Syanp Name</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Object.keys(EdgeSynaps).map((item) => (
+                  <div>
+                    <table className="syanp-table">
+                      <caption>Edge Synapes</caption>
+                      <thead>
                         <tr>
-                          <td>{item}</td>
-                          <td>{EdgeSynaps[item]}</td>
+                          <th>Syanp Id</th>
+                          <th>Syanp Name</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {Object.keys(EdgeSynaps).map((item) => (
+                          <tr>
+                            <td>{item}</td>
+                            <td>{EdgeSynaps[item]}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               )}
             </div>

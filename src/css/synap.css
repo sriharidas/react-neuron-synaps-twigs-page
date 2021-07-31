@@ -24,6 +24,7 @@ button {
   height: calc(100% - 70px);
   background-color: #fff;
   position: relative;
+  margin-top: 15px;
 }
 .floating-add-synaps,
 .floating-add-twigs {
@@ -89,6 +90,7 @@ button {
 }
 .synap-message span button {
   padding: inherit;
+  margin: 10px;
   /* background-color: #fff; */
 }
 
@@ -116,7 +118,8 @@ button {
   align-items: flex-start;
 }
 .twigs-main-container table {
-  margin-top: 100px;
+  /* margin-top: 100px; */
+  margin: 20px 0;
   border-collapse: collapse;
   /* min-height: 60%; */
   width: 35%;
@@ -276,32 +279,69 @@ button {
 .props-conatiner table {
   /* height: 70%; */
   overflow: scroll;
-  margin-top: 70px;
+  /* margin-top: 70px; */
 }
 .twigs-prop-table-container {
   width: 100%;
   height: 100%;
-  overflow: scroll;
+
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
 }
 .twigs-prop-table-container table.twigs-table,
 .twigs-prop-table-container table.syanp-table {
-  width: 80%;
+  width: 90%;
+  height: 100%;
+  /* overflow: scroll; */
+}
+.twigs-prop-table-container div {
+  width: 90%;
+  height: 80vh;
+  overflow: scroll;
+  /* background-color: #666; */
+  /* background-color: #eee; */
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
 }
 .props-conatiner table.twigs-table {
-  width: 40%;
+  width: 80%;
 }
 .props-table {
   position: relative;
 }
+
 .props-table-container {
   width: 40%;
-  height: fit-content;
+  /* height: fit-content; */
+  height: 70%;
+  background-color: transparent;
   position: relative;
 }
-
+.props-table-container div {
+  height: inherit;
+  overflow: scroll;
+  margin-top: 0;
+  width: 100%;
+  background-color: transparent;
+}
 .props-table-container .props-table {
   width: 100%;
+  box-shadow: 3px 6px 8px #f1f1f1;
+}
+
+@media (max-width: 800px) {
+  .twigs-prop-table-container {
+    flex-direction: column;
+    height: 150vh;
+    align-items: center;
+  }
+  .twigs-container {
+    height: fit-content;
+  }
+  .twigs-main-container {
+    flex-direction: column;
+    height: 100vh;
+  }
 }

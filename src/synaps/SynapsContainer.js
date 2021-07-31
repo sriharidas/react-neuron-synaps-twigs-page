@@ -86,7 +86,7 @@ export default function SynapsContainer() {
           {" "}
           + add parent synap
         </button> */}
-        {UserData.synaps !== "No data available" ? (
+        {typeof UserData.synaps === "object" && UserData.synaps !== {} ? (
           <>
             <p style={{ marginTop: "10px", padding: "7px", fontWeight: "700" }}>
               <span style={{ padding: "inherit" }}>Base Synaps</span>
