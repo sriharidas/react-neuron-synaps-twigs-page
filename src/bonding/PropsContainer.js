@@ -47,7 +47,7 @@ export default function PropsContainer() {
   const createProp = (e) => {
     const propName = document.querySelector("#create-props");
     console.log("new prop", propName.value);
-    fetch("/properties/twigs/propKey/create", {
+    fetch("https://neurontech.herokuapp.com/properties/twigs/propKey/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
