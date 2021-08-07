@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../synaps/Header";
 import TwigsSynaps from "../twigs/TwigsSynaps";
-import CreateSnapForm from "./../synaps/CreateSnapForm";
+import CreateSnapForm from "../synaps/CreateSnapForm";
 export default function PropsContainer() {
   const [UserData, setUserData] = useState(
     JSON.parse(localStorage.getItem("loginData"))

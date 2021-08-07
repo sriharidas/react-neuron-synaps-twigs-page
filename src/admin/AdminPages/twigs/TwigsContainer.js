@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../synaps/Header";
-import CreateSnapForm from "../synaps/CreateSnapForm";
+import CreateSnapForm from "./../synaps/CreateSnapForm";
 import AddSynapstoTwigForm from "./addSynapstoTwigForm";
 import TwigsSynaps from "./TwigsSynaps";
 import Animation from "../../../animation/Animation";

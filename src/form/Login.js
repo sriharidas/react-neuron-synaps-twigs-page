@@ -3,7 +3,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Input from "./components/Input";
 import { LoginValues } from "./components/values";
 import { useHistory } from "react-router-dom";
-import SynapsPage from "./../synaps/SynapsPage";
+// import SynapsPage from "./../synaps/SynapsPage";
 
 export default function Login({ open, setState, redirect }) {
   // console.log(open, redirect, setState);
@@ -21,7 +21,7 @@ export default function Login({ open, setState, redirect }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.target.reset();
+    // e.target.reset();
     const animationContainer = document.getElementById("animation-container");
     const error_msg = document.querySelector("#error-msg");
     animationContainer.style.visibility = "visible";
