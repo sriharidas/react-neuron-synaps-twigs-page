@@ -21,7 +21,7 @@ export default function Login({ open, setState, redirect }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // e.target.reset();
+    e.target.reset();
     const animationContainer = document.getElementById("animation-container");
     const error_msg = document.querySelector("#error-msg");
     animationContainer.style.visibility = "visible";

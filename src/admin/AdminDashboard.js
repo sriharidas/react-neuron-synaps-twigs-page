@@ -7,6 +7,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import DataCircuit from "./AdminPages/DataCircuit";
 import Logout from "./AdminPages/Logout";
 import UserProfile from "./AdminPages/UserProfile";
+import AiModel from "./AdminPages/AiMoel";
 export default function AdminDashboard({ state, setState, Title }) {
   return (
     <div className="admin-right-container">
@@ -31,9 +32,9 @@ export default function AdminDashboard({ state, setState, Title }) {
       <div className="admin-right-main">
         <Switch>
           <Route exact path="/admin/" component={Dashboard} />
-          <Route path="/admin/datacircuit/" component={DataCircuit} />
-          <Route path="/admin/logout" component={Logout} />
-          <Route path="/admin/userprofile" component={UserProfile} />
+          <Route path="/admin/ai/model/" component={AiModel} />
+          {/* <Route path="/admin/logout" component={Logout} /> */}
+          {/* <Route path="/admin/userprofile" component={UserProfile} /> */}
         </Switch>
         {/* <Dashboard /> */}
       </div>

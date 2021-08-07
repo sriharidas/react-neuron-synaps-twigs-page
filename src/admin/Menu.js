@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./../css/App.css";
 import { RiDashboardFill } from "react-icons/ri";
-import { FaUserAlt, FaBell } from "react-icons/fa";
+import { FaUserAlt, FaBell, FaBrain } from "react-icons/fa";
 import { MdContentPaste } from "react-icons/md";
 import { GrCopy } from "react-icons/gr";
-import { FiDatabase, FiLogIn } from "react-icons/fi";
+import { FiDatabase, FiLogIn, FiSettings } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
 import { SiFirebase } from "react-icons/si";
-import { AiOutlineClose, AiFillSetting } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiFillSetting,
+  AiFillRobot,
+  AiOutlineRobot,
+} from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
 export default function Menu({ state, setState, setTitle }) {
@@ -82,11 +87,23 @@ const MenuData = [
   //   title: "Notification",
   //   path: "/admin/notification",
   // },
+  // {
+  //   icon: <FiDatabase />,
+  //   title: "Data Circuit",
+  //   path: "/admin/datacircuit",
+  //   id: "menu-ai-model",
+  // },
   {
-    icon: <FiDatabase />,
-    title: "Data Circuit",
-    path: "/admin/datacircuit",
+    icon: <FaBrain />,
+    title: "Ai Model",
+    path: "/admin/ai/model",
     id: "menu-datacircuit",
+  },
+  {
+    icon: <FiSettings />,
+    title: "Settings",
+    path: "/admin/settings",
+    id: "menu-settings",
   },
   // {
   //   icon: <SiFirebase />,
@@ -98,17 +115,17 @@ const MenuData = [
   //   title: "Settings",
   //   path: "/admin/settings",
   // },
-  {
-    icon: <FaUserAlt />,
-    title: "User Profile",
-    path: "/admin/userprofile",
-    id: "menu-userprofile",
-  },
+  // {
+  //   icon: <FaUserAlt />,
+  //   title: "User Profile",
+  //   path: "/admin/userprofile",
+  //   id: "menu-userprofile",
+  // },
 
-  {
-    icon: <FiLogIn />,
-    title: "Log out",
-    path: "/admin/logout",
-    id: "menu-logout",
-  },
+  // {
+  //   icon: <FiLogIn />,
+  //   title: "Log out",
+  //   path: "/admin/logout",
+  //   id: "menu-logout",
+  // },
 ];

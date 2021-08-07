@@ -9,7 +9,7 @@ import { GiCondorEmblem } from "react-icons/gi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { MdErrorOutline } from "react-icons/md";
 import DependencyList from "./components/DependencyList";
-
+import { useHistory } from "react-router";
 export default function Signup({ open, setState, redirect }) {
   //   const [signup, setsignup] = useState(open);
 
@@ -20,6 +20,7 @@ export default function Signup({ open, setState, redirect }) {
     password: "",
   });
   const [Status, SetStatus] = useState(true);
+  const history = useHistory();
   useEffect(() => {
     if (document.getElementById("signup-form") !== undefined) {
       const password = document.getElementById("password1");
@@ -56,7 +57,7 @@ export default function Signup({ open, setState, redirect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // e.target.reset();
+    e.target.reset();
     document.getElementById("animation-container").style.visibility = "visible";
     // console.log(register);
     console.log(JSON.stringify(signupDetails));
@@ -97,6 +98,8 @@ export default function Signup({ open, setState, redirect }) {
         setTimeout(() => {
           alertMessageContainer.style.display = "none";
           // document.querySelector('.alert-text').innerHTML= resp['result']
+          setState(false);
+          redirect(true);
         }, 5000);
         console.log(resp);
       });
