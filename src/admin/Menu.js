@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./../css/App.css";
 import { RiDashboardFill } from "react-icons/ri";
-import { FaUserAlt, FaBell, FaBrain } from "react-icons/fa";
+import { FaUserAlt, FaBell, FaBrain, FaRegEdit } from "react-icons/fa";
 import { MdContentPaste } from "react-icons/md";
 import { GrCopy } from "react-icons/gr";
 import { FiDatabase, FiLogIn, FiSettings } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
-import { SiFirebase } from "react-icons/si";
+import { BsPencilSquare } from "react-icons/bs";
 import {
   AiOutlineClose,
   AiFillSetting,
@@ -98,6 +98,12 @@ const MenuData = [
     title: "Ai Model",
     path: "/admin/ai/model",
     id: "menu-datacircuit",
+  },
+  {
+    icon: <BsPencilSquare />,
+    title: "Setup",
+    path: "/admin/setup",
+    id: "menu-setup",
   },
   {
     icon: <FiSettings />,

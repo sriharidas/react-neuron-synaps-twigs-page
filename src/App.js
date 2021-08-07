@@ -90,7 +90,7 @@ function App() {
               />
             ))}
           </div>
-          <WhyNeuron setLogin={setLogin} />
+          {false && <WhyNeuron setLogin={setLogin} />}
         </div>
         <Animation />
         <Signup open={signup} setState={setSignup} redirect={setLogin} />

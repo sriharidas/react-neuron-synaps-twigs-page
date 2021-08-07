@@ -65,7 +65,7 @@ export const newSignupFields = [
     Element: "input",
     type: "password",
     label: "Password",
-    id: "pasword1",
+    id: "password1",
     name: "password",
     placeholder: "Enter Your password",
   },

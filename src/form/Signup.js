@@ -20,20 +20,30 @@ export default function Signup({ open, setState, redirect }) {
     password: "",
   });
   const [Status, SetStatus] = useState(true);
+  const [checked, setChecked] = useState(false);
   const history = useHistory();
   useEffect(() => {
-    if (document.getElementById("signup-form") !== undefined) {
-      const password = document.getElementById("password1");
-      const confirm_password = document.getElementById("password2");
+    if (open && document.getElementById("password1") !== undefined) {
+      const password = document.querySelector("#password1");
+      const confirm_password = document.querySelector("#password2");
       const password_error = document.querySelector(".password1-error");
       const confirm_password_error = document.querySelector(".password2-error");
+
       if (
         password !== "" &&
         confirm_password !== "" &&
         password !== confirm_password
       ) {
-        // confirm_password_error.innerHTML = "Password doesn't match";
+        confirm_password_error.innerHTML = "Password doesn't match";
         console.log(confirm_password_error);
+      }
+
+      if (password !== "" && password.value.length < 8) {
+        password_error.innerHTML = "Minimum 8 characters required";
+      } else {
+      }
+      if (confirm_password !== "" && confirm_password.value.length < 8) {
+        confirm_password_error.innerHTML = "Minimum 8 characters required";
       }
     }
   }, [signupDetails]);
@@ -67,6 +77,7 @@ export default function Signup({ open, setState, redirect }) {
     );
     const alertMessage = document.querySelector(".alert-message");
     const alertText = document.querySelector(".alert-text");
+
     fetch("https://neurontech.herokuapp.com/accounts/signup/", {
       method: "POST",
       headers: {
@@ -86,7 +97,7 @@ export default function Signup({ open, setState, redirect }) {
         console.log(Object.keys(resp));
         animationContainer.style.visibility = "hidden";
         alertMessageContainer.style.display = "flex";
-        if (Object.keys(resp) == "error") {
+        if (Object.keys(resp) === "error") {
           SetStatus(false);
           alertText.innerHTML = resp["error"];
           alertMessage.style.color = "#f00";
@@ -162,6 +173,9 @@ export default function Signup({ open, setState, redirect }) {
                   type="checkbox"
                   id="terms"
                   name="AgreementStatus"
+                  onChange={(e) => {
+                    setChecked(e.target.checked);
+                  }}
                   // onChange={HandleUpdate}
                 />
 
@@ -172,7 +186,12 @@ export default function Signup({ open, setState, redirect }) {
                 </span>
               </div>
               {/* <p style={errorMsg}>Password doesn't match</p> */}
-              <input type="submit" value="Sign Up" id="signup-btn" />
+              <input
+                type="submit"
+                value="Sign Up"
+                id="signup-btn"
+                disabled={!checked}
+              />
               <hr />
               <div className="signup-footer">
                 <span>
