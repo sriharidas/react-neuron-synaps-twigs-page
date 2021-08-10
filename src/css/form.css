@@ -40,10 +40,10 @@ body {
 
 #signup-form {
   width: 75%;
-  /* height: 90%; */
+  max-height: 95%;
   /* padding: 10px; */
   display: flex;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -71,12 +71,14 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   padding: 10px 30px;
-  margin-bottom: 15px;
+  padding-bottom: 7px;
+  margin-bottom: 7px;
   border-bottom: 2px solid var(--border-primary-color);
 }
 #signup-form form {
   width: 100%;
-  max-height: calc(100% - 40px);
+  max-height: calc(100% - 80px);
+  overflow: scroll;
   padding: 5px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -113,7 +115,32 @@ body {
   margin: 15px 0 20px 0;
   /* text-transform: capitalize; */
 }
-
+.form-verification {
+  border-top: 1px solid #b2b2b2;
+  /* border-bottom: 1px solid #b2b2b2; */
+  height: 60%;
+  padding: 10px;
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-verification h3 {
+  width: fit-content;
+  margin: 10px auto;
+  padding: 8px;
+  border-bottom: 2px solid #000;
+}
+.form-verification .form-groups input {
+  width: 30% !important;
+  margin: 6px auto;
+  /* display: none; */
+}
+.form-verification p {
+  padding: 10px;
+  margin-top: 10px;
+}
 #signup-form .signup-footer {
   padding: 6px 0;
 }

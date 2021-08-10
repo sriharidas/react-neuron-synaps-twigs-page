@@ -41,25 +41,31 @@ export default function Dashboard() {
   const dashboardData = [
     {
       title: "Number of requests",
-      value: dashboard.noOfRequests,
+      // value: dashboard.noOfRequests,
+      value: 150,
+
       styles: "dashboard-top-header-left dashboard-top-header-left-1",
       icon: <BsClipboardData />,
     },
     {
       title: "Number of Customers",
-      value: dashboard.noOfCountries,
+      value: 25,
+      // value: dashboard.noOfCountries,
       styles: "dashboard-top-header-left dashboard-top-header-left-2",
       icon: <GiOffshorePlatform />,
     },
     {
       title: "Number of Countries",
-      value: dashboard.noOfCustomers,
+      // value: dashboard.noOfCustomers,
+      value: 16,
+
       styles: "dashboard-top-header-left dashboard-top-header-left-3",
       icon: <FaUsers />,
     },
     {
-      title: "No.of.Movies you have",
-      value: dashboard.NoofMoviesyouhave,
+      title: "No.of Synaps you have",
+      // value: dashboard.NoofMoviesyouhave,
+      value: 12,
       styles: "dashboard-top-header-left dashboard-top-header-left-4",
       icon: <FiLogIn />,
     },

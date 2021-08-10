@@ -7,11 +7,39 @@ export default function Input({
   label,
   placeholder,
   onChange,
+  setVerification,
+  ...others
 }) {
+  // console.log(others);
   return (
     <>
       <div className="form-groups">
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id}>
+          <span>{label} </span>
+          {type === "email" && (
+            <button
+              type="button"
+              onClick={() => {
+                let element = document.getElementById(id),
+                  element_err = document.getElementById(`${id}-error`);
+                if (
+                  element.value.length > 0 &&
+                  element.value.includes("@") &&
+                  element.value.includes(".")
+                ) {
+                  setVerification((prevState) => ({
+                    ...prevState,
+                    form: true,
+                  }));
+                  element_err.innerHTML = "";
+                } else element_err.innerHTML = "Enter a valid email address";
+              }}
+            >
+              {" "}
+              verify{" "}
+            </button>
+          )}
+        </label>
         <input
           type={type}
           name={name}
@@ -19,6 +47,7 @@ export default function Input({
           placeholder={placeholder}
           onChange={onChange}
           required
+          {...others}
         />
         {type === "text" ? (
           <p id={id + "-error"} style={errorMsg}>

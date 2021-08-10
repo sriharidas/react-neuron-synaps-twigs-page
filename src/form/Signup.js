@@ -21,6 +21,12 @@ export default function Signup({ open, setState, redirect }) {
   });
   const [Status, SetStatus] = useState(true);
   const [checked, setChecked] = useState(false);
+  const [verifcation, setVerification] = useState({
+    form: false,
+    verified: false,
+    disbaleBtn: false,
+    resend: false,
+  });
   const history = useHistory();
   useEffect(() => {
     if (open && document.getElementById("password1") !== undefined) {
@@ -28,25 +34,99 @@ export default function Signup({ open, setState, redirect }) {
       const confirm_password = document.querySelector("#password2");
       const password_error = document.querySelector(".password1-error");
       const confirm_password_error = document.querySelector(".password2-error");
-
-      if (
-        password !== "" &&
-        confirm_password !== "" &&
-        password !== confirm_password
-      ) {
-        confirm_password_error.innerHTML = "Password doesn't match";
-        console.log(confirm_password_error);
+      if (password.value.length > 0 || confirm_password.value.length > 0)
+        if (password !== confirm_password) {
+          confirm_password_error.innerHTML = "Password doesn't match";
+          password_error.innerHTML = "Password doesn't match";
+          console.log(confirm_password_error);
+          setChecked(false);
+        } else {
+          confirm_password_error.innerHTML = "";
+          setChecked(true);
+        }
+      if (password.value.length > 0) {
+        // password length validation
+        if (password.value.length < 8) {
+          password_error.innerHTML = "Minimum 8 characters required";
+          setChecked(false);
+        } else {
+          password_error.innerHTML = "";
+          setChecked(true);
+        }
+        // passwords matching validation
       }
-
-      if (password !== "" && password.value.length < 8) {
-        password_error.innerHTML = "Minimum 8 characters required";
-      } else {
-      }
-      if (confirm_password !== "" && confirm_password.value.length < 8) {
-        confirm_password_error.innerHTML = "Minimum 8 characters required";
+      if (confirm_password.value.length > 0) {
+        // confrim password length validation
+        if (confirm_password.value.length < 8) {
+          confirm_password_error.innerHTML = "Minimum 8 characters required";
+          setChecked(false);
+        } else {
+          confirm_password_error.innerHTML = "";
+          setChecked(true);
+        }
       }
     }
   }, [signupDetails]);
+
+  useEffect(() => {
+    if (signupDetails.email !== "" && verifcation.form) {
+      let data = signupDetails.email;
+      console.log("verify", data);
+      fetch("https://neurontech.herokuapp.com/accounts/verify_mail/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((resp) => console.log(resp));
+    }
+    if (verifcation.form || verifcation.resend) {
+      setVerification((prevState) => ({
+        ...prevState,
+        disbaleBtn: false,
+        resend: false,
+      }));
+      const timerContainer = document.querySelector("#timer");
+      const otp_msg = document.querySelector("#otp-timer");
+      const otp_err = document.querySelector("#otp-error");
+
+      let date = new Date(),
+        start,
+        max;
+      max = new Date(120000); // date object with 2 mins (timer)
+      start = date.getTime(); // start time
+      const verificationTimer = setInterval(() => {
+        let d = new Date(); // current time
+        let now = new Date(d.getTime() - start); // time difference
+        let diff_minutes = max.getMinutes() - now.getMinutes(),
+          diff_seconds = max.getSeconds() - now.getSeconds(),
+          minutes,
+          seconds;
+        minutes = diff_minutes < 1 ? diff_minutes : diff_minutes - 1;
+        seconds = diff_minutes < 1 ? diff_seconds : diff_seconds + 60;
+        // clear interval when timer reaches 00:00
+        if (minutes <= 0 && seconds <= 0) {
+          clearInterval(verificationTimer);
+          setVerification((prevState) => ({
+            ...prevState,
+            disbaleBtn: true,
+          }));
+          if (!verifcation.resend && otp_err !== undefined)
+            otp_err.innerHTML = "OTP expired";
+        }
+        if (timerContainer !== undefined)
+          timerContainer.innerHTML = `${
+            minutes < 10 ? `0${minutes}` : minutes
+          }:${seconds < 10 ? `0${seconds}` : seconds}`;
+        // console.log(now);
+      }, 1000);
+    }
+  }, [verifcation.form, verifcation.resend, signupDetails.email]);
+
   const HandleUpdate = (e) => {
     // console.log(e.target.name, e.target.value);
 
@@ -57,7 +137,7 @@ export default function Signup({ open, setState, redirect }) {
       [e.target.name]: e.target.value,
     }));
 
-    // console.log(signupDetails);
+    console.log(signupDetails);
     // setRegister({
     //   username: signupDetails.email,
     //   email: signupDetails.email,
@@ -116,6 +196,7 @@ export default function Signup({ open, setState, redirect }) {
       });
   };
 
+  const verifyOtp = () => {};
   return (
     open && (
       <div className="form-container">
@@ -153,6 +234,7 @@ export default function Signup({ open, setState, redirect }) {
                   id={field["id"]}
                   placeholder={field["placeholder"]}
                   onChange={HandleUpdate}
+                  setVerification={setVerification}
                 />
               ) : (
                 <Select
@@ -161,13 +243,60 @@ export default function Signup({ open, setState, redirect }) {
                   id={field["id"]}
                   label={field["label"]}
                   value={field["value"]}
-                  onChange={HandleUpdate}
+                  // onChange={HandleUpdate}
                   disabled={field["disabled"]}
                 />
               );
             })}
 
             <div className="form-footer">
+              {verifcation.form && (
+                <div className="form-verification">
+                  <h3>OTP verification</h3>
+                  <Input
+                    type="input"
+                    name="otp"
+                    id="otp"
+                    label="Please enter the OTP for verification"
+                    autoFocus={true}
+                    placeholder="Enter the OTP"
+                    onChange={HandleUpdate}
+                  />
+                  <div>
+                    <button
+                      type="button"
+                      disabled={verifcation.disbaleBtn}
+                      onClick={() => {
+                        verifyOtp();
+                        setVerification((prevState) => ({
+                          ...prevState,
+                          verified: true,
+                          form: false,
+                        }));
+                      }}
+                    >
+                      verify
+                    </button>
+                    {verifcation.disbaleBtn && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setVerification((prevState) => ({
+                            ...prevState,
+                            resend: true,
+                          }))
+                        }
+                      >
+                        Resend
+                      </button>
+                    )}
+                  </div>
+                  <p id="otp-timer">
+                    OTP will expire after <span id="timer"> 02:00 </span> mins
+                  </p>
+                  {!verifcation.resend && <p id="otp-error"></p>}
+                </div>
+              )}
               <div>
                 <input
                   type="checkbox"
@@ -190,7 +319,7 @@ export default function Signup({ open, setState, redirect }) {
                 type="submit"
                 value="Sign Up"
                 id="signup-btn"
-                disabled={!checked}
+                disabled={!(checked && verifcation.verified)}
               />
               <hr />
               <div className="signup-footer">

@@ -47,7 +47,7 @@ export default function Login({ open, setState, redirect }) {
         error_msg.style = "color:green; background: #0f08; padding: 10px;";
         localStorage.setItem("loginData", JSON.stringify(resp));
         setTimeout(() => {
-          history.push("/synaps");
+          history.push("/admin/");
         }, 3000);
       });
     console.log(loginDetails);
