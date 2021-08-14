@@ -95,9 +95,9 @@ const MenuData = [
   // },
   {
     icon: <FaBrain />,
-    title: "Ai Model",
-    path: "/admin/ai/model",
-    id: "menu-datacircuit",
+    title: "Ai Schema",
+    path: "/admin/ai-schema/synaps",
+    id: "menu-ai-schema",
   },
   {
     icon: <BsPencilSquare />,

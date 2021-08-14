@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // import generateSpotToken from "./../../../public/scripts.min.js";
+
 import { FiDownload } from "react-icons/fi";
 export default function Setup() {
   return (
@@ -24,9 +26,10 @@ export default function Setup() {
           </ul>
           <code>&lt;script src="./scripts.min.js"&gt;&lt;/script&gt;</code>
         </div>
-        <a href="./../../../public/scripts.min.js" download>
+        {/* <a href={require("src/scripts.min.js")} download></a> */}
+        <Link to="/files/scripts.min.js" target="_blank" download>
           <FiDownload />
-        </a>
+        </Link>
       </div>
     </div>
   );

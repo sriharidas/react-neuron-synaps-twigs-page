@@ -9,6 +9,8 @@ import Logout from "./AdminPages/Logout";
 import UserProfile from "./AdminPages/UserProfile";
 import AiModel from "./AdminPages/AiMoel";
 import Setup from "./AdminPages/Setup";
+import TwigsContainer from "./AdminPages/twigs/TwigsContainer";
+import PropsContainer from "./AdminPages/bonding/PropsContainer";
 export default function AdminDashboard({ state, setState, Title }) {
   return (
     <div className="admin-right-container">
@@ -33,8 +35,18 @@ export default function AdminDashboard({ state, setState, Title }) {
       <div className="admin-right-main">
         <Switch>
           <Route exact path="/admin/" component={Dashboard} />
-          <Route path="/admin/ai/model/" component={AiModel} />
+          <Route path="/admin/ai-schema/synaps" component={AiModel} />
           <Route path="/admin/setup" component={Setup} />
+          <Route
+            exact
+            path={"/admin/ai-schema/twigs"}
+            component={TwigsContainer}
+          />
+          <Route
+            exact
+            path={"/admin/ai-schema/bonding"}
+            component={PropsContainer}
+          />
           {/* <Route path="/admin/logout" component={Logout} /> */}
           {/* <Route path="/admin/userprofile" component={UserProfile} /> */}
         </Switch>
