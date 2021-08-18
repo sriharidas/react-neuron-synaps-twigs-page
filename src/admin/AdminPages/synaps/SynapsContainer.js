@@ -72,7 +72,6 @@ export default function SynapsContainer() {
       .then((resp) => resp.json())
       .then((resp) => {
         console.log(resp);
-
         setUpdateState((prevState) => prevState + 1);
         window.location.reload();
       });

@@ -46,9 +46,10 @@ export default function Login({ open, setState, redirect }) {
           .join(" ");
         error_msg.style = "color:green; background: #0f08; padding: 10px;";
         localStorage.setItem("loginData", JSON.stringify(resp));
-        setTimeout(() => {
-          history.push("/admin/");
-        }, 3000);
+        history.push("/admin/");
+        // setTimeout(() => {
+        //   history.push("/admin/");
+        // }, 100);
       });
     console.log(loginDetails);
   };

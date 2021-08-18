@@ -556,7 +556,8 @@ a {
   text-align: center;
 } */
 .admin-right-main {
-  margin-top: 65px;
+  /* margin-top: 65px; */
+  margin-top: 15px;
   width: 100%;
   min-height: 90vh;
 }

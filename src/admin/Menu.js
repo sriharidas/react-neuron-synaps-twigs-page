@@ -128,10 +128,10 @@ const MenuData = [
   //   id: "menu-userprofile",
   // },
 
-  // {
-  //   icon: <FiLogIn />,
-  //   title: "Log out",
-  //   path: "/admin/logout",
-  //   id: "menu-logout",
-  // },
+  {
+    icon: <FiLogIn />,
+    title: "Log out",
+    path: "/admin/logout",
+    id: "menu-logout",
+  },
 ];

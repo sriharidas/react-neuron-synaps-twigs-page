@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { RiFileCopyLine } from "react-icons/ri";
 // import generateSpotToken from "./../../../public/scripts.min.js";
 
 import { FiDownload } from "react-icons/fi";
@@ -24,7 +25,63 @@ export default function Setup() {
               attribute like shown below
             </li>
           </ul>
-          <code>&lt;script src="./scripts.min.js"&gt;&lt;/script&gt;</code>
+          <code
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span id="script-code">
+              &lt;script src="./scripts.min.js"&gt;&lt;/script&gt;
+            </span>
+            <span
+              className="script-code-copy"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                const script = document.querySelector("#script-code");
+                const scriptText = script.innerText
+                  .replace(" &lt;", "<")
+                  .replace("&gt", ">");
+                console.log(scriptText);
+                navigator.clipboard.writeText(scriptText);
+                document.querySelector(".script-code-copy").innerText =
+                  "copied!";
+              }}
+            >
+              <RiFileCopyLine />
+            </span>
+          </code>
+          <code
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span id="script-code-1">
+              &lt;button onclick=&quot;generateSpotToken()&quot;&gt; generate
+              token &lt;/button&gt;
+            </span>
+            <span
+              className="script-code-copy-1"
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                const script = document.querySelector("#script-code-1");
+                const scriptText = script.innerText
+                  .replace(" &lt;", "<")
+                  .replace("&gt", ">");
+                console.log(scriptText);
+                navigator.clipboard.writeText(scriptText);
+                document.querySelector(".script-code-copy-1").innerText =
+                  "copied!";
+              }}
+            >
+              <RiFileCopyLine />
+            </span>
+          </code>
         </div>
         {/* <a href={require("src/scripts.min.js")} download></a> */}
         <Link to="/files/scripts.min.js" target="_blank" download>

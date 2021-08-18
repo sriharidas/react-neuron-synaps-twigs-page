@@ -39,7 +39,7 @@ export default function Synaps({
           return;
         }
         console.log("resp", resp);
-        // setChild(resp);
+        setChild(resp);
       });
     console.log(name);
 
