@@ -128,7 +128,7 @@ export default function Signup({ open, setState, redirect }) {
   }, [verifcation.form, verifcation.resend, signupDetails.email]);
 
   const HandleUpdate = (e) => {
-    // console.log(e.target.name, e.target.value);
+    console.log(e.target.name, e.target.value);
 
     // console.log("type", e.target.type, e.target.checked);
 
@@ -191,7 +191,7 @@ export default function Signup({ open, setState, redirect }) {
           // document.querySelector('.alert-text').innerHTML= resp['result']
           setState(false);
           redirect(true);
-        }, 5000);
+        }, 1000);
         console.log(resp);
       });
   };
@@ -235,6 +235,7 @@ export default function Signup({ open, setState, redirect }) {
                   placeholder={field["placeholder"]}
                   onChange={HandleUpdate}
                   setVerification={setVerification}
+                  others={field["other"]}
                 />
               ) : (
                 <Select

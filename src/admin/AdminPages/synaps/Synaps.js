@@ -51,7 +51,7 @@ export default function Synaps({
       {Child !== {} && (
         <div
           style={{
-            borderLeft: "2px solid #000",
+            borderLeft: "1px solid #000",
             margin: "15px",
             padding: " 5px 10px",
           }}

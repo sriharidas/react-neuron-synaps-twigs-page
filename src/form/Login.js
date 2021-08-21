@@ -18,13 +18,19 @@ export default function Login({ open, setState, redirect }) {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    console.log(loginDetails);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // e.target.reset();
+    e.target.reset();
     const animationContainer = document.getElementById("animation-container");
     const error_msg = document.querySelector("#error-msg");
-    animationContainer.style.visibility = "visible";
+    const loginFormContainer = document.querySelector(".login-form");
+    const emailVerificationElement = document.querySelector(
+      ".email-verification"
+    );
+    // animationContainer.style.visibility = "visible";
+
     fetch("https://neurontech.herokuapp.com/accounts/signin/", {
       method: "POST",
       headers: {
@@ -46,12 +52,42 @@ export default function Login({ open, setState, redirect }) {
           .join(" ");
         error_msg.style = "color:green; background: #0f08; padding: 10px;";
         localStorage.setItem("loginData", JSON.stringify(resp));
-        history.push("/admin/");
+        loginFormContainer.classList.add("hide");
+        emailVerificationElement.classList.add("active");
+        // history.push("/admin/");
         // setTimeout(() => {
         //   history.push("/admin/");
         // }, 100);
       });
+
     console.log(loginDetails);
+  };
+  const OTPVerification = (e) => {
+    e.preventDefault();
+    const loginFormContainer = document.querySelector(".login-form");
+    const emailVerificationElement = document.querySelector(
+      ".email-verification"
+    );
+
+    fetch("https://neurontech.herokuapp.com/accounts/verify_mail_signin/", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: loginDetails.email,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log(resp);
+        if (!Object.keys(resp).pop().toLocaleLowerCase().includes("error")) {
+          loginFormContainer.classList.add("hide");
+          emailVerificationElement.classList.add("active");
+        } else {
+          alert(resp["Error"]);
+        }
+      });
   };
   return (
     open && (
@@ -63,26 +99,56 @@ export default function Login({ open, setState, redirect }) {
               <AiOutlineClose />
             </button>
           </div>
+          <div className="login-main">
+            <form method="post" className="login-form">
+              <p id="error-msg"></p>
 
-          <form onSubmit={handleSubmit} method="post">
-            <p id="error-msg"></p>
-
-            {LoginValues.map((field) => (
+              {LoginValues.map((field) => (
+                <Input
+                  type={field["type"]}
+                  label={field["label"]}
+                  name={field["name"]}
+                  id={field["id"]}
+                  placeholder={field["placeholder"]}
+                  key={field["id"]}
+                  onChange={handleChange}
+                />
+              ))}
+              <span id="forget-pwd">
+                {/* <a href="#">Forget Password?</a> */}
+              </span>
+              {/* <input
+                value="submit"
+                className="login-btn"
+                type="submit"
+              /> */}
+              <button
+                className="login-btn"
+                type="submit"
+                onClick={OTPVerification}
+              >
+                submit
+              </button>
+            </form>
+            <div className="email-verification">
+              <p>OTP has been sent to your registered email</p>
               <Input
-                type={field["type"]}
-                label={field["label"]}
-                name={field["name"]}
-                id={field["id"]}
-                placeholder={field["placeholder"]}
-                key={field["id"]}
+                type="text"
+                label="Enter Your OTP"
+                name="logon-otp"
+                id="otp"
+                placeholder="Enter the OTP"
                 onChange={handleChange}
               />
-            ))}
-            <span id="forget-pwd">
-              {/* <a href="#">Forget Password?</a> */}
-            </span>
-            <input type="submit" value="submit" />
-          </form>
+              <button
+                type="submit"
+                className="login-btn"
+                onSubmit={handleSubmit}
+              >
+                verify
+              </button>
+            </div>
+          </div>
           <hr />
           <div className="login-footer">
             <span>

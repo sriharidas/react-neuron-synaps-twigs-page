@@ -81,10 +81,11 @@ export const newSignupFields = [
   {
     Element: "input",
     type: "text",
-    label: "Company Name",
+    label: `Company Name`,
     id: "company_name",
     name: "company_name",
-    placeholder: "Enter Your Company Name",
+    placeholder: "Enter Your Company Name ",
+    other: <input type="checkbox" />,
   },
   {
     Element: "input",

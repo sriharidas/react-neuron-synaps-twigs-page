@@ -156,19 +156,25 @@ body {
   /* border-bottom: 2px solid var(--border-primary-color); */
 }
 #signup-form .form-footer input[type="submit"],
-#login-form input[type="submit"] {
+#login-form input[type="submit"],
+.login-btn {
+  display: block;
+  width: fit-content;
   border: 2px solid #000;
   border-radius: 5px;
   padding: 10px 15px;
   cursor: pointer;
   background-color: #000;
   color: #fff;
-  margin: 10px 0;
+  margin: 10px auto;
   font-size: inherit;
   border-bottom: 2px solid var(--border-primary-color);
+  transition: 600ms all;
+  text-align: center;
 }
 #signup-form .form-footer input[type="submit"]:hover,
-#login-form input[type="submit"]:hover {
+#login-form input[type="submit"]:hover,
+.login-btn:hover {
   background-color: #f1f1f1;
   border: 2px solid #000;
 
@@ -231,15 +237,17 @@ body {
   font-size: 1.3rem;
 }
 #login-form form {
-  width: 85%;
+  width: 100%;
+  height: 100%;
   margin: auto;
+  /* opacity: 0; */
 }
-#login-form form .form-groups input {
+#login-form .form-groups input {
   padding: 7px;
   width: 100%;
   margin: 10px 0;
 }
-#login-form form input[type="submit"] {
+#login-form input[type="submit"] {
   display: block;
   border: none;
   border: 2px solid var(--border-primary-color);
@@ -264,7 +272,47 @@ body {
 #login-form .login-footer a:hover {
   text-decoration: underline;
 }
-
+.login-main {
+  width: 85%;
+  min-height: 200px;
+  margin: auto;
+  position: relative;
+  overflow: visible;
+}
+.email-verification {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s;
+  opacity: 0;
+  transform: translateX(-100px);
+  z-index: -1;
+}
+.email-verification p {
+  margin: 15px auto;
+}
+.email-verification button {
+  display: block;
+  margin-top: -30px;
+}
+.email-verification .form-groups {
+  margin-top: 10px;
+}
+.active {
+  opacity: 1;
+  z-index: 1000;
+  transform: translateX(0);
+}
+.hide {
+  opacity: 0;
+}
 @media (max-width: 960px) {
   #signup-form form,
   #login-form {

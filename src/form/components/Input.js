@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./../../css/form.css";
 export default function Input({
   type,
@@ -47,8 +47,44 @@ export default function Input({
           placeholder={placeholder}
           onChange={onChange}
           required
-          {...others}
         />
+        {others.others !== undefined && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              paddingTop: "10px",
+            }}
+          >
+            <input
+              type={others.others.props.type}
+              onChange={onChange}
+              name={name}
+              onClick={(e) => {
+                if (e.target.checked) {
+                  e.target.value = "individual";
+                } else {
+                  e.target.value = "";
+                  document.getElementById(id).value = "";
+                }
+                document.getElementById(id).disabled = e.target.checked;
+              }}
+              style={{
+                width: "30px",
+              }}
+            />
+            <label
+              style={{
+                width: "calc(100% - 30px)",
+                fontWeight: "100",
+                fontSize: "0.8rem",
+              }}
+            >
+              I don't have a campany
+            </label>
+          </div>
+        )}
         {type === "text" ? (
           <p id={id + "-error"} style={errorMsg}>
             {/* Password doesn't match */}
