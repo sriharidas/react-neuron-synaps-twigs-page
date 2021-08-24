@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AiOutlineCheck } from "react-icons/ai";
 import "./../../css/form.css";
 export default function Input({
   type,
@@ -8,37 +9,52 @@ export default function Input({
   placeholder,
   onChange,
   setVerification,
+  isVerified,
   ...others
 }) {
-  // console.log(others);
+  // const [verified, setVerified] = useState(false);
+  console.log(name, type === "password" && isVerified);
   return (
     <>
       <div className="form-groups">
         <label htmlFor={id}>
           <span>{label} </span>
-          {type === "email" && (
-            <button
-              type="button"
-              onClick={() => {
-                let element = document.getElementById(id),
-                  element_err = document.getElementById(`${id}-error`);
-                if (
-                  element.value.length > 0 &&
-                  element.value.includes("@") &&
-                  element.value.includes(".")
-                ) {
-                  setVerification((prevState) => ({
-                    ...prevState,
-                    form: true,
-                  }));
-                  element_err.innerHTML = "";
-                } else element_err.innerHTML = "Enter a valid email address";
-              }}
-            >
-              {" "}
-              verify{" "}
-            </button>
-          )}
+          {type === "email" &&
+            (isVerified ? (
+              <span
+                style={{
+                  display: "inline-block",
+                  fontSize: "0.8rem",
+                  background: "#ddd",
+                  padding: "3px 10px",
+                }}
+              >
+                verified <AiOutlineCheck />
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  let element = document.getElementById(id),
+                    element_err = document.getElementById(`${id}-error`);
+                  if (
+                    element.value.length > 0 &&
+                    element.value.includes("@") &&
+                    element.value.includes(".")
+                  ) {
+                    // setVerified(true);
+                    setVerification((prevState) => ({
+                      ...prevState,
+                      form: true,
+                    }));
+                    element_err.innerHTML = "";
+                  } else element_err.innerHTML = "Enter a valid email address";
+                }}
+              >
+                {" "}
+                verify{" "}
+              </button>
+            ))}
         </label>
         <input
           type={type}
@@ -47,6 +63,7 @@ export default function Input({
           placeholder={placeholder}
           onChange={onChange}
           required
+          disabled={type === "password" && !isVerified}
         />
         {others.others !== undefined && (
           <div

@@ -39,6 +39,9 @@ export default function TwigsSynaps({
         email: UserData.email,
         twig_id: Number(x),
         twig_name: TwigsData[x],
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       });
       console.log(data);
       fetch("https://neurontech.herokuapp.com/twigs/get/synapses", {
@@ -83,7 +86,7 @@ export default function TwigsSynaps({
     console.log(TwigsData[selectedTwig]);
     const animationContainer = document.getElementById("animation-container");
     animationContainer.style.visibility = "visible";
-    fetch("/twigs/get/properties", {
+    fetch("https://neurontech.herokuapp.com/twigs/get/properties", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,6 +94,9 @@ export default function TwigsSynaps({
       body: JSON.stringify({
         email: UserData.email,
         twig_id: selectedTwig,
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       }),
     })
       .then((resp) => resp.json())
@@ -113,9 +119,12 @@ export default function TwigsSynaps({
         Object.keys(propsList)[Object.values(propsList).indexOf(prop_name)]
       ),
       twig_prop_val: prop_value,
+      session_token: JSON.parse(localStorage.getItem("loginData"))[
+        "session_token"
+      ],
     };
     console.log("add", JSON.stringify(data));
-    fetch("/properties/twigs/propKey/value", {
+    fetch("https://neurontech.herokuapp.com/properties/twigs/propKey/value", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -188,6 +197,9 @@ export default function TwigsSynaps({
                                 data: {
                                   email: UserData.email,
                                   twig_id: Number(x),
+                                  session_token: JSON.parse(
+                                    localStorage.getItem("loginData")
+                                  )["session_token"],
                                 },
                                 selected: { name: TwigsData[x] },
                                 label: "twig",
@@ -249,6 +261,9 @@ export default function TwigsSynaps({
                                 email: UserData.email,
                                 twig_id: selectedTwigData.id,
                                 synap_id: selectedSynapData.id,
+                                session_token: JSON.parse(
+                                  localStorage.getItem("loginData")
+                                )["session_token"],
                               },
                               selected: { name: selectedSynapData.name },
                               label: "unbond",
@@ -299,6 +314,9 @@ export default function TwigsSynaps({
                                             "properties/twigs/propKey/delete",
                                           data: {
                                             email: UserData.email,
+                                            session_token: JSON.parse(
+                                              localStorage.getItem("loginData")
+                                            )["session_token"],
                                             prop_key_id: Number(
                                               Object.keys(propsList)[
                                                 Object.values(
@@ -328,6 +346,9 @@ export default function TwigsSynaps({
                                             "properties/twigs/propKey/value/delete",
                                           data: {
                                             email: UserData.email,
+                                            session_token: JSON.parse(
+                                              localStorage.getItem("loginData")
+                                            )["session_token"],
                                             value_id: Number(
                                               selectedTwigProps.ids[prop]
                                             ),

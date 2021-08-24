@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Animation from "../../../animation/Animation";
-import { FaPlus, FaTimes } from "react-icons/fa";
+import {
+  FaArrowDown,
+  FaArrowRight,
+  FaArrowUp,
+  FaPlus,
+  FaTimes,
+} from "react-icons/fa";
 export default function Synaps({
   id,
   name,
@@ -11,28 +17,35 @@ export default function Synaps({
   Update,
 }) {
   const [Child, setChild] = useState({});
+  const [displayChild, setdisplayChild] = useState(true);
   useEffect(() => {
     const animationContainer = document.getElementById("animation-container");
-    animationContainer.style.visibility = "visible";
+    // animationContainer.style.visibility = "visible";
     console.log(id, name);
+    const data = JSON.stringify({
+      synap: {
+        id: id,
+        name: name,
+        email: JSON.parse(localStorage.getItem("loginData"))["email"],
+      },
+      session_token: JSON.parse(localStorage.getItem("loginData"))[
+        "session_token"
+      ],
+    });
+    console.log(data);
     fetch("https://neurontech.herokuapp.com/synapses/fetch/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        synap: {
-          id: id,
-          name: name,
-        },
-      }),
+      body: data,
     })
       .then((resp) => resp.json())
       .then((resp) => {
         // console.log("child of" + id + " : ", resp);
         // console.log(Object.keys(resp)[0], Object.values(resp)[0]);
         console.log(animationContainer.style.visibility);
-        animationContainer.style.visibility = "hidden";
+        // animationContainer.style.visibility = "hidden";
         console.log(resp[Object.keys(resp).pop()]);
         if (resp === {}) {
           console.log(id);
@@ -62,7 +75,8 @@ export default function Synaps({
           <div>
             <span>{id + ") - " + name}</span>
             <button
-              style={{ margin: " 0 10px", padding: "5px" }}
+              style={btnStyle}
+              // style={{ margin: " 0 10px", padding: "5px" }}
               onClick={() => {
                 updateDisplay(true);
                 updateParentSynap({ id: id, name: name });
@@ -71,6 +85,7 @@ export default function Synaps({
               <FaPlus />
             </button>
             <button
+              style={btnStyle}
               onClick={() => {
                 updateDeleteForm(true);
                 updateDeleteItem({
@@ -85,9 +100,20 @@ export default function Synaps({
             >
               <FaTimes />
             </button>
+
+            {Object.keys(Child).length > 0 ? (
+              <button
+                style={btnStyle}
+                onClick={() => setdisplayChild(!displayChild)}
+              >
+                {displayChild ? <FaArrowUp /> : <FaArrowDown />}
+              </button>
+            ) : (
+              ""
+            )}
           </div>
 
-          {Object.keys(Child).length > 0 ? (
+          {displayChild && Object.keys(Child).length > 0 ? (
             <>
               {Object.keys(Child).map((x) => (
                 <Synaps
@@ -107,3 +133,5 @@ export default function Synaps({
     </>
   );
 }
+
+const btnStyle = { margin: " 0 5px", padding: "5px" };

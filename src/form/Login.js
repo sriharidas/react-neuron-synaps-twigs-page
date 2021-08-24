@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Input from "./components/Input";
 import { LoginValues } from "./components/values";
@@ -12,7 +12,14 @@ export default function Login({ open, setState, redirect }) {
     password: "",
   };
   const [loginDetails, setLoginDeatils] = useState(initialValue);
+  const [isverified, setIsVerified] = useState(false);
+  const [isOTPsent, setIsOTPsent] = useState(false);
+  const [error, setError] = useState({
+    status: false,
+    message: "",
+  });
   const history = useHistory();
+
   const handleChange = (e) => {
     setLoginDeatils((prevState) => ({
       ...prevState,
@@ -22,14 +29,8 @@ export default function Login({ open, setState, redirect }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.target.reset();
     const animationContainer = document.getElementById("animation-container");
-    const error_msg = document.querySelector("#error-msg");
-    const loginFormContainer = document.querySelector(".login-form");
-    const emailVerificationElement = document.querySelector(
-      ".email-verification"
-    );
-    // animationContainer.style.visibility = "visible";
+    animationContainer.style.visibility = "visible";
 
     fetch("https://neurontech.herokuapp.com/accounts/signin/", {
       method: "POST",
@@ -43,32 +44,24 @@ export default function Login({ open, setState, redirect }) {
         animationContainer.style.visibility = "hidden";
         console.log(resp);
         if (Object.keys(resp).shift() === "Error") {
-          error_msg.innerHTML = resp["Error"];
-          error_msg.style = "color:red; background: #f888; padding: 10px;";
+          setError({
+            status: true,
+            message: resp["Error"],
+          });
           return;
         }
-        error_msg.innerHTML = resp[Object.keys(resp).shift()]
-          .split("_")
-          .join(" ");
-        error_msg.style = "color:green; background: #0f08; padding: 10px;";
         localStorage.setItem("loginData", JSON.stringify(resp));
-        loginFormContainer.classList.add("hide");
-        emailVerificationElement.classList.add("active");
-        // history.push("/admin/");
-        // setTimeout(() => {
-        //   history.push("/admin/");
-        // }, 100);
+        setTimeout(() => {
+          history.push("/admin/");
+        }, 500);
       });
 
     console.log(loginDetails);
   };
-  const OTPVerification = (e) => {
+  const sendOTPVerification = (e) => {
     e.preventDefault();
-    const loginFormContainer = document.querySelector(".login-form");
-    const emailVerificationElement = document.querySelector(
-      ".email-verification"
-    );
-
+    const animationContainer = document.getElementById("animation-container");
+    animationContainer.style.visibility = "visible";
     fetch("https://neurontech.herokuapp.com/accounts/verify_mail_signin/", {
       method: "POST",
       headers: {
@@ -80,15 +73,24 @@ export default function Login({ open, setState, redirect }) {
     })
       .then((resp) => resp.json())
       .then((resp) => {
+        animationContainer.style.visibility = "hidden";
+
         console.log(resp);
         if (!Object.keys(resp).pop().toLocaleLowerCase().includes("error")) {
-          loginFormContainer.classList.add("hide");
-          emailVerificationElement.classList.add("active");
+          setError({
+            status: false,
+            message: "",
+          });
+          setIsOTPsent(true);
         } else {
-          alert(resp["Error"]);
+          setError({
+            status: true,
+            message: resp["Error"],
+          });
         }
       });
   };
+
   return (
     open && (
       <div className="form-container ">
@@ -99,55 +101,79 @@ export default function Login({ open, setState, redirect }) {
               <AiOutlineClose />
             </button>
           </div>
-          <div className="login-main">
-            <form method="post" className="login-form">
-              <p id="error-msg"></p>
 
-              {LoginValues.map((field) => (
-                <Input
-                  type={field["type"]}
-                  label={field["label"]}
-                  name={field["name"]}
-                  id={field["id"]}
-                  placeholder={field["placeholder"]}
-                  key={field["id"]}
-                  onChange={handleChange}
-                />
-              ))}
-              <span id="forget-pwd">
-                {/* <a href="#">Forget Password?</a> */}
-              </span>
-              {/* <input
+          <div className="login-main">
+            {error.status && (
+              <p id="error-msg">
+                <span>{error.message}</span>
+                <i onClick={() => setError({ status: false, message: "" })}>
+                  <AiOutlineClose />
+                </i>
+              </p>
+            )}
+            {!isOTPsent || isverified ? (
+              <form method="post" className="login-form">
+                {LoginValues.map((field) => (
+                  <Input
+                    type={field["type"]}
+                    label={field["label"]}
+                    name={field["name"]}
+                    id={field["id"]}
+                    placeholder={field["placeholder"]}
+                    key={field["id"]}
+                    onChange={handleChange}
+                    isVerified={isverified}
+                    // setVerification={setIsVerified}
+                  />
+                ))}
+                <span id="forget-pwd">
+                  {/* <a href="#">Forget Password?</a> */}
+                </span>
+                {/* <input
                 value="submit"
                 className="login-btn"
                 type="submit"
               /> */}
-              <button
-                className="login-btn"
-                type="submit"
-                onClick={OTPVerification}
-              >
-                submit
-              </button>
-            </form>
-            <div className="email-verification">
-              <p>OTP has been sent to your registered email</p>
-              <Input
-                type="text"
-                label="Enter Your OTP"
-                name="logon-otp"
-                id="otp"
-                placeholder="Enter the OTP"
-                onChange={handleChange}
-              />
-              <button
-                type="submit"
-                className="login-btn"
-                onSubmit={handleSubmit}
-              >
-                verify
-              </button>
-            </div>
+                {isverified ? (
+                  <button
+                    className="login-btn"
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    sign in
+                  </button>
+                ) : (
+                  <button
+                    className="login-btn"
+                    type="submit"
+                    onClick={sendOTPVerification}
+                  >
+                    Verify Account
+                  </button>
+                )}
+              </form>
+            ) : (
+              <div className="email-verification">
+                <p>OTP has been sent to your registered email</p>
+                <Input
+                  type="text"
+                  label="Enter Your OTP"
+                  name="otp"
+                  id="otp"
+                  placeholder="Enter the OTP"
+                  onChange={handleChange}
+                />
+                <button
+                  type="submit"
+                  className="login-btn"
+                  onClick={() => {
+                    setIsVerified(true);
+                  }}
+                >
+                  verify
+                </button>
+              </div>
+            )}
           </div>
           <hr />
           <div className="login-footer">

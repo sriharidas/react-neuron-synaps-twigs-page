@@ -27,6 +27,9 @@ export default function TwigsContainer() {
       },
       body: JSON.stringify({
         email: UserData.email,
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       }),
     })
       .then((resp) => resp.json())
@@ -45,6 +48,9 @@ export default function TwigsContainer() {
       },
       body: JSON.stringify({
         email: UserData.email,
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       }),
     })
       .then((resp) => resp.json())
@@ -108,6 +114,9 @@ export default function TwigsContainer() {
       body: JSON.stringify({
         email: UserData.email,
         twig: newTwig.value,
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       }),
     })
       .then((resp) => resp.json())

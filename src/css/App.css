@@ -456,6 +456,7 @@ a {
   padding: 30px;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 .admin-left-header {
   padding-bottom: 12px;

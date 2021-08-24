@@ -235,6 +235,7 @@ export default function Signup({ open, setState, redirect }) {
                   placeholder={field["placeholder"]}
                   onChange={HandleUpdate}
                   setVerification={setVerification}
+                  isVerified={verifcation.verified}
                   others={field["other"]}
                 />
               ) : (

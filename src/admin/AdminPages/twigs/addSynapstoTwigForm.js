@@ -66,6 +66,9 @@ export default function AddSynapstoTwigForm({
         email: userData.email,
         twig_id: Number(twig.id),
         synap_id: Number(item.id),
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       };
       console.log(JSON.stringify(data));
       fetch("https://neurontech.herokuapp.com/twigs/bond/", {

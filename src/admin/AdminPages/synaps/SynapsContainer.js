@@ -30,6 +30,9 @@ export default function SynapsContainer() {
       },
       body: JSON.stringify({
         email: UserData.email,
+        session_token: JSON.parse(localStorage.getItem("loginData"))[
+          "session_token"
+        ],
       }),
     })
       .then((resp) => resp.json())
@@ -60,6 +63,9 @@ export default function SynapsContainer() {
         parent_name: ParentSynap.name,
         child_name: synapName.value,
       },
+      session_token: JSON.parse(localStorage.getItem("loginData"))[
+        "session_token"
+      ],
     });
     console.log(data);
     fetch("https://neurontech.herokuapp.com/synapses/create/", {
@@ -155,7 +161,13 @@ export default function SynapsContainer() {
         display={DeleteForm}
         setDisplay={setDeleteForm}
         url={"synapses/delete/"}
-        data={{ email: UserData.email, synap_id: Number(DeleteItem.id) }}
+        data={{
+          email: UserData.email,
+          synap_id: Number(DeleteItem.id),
+          session_token: JSON.parse(localStorage.getItem("loginData"))[
+            "session_token"
+          ],
+        }}
         dropDown={false}
         selected={{ name: DeleteItem.name }}
         label={"synap"}

@@ -2,9 +2,9 @@ button {
   cursor: pointer;
   padding: 4px;
 }
-.synaps-container button,
-.twigs-container button,
-.props-conatiner button {
+.synaps-header button,
+.twigs-header button,
+.props-header button {
   background-color: transparent;
   border: none;
   color: #6a5acd;
@@ -61,7 +61,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10;
   /* display: none; */
 }
 .synap-form-wrapper {
