@@ -21,6 +21,7 @@ export default function Signup({ open, setState, redirect }) {
   });
   const [Status, SetStatus] = useState(true);
   const [checked, setChecked] = useState(false);
+  const [Error, setError] = useState(false);
   const [verifcation, setVerification] = useState({
     form: false,
     verified: false,
@@ -39,19 +40,19 @@ export default function Signup({ open, setState, redirect }) {
           confirm_password_error.innerHTML = "Password doesn't match";
           password_error.innerHTML = "Password doesn't match";
           console.log(confirm_password_error);
-          setChecked(false);
+          setError(false);
         } else {
           confirm_password_error.innerHTML = "";
-          setChecked(true);
+          setError(true);
         }
       if (password.value.length > 0) {
         // password length validation
         if (password.value.length < 8) {
           password_error.innerHTML = "Minimum 8 characters required";
-          setChecked(false);
+          setError(false);
         } else {
           password_error.innerHTML = "";
-          setChecked(true);
+          setError(true);
         }
         // passwords matching validation
       }
@@ -59,10 +60,10 @@ export default function Signup({ open, setState, redirect }) {
         // confrim password length validation
         if (confirm_password.value.length < 8) {
           confirm_password_error.innerHTML = "Minimum 8 characters required";
-          setChecked(false);
+          setError(false);
         } else {
           confirm_password_error.innerHTML = "";
-          setChecked(true);
+          setError(true);
         }
       }
     }
@@ -321,7 +322,7 @@ export default function Signup({ open, setState, redirect }) {
                 type="submit"
                 value="Sign Up"
                 id="signup-btn"
-                disabled={!(checked && verifcation.verified)}
+                disabled={!(checked && Error && verifcation.verified)}
               />
               <hr />
               <div className="signup-footer">

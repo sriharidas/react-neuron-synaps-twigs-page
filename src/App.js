@@ -16,6 +16,7 @@ import "./css/animation.css";
 import Animation from "./animation/Animation";
 import HomeHeader from "./home/HomeHeader";
 import WhyNeuron from "./home/WhyNeuron";
+
 function App() {
   const [signup, setSignup] = useState(false);
   const [login, setLogin] = useState(false);

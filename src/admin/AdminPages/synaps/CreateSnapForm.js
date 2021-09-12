@@ -20,7 +20,6 @@ export default function CreateSnapForm({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                document.querySelector(".synap-form").style.display = "none";
                 updateDisplay(false);
               }}
             >

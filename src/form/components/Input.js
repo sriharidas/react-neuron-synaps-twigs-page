@@ -63,7 +63,9 @@ export default function Input({
           placeholder={placeholder}
           onChange={onChange}
           required
-          disabled={type === "password" && !isVerified}
+          disabled={
+            type === "password" && isVerified !== undefined && !isVerified
+          }
         />
         {others.others !== undefined && (
           <div
@@ -81,6 +83,7 @@ export default function Input({
               onClick={(e) => {
                 if (e.target.checked) {
                   e.target.value = "individual";
+                  document.getElementById(id).value = "individual";
                 } else {
                   e.target.value = "";
                   document.getElementById(id).value = "";

@@ -21,6 +21,7 @@ export default function Login({ open, setState, redirect }) {
   const history = useHistory();
 
   const handleChange = (e) => {
+    console.log(e.target);
     setLoginDeatils((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -122,7 +123,7 @@ export default function Login({ open, setState, redirect }) {
                     placeholder={field["placeholder"]}
                     key={field["id"]}
                     onChange={handleChange}
-                    isVerified={isverified}
+                    // isVerified={isverified}
                     // setVerification={setIsVerified}
                   />
                 ))}
@@ -148,7 +149,7 @@ export default function Login({ open, setState, redirect }) {
                     type="submit"
                     onClick={sendOTPVerification}
                   >
-                    Verify Account
+                    Verify your Email
                   </button>
                 )}
               </form>
@@ -166,9 +167,10 @@ export default function Login({ open, setState, redirect }) {
                 <button
                   type="submit"
                   className="login-btn"
-                  onClick={() => {
-                    setIsVerified(true);
-                  }}
+                  // onClick={() => {
+                  //   setIsVerified(true);
+                  // }}
+                  onClick={handleSubmit}
                 >
                   verify
                 </button>

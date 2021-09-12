@@ -11,6 +11,8 @@ import AiModel from "./AdminPages/AiMoel";
 import Setup from "./AdminPages/Setup";
 import TwigsContainer from "./AdminPages/twigs/TwigsContainer";
 import PropsContainer from "./AdminPages/bonding/PropsContainer";
+import ViewSitemap from "./AdminPages/SItemap/ViewSitemap";
+import GenerateSitemap from "./AdminPages/SItemap/GenerateSitemap";
 export default function AdminDashboard({ state, setState, Title }) {
   return (
     <div className="admin-right-container">
@@ -46,6 +48,12 @@ export default function AdminDashboard({ state, setState, Title }) {
             exact
             path={"/admin/ai-schema/bonding"}
             component={PropsContainer}
+          />
+          <Route exact path={"/admin/sitemap/view"} component={ViewSitemap} />
+          <Route
+            exact
+            path={"/admin/sitemap/generate"}
+            component={GenerateSitemap}
           />
           {/* <Route path="/admin/logout" component={Logout} /> */}
           {/* <Route path="/admin/userprofile" component={UserProfile} /> */}
